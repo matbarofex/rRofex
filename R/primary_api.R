@@ -2,10 +2,16 @@
 #'
 #'\code{primary_login} log in the user into de Primary API
 #'
-#' @return
-#' @export
+#'@param username User Name
+#'@param password Password
+#'@param where Wich environment are you going to connect
 #'
-#' @examples
+#'@return If correct, it will save a token into the current environment
+#'
+#'@import httr
+#'
+#'@examples
+#'primary_login(username="pepe", password="pepino", where="reMarkets")
 primary_login <- function(username="ahassel731", password="hheqvK5<", where="reMarkets") {
   url <- if (where == 'reMarkets') {
     "http://pbcp-remarket.cloud.primary.com.ar/auth/getToken"
@@ -30,6 +36,20 @@ primary_login <- function(username="ahassel731", password="hheqvK5<", where="reM
 
 }
 
+#' Primary API Insturments
+#'
+#'\code{primary_instruments} list instruments currently available in Primary API.
+#'
+#'@param username User Name
+#'@param password Password
+#'@param where Wich environment are you going to connect
+#'
+#'@return If correct, it will save a token into the current environment
+#'
+#'@import httr
+#'
+#'@examples
+#'primary_login(username="pepe", password="pepino", where="reMarkets")
 primary_instruments <- function() {
   if (!exists("x_auth_token")) stop("Primero debes iniciar sesión con primary_login()")
 }

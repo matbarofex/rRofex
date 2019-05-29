@@ -4,8 +4,22 @@
 \alias{primary_login}
 \title{Primary API LogIn}
 \usage{
-primary_login()
+primary_login(username = "ahassel731", password = "hheqvK5<",
+  where = "reMarkets")
+}
+\arguments{
+\item{username}{User Name}
+
+\item{password}{Password}
+
+\item{where}{Wich environment are you going to connect}
+}
+\value{
+If correct, it will save a token into the current environment
 }
 \description{
 \code{primary_login} log in the user into de Primary API
+}
+\examples{
+primary_login(username="ahassel731", password="hheqvK5<", where="reMarkets")
 }

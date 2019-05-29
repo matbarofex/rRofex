@@ -4,7 +4,7 @@ Title: Interface to ROFEX APIs
 Version: 0.0.0.9000
 Authors@R: c(
     person("Augusto", "Hassel", role = c("aut", "cre"), email = "ahassel@primary.com.ar"),
-    person("Juan Francisco", "Gomez", role = c("aut"), email = "jgomez@primary.com.ar"))
+    person("Juan Francisco", "Gomez", role = c("ctb"), email = "jgomez@primary.com.ar"))
 Description: Provides a convenient wrapper for consuming data from ROFEX APIs: Trading API, Risk API and BackOffice API.
 License: GPL-2
 Encoding: UTF-8
