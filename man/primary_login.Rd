@@ -5,14 +5,17 @@
 \title{Primary API LogIn}
 \usage{
 primary_login(username = "ahassel731", password = "hheqvK5<",
-  where = "reMarkets")
+  environment = "reMarkets")
 }
 \arguments{
 \item{username}{User Name}
 
 \item{password}{Password}
 
-\item{where}{Wich environment are you going to connect}
+\item{environment}{Wich environment are you going to connect
+#'\itemize{
+\item reMarkets: Testing environment
+}}
 }
 \value{
 If correct, it will save a token into the current environment
@@ -21,5 +24,5 @@ If correct, it will save a token into the current environment
 \code{primary_login} log in the user into de Primary API
 }
 \examples{
-primary_login(username="ahassel731", password="hheqvK5<", where="reMarkets")
+\dontrun{primary_login(username="pepe", password="pepino", environment="reMarkets")}
 }
