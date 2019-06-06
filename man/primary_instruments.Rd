@@ -14,7 +14,7 @@ primary_instruments(request, environment = "reMarkets",
 \item securities: Available Instruments listed on Rofex
 }}
 
-\item{environment}{Wich environment are you going to connect:
+\item{environment}{String. Wich environment are you going to connect:
 \itemize{
 \item reMarkets: Testing environment
 }}

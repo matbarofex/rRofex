@@ -6,9 +6,9 @@
 #'
 #'@param username User Name
 #'@param password Password
-#'@param environment Wich environment are you going to connect
+#'@param environment String. Wich environment are you going to connect
 #'#'\itemize{
-#'\item reMarkets: Testing environment
+#'\item reMarkets: Testing environment.For credentials go to \url{https://remarkets.primary.ventures/}
 #'}
 #'
 #'@return If correct, it will save a token into the current environment
@@ -43,7 +43,7 @@ primary_login <- function(username="ahassel731", password="hheqvK5<", environmen
 
 }
 
-# Primary Instrument ---------------------------
+# Primary Instruments ---------------------------
 
 #' Primary API Insturments
 #'
@@ -54,7 +54,7 @@ primary_login <- function(username="ahassel731", password="hheqvK5<", environmen
 #'\item segments: Available Market Segments
 #'\item securities: Available Instruments listed on Rofex
 #'}
-#'@param environment Wich environment are you going to connect:
+#'@param environment String. Wich environment are you going to connect:
 #'\itemize{
 #'\item reMarkets: Testing environment
 #'}
@@ -93,7 +93,7 @@ primary_instruments <- function(request, environment="reMarkets", sec_detailed =
     )
   }
 
-  result <- fromJSON(content(x = query,as = "text"))
+  result <- fromJSON(content(x = query, as = "text"))
 
   if (result$status != 'OK') stop("La query no ha tenido el resultado esperado")
 
@@ -109,7 +109,80 @@ primary_instruments <- function(request, environment="reMarkets", sec_detailed =
   return(data)
 }
 
+# Market Data ---------------------------
+
+#' Primary API Market Data Real Time
+#'
+#'\code{primary_md} retrivies Market Data in Real Time.
+#'
+#'@param environment String. Wich environment are you going to connect:
+#'\itemize{
+#'\item reMarkets: Testing environment
+#'}
+#'@param marketId String. Market to wich we are going to connect.
+#'\itemize{
+#'\item ROFX. Matba/Rofex
+#'}
+#'@param symbol String. Use \code{\link{primary_instruments}} to see which symbols are available.
+#'@param entries Vector of Strings. It contains the information to be required:
+#'\itemize{
+#'\item BI. Bid.
+#'\item OF. Offer.
+#'\item LA. Last Available Price.
+#'\item OP. Open Price.
+#'\item CL. Close Price.
+#'\item SE. Settlement Price.
+#'\item OI. Open Interest.
+#'}
+#'@param depth Ineteger. Depth of the book to be retrivied.
+#'
+#'@return If correct, it will load a data frame.
+#'
+#'@import httr
+#'@import jsonlite
+#'@import magrittr
+#'@import tibble
+#'@import lubridate
+#'@import tidyr
+#'
+#'@examples
+#'\dontrun{primary_md(symbol='I.RFX20')}
+primary_md <- function(environment="reMarkets", marketId='ROFX', symbol, entries=c('BI', 'OF', 'LA', 'OP', 'CL', 'SE', 'OI'), depth=1L) {
+  if (!exists("x_auth_token")) stop("Primero debes iniciar sesión con primary_login()")
+  if (!environment %in% c("reMarkets")) stop("El parámetro 'environment' no es valido")
+  if (!marketId %in% c("ROFX")) stop("El parámetro 'marketId' no es valido")
+  if (missing(symbol)) stop("Se debe seleccionar un 'symbol'.")
+
+  # Environment
+  url <- if (environment == 'reMarkets') {
+    "http://pbcp-remarket.cloud.primary.com.ar/rest/marketdata/get"
+  }
+
+  # Symbol
+  query <- GET(url = url,
+               query = list(
+                 marketId=marketId,
+                 symbol=symbol,
+                 entries=paste0(entries, collapse = ","),
+                 depth=depth),
+               add_headers(.headers = c("X-Auth-Token" = x_auth_token)))
+
+  if (content(query)$status != "OK") stop("La query no ha tenido el resultado esperado")
+
+  result <- enframe(unlist(content(x = query)$marketData))
+
+  data <- result %>%
+    separate(col = name, into = c("entries", "type"), sep = '\\.') %>%
+    mutate(type = case_when(
+      is.na(type) ~ 'value',
+      TRUE ~ type
+    ))
+
+  return(data)
+}
+
 #' @export primary_login
 #' @export primary_instruments
+#' @export primary_md
 NULL
 

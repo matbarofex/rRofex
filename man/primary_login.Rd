@@ -12,9 +12,9 @@ primary_login(username = "ahassel731", password = "hheqvK5<",
 
 \item{password}{Password}
 
-\item{environment}{Wich environment are you going to connect
+\item{environment}{String. Wich environment are you going to connect
 #'\itemize{
-\item reMarkets: Testing environment
+\item reMarkets: Testing environment.For credentials go to \url{https://remarkets.primary.ventures/}
 }}
 }
 \value{
