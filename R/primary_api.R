@@ -1,16 +1,9 @@
-# Setup ---------------------------
+# Export functions ---------------------------
 
 #' @export trading_login
 #' @export trading_instruments
 #' @export trading_md
 #' @export trading_mdh
-#'
-#'@import httr
-#'@import jsonlite
-#'@import magrittr
-#'@import tibble
-#'@import lubridate
-#'@import tidyr
 NULL
 
 # Primary API Login ---------------------------
