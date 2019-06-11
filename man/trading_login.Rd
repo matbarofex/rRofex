@@ -4,8 +4,7 @@
 \alias{trading_login}
 \title{Primary API LogIn}
 \usage{
-trading_login(username = "ahassel731", password = "hheqvK5<",
-  environment = "reMarkets")
+trading_login(username, password, environment = "reMarkets")
 }
 \arguments{
 \item{username}{User Name}
@@ -13,7 +12,7 @@ trading_login(username = "ahassel731", password = "hheqvK5<",
 \item{password}{Password}
 
 \item{environment}{String. Wich environment are you going to connect
-#'\itemize{
+\itemize{
 \item reMarkets: Testing environment.For credentials go to \url{https://remarkets.primary.ventures/}
 }}
 }

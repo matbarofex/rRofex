@@ -15,7 +15,7 @@ NULL
 #'@param username User Name
 #'@param password Password
 #'@param environment String. Wich environment are you going to connect
-#'#'\itemize{
+#'\itemize{
 #'\item reMarkets: Testing environment.For credentials go to \url{https://remarkets.primary.ventures/}
 #'}
 #'
@@ -23,7 +23,8 @@ NULL
 #'
 #'@examples
 #'\dontrun{trading_login(username="pepe", password="pepino", environment="reMarkets")}
-trading_login <- function(username="ahassel731", password="hheqvK5<", environment="reMarkets") {
+trading_login <- function(username, password, environment="reMarkets") {
+  if (missing(username) | missing(password)) stop("Username and Password are needed.")
 
   # Environment
   url <- if (environment == 'reMarkets') {
