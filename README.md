@@ -68,7 +68,7 @@ rRofex::trading_mdh(environment = "reMarkets", symbol = "DOJul19", date = "2019-
 
 Acknowledgements
 ----------------
-Development of this software was driven by Primary [Primary](https://www.primary.com.ar/)
+Development of this software was driven by [Primary](https://www.primary.com.ar/)
 as part of an Open Source initiative of [Grupo Rofex](https://www.rofex.com.ar/).
 
 #### Author/Maintainer
