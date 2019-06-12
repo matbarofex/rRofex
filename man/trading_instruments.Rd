@@ -4,8 +4,7 @@
 \alias{trading_instruments}
 \title{Primary API Insturments}
 \usage{
-trading_instruments(request, environment = "reMarkets",
-  sec_detailed = FALSE)
+trading_instruments(request, sec_detailed = FALSE)
 }
 \arguments{
 \item{request}{The type of request that you are making:
@@ -14,18 +13,13 @@ trading_instruments(request, environment = "reMarkets",
 \item securities: Available Instruments listed on Rofex
 }}
 
-\item{environment}{String. Wich environment are you going to connect:
-\itemize{
-\item reMarkets: Testing environment
-}}
-
 \item{sec_detailed}{Logical. Optional for environment=securities. Brings aditional information like segment, price, minimal/maximal trading quantity, settlement date, etc.}
 }
 \value{
 If correct, it will load a data frame.
 }
 \description{
-\code{trading_instruments} list segments and instruments currently available in Primary API.
+\code{trading_instruments} list segments and instruments details currently available in Primary API.
 }
 \examples{
 \dontrun{trading_instruments()}

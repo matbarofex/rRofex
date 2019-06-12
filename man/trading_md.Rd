@@ -4,18 +4,13 @@
 \alias{trading_md}
 \title{Primary API Market Data Real Time}
 \usage{
-trading_md(environment = "reMarkets", market_id = "ROFX", symbol,
-  entries = c("BI", "OF", "LA", "OP", "CL", "SE", "OI"), depth = 1L)
+trading_md(market_id = "ROFX", symbol, entries = c("BI", "OF", "LA",
+  "OP", "CL", "SE", "OI"), depth = 1L)
 }
 \arguments{
-\item{environment}{String. Wich environment are you going to connect:
+\item{market_id}{String. Market to wich you are going to connect.
 \itemize{
-\item reMarkets: Testing environment
-}}
-
-\item{market_id}{String. Market to wich we are going to connect.
-\itemize{
-\item ROFX. Matba/Rofex
+\item ROFX. Matba Rofex
 }}
 
 \item{symbol}{String. Use \code{\link{primary_instruments}} to see which symbols are available.}
@@ -31,7 +26,7 @@ trading_md(environment = "reMarkets", market_id = "ROFX", symbol,
 \item OI. Open Interest.
 }}
 
-\item{depth}{Ineteger. Depth of the book to be retrivied.}
+\item{depth}{Integer. Depth of the book to be retrivied.}
 }
 \value{
 If correct, it will load a data frame.

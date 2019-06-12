@@ -4,24 +4,25 @@
 \alias{trading_login}
 \title{Primary API LogIn}
 \usage{
-trading_login(username, password, environment = "reMarkets")
+trading_login(username, password, env = "reMarkets")
 }
 \arguments{
 \item{username}{User Name}
 
 \item{password}{Password}
 
-\item{environment}{String. Wich environment are you going to connect
+\item{env}{String. Wich environment are you going to connect
 \itemize{
-\item reMarkets: Testing environment.For credentials go to \url{https://remarkets.primary.ventures/}
+\item reMarkets: Testing environment. For credentials go to \url{https://remarkets.primary.ventures}
+\item production: Production environment. For credentials send an email to \email{mpi@primary.com.ar}
 }}
 }
 \value{
-If correct, it will save a token into the current environment
+If correct, it will save a hidden token into the current environment
 }
 \description{
 \code{trading_login} log in the user into de Primary API
 }
 \examples{
-\dontrun{trading_login(username="pepe", password="pepino", environment="reMarkets")}
+\dontrun{trading_login(username="pepe", password="pepino", env="reMarkets")}
 }

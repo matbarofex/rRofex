@@ -4,15 +4,9 @@
 \alias{trading_mdh}
 \title{Primary API Historical Market Data}
 \usage{
-trading_mdh(environment = "reMarkets", market_id = "ROFX", symbol,
-  date, date_from, date_to)
+trading_mdh(market_id = "ROFX", symbol, date, date_from, date_to)
 }
 \arguments{
-\item{environment}{String. Wich environment are you going to connect:
-\itemize{
-\item reMarkets: Testing environment
-}}
-
 \item{market_id}{String. Market to wich we are going to connect.
 \itemize{
 \item ROFX. Rofex: Rosario Futures Exchange.
@@ -21,18 +15,11 @@ trading_mdh(environment = "reMarkets", market_id = "ROFX", symbol,
 
 \item{symbol}{String. Use \code{\link{primary_instruments}} to see which symbols are available.}
 
-\item{entries}{Vector of Strings. It contains the information to be required:
-\itemize{
-\item BI. Bid.
-\item OF. Offer.
-\item LA. Last Available Price.
-\item OP. Open Price.
-\item CL. Close Price.
-\item SE. Settlement Price.
-\item OI. Open Interest.
-}}
+\item{date}{String. Date to be queried. With format '%Y-%m-%d'}
 
-\item{depth}{Ineteger. Depth of the book to be retrivied.}
+\item{date_from}{String. Used together with 'date_to'.}
+
+\item{date_to}{String. Userd together with 'date_from'.}
 }
 \value{
 If correct, it will load a data frame.
