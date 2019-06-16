@@ -180,7 +180,7 @@ trading_md <- function(market_id='ROFX', symbol, entries=c('BI', 'OF', 'LA', 'OP
 #'\item MATBA. Matba: Mercado a Termino de Buenos Aires.
 #'}
 #'@param symbol String. Use \code{\link{primary_instruments}} to see which symbols are available.
-#'@param date String. Date to be queried. With format '%Y-%m-%d'
+#'@param date String. Date to be queried. With format '\%Y-\%m-\%d'.
 #'@param date_from String. Used together with 'date_to'.
 #'@param date_to String. Userd together with 'date_from'.
 #'

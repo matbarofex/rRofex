@@ -15,7 +15,7 @@ trading_mdh(market_id = "ROFX", symbol, date, date_from, date_to)
 
 \item{symbol}{String. Use \code{\link{primary_instruments}} to see which symbols are available.}
 
-\item{date}{String. Date to be queried. With format '%Y-%m-%d'}
+\item{date}{String. Date to be queried. With format '\%Y-\%m-\%d'.}
 
 \item{date_from}{String. Used together with 'date_to'.}
 
