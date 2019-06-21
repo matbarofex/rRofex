@@ -7,7 +7,7 @@
 trading_instruments(request, sec_detailed = FALSE)
 }
 \arguments{
-\item{request}{The type of request that you are making:
+\item{request}{String. The type of request that you are making:
 \itemize{
 \item segments: Available Market Segments
 \item securities: Available Instruments listed on Rofex

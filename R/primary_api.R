@@ -4,6 +4,7 @@
 #' @export trading_instruments
 #' @export trading_md
 #' @export trading_mdh
+#' @export trading_new_order
 NULL
 
 # Primary API Login ---------------------------
@@ -12,8 +13,8 @@ NULL
 #'
 #'\code{trading_login} log in the user into de Primary API
 #'
-#'@param username User Name
-#'@param password Password
+#'@param username String. User Name
+#'@param password String. Password
 #'@param env String. Wich environment are you going to connect
 #'\itemize{
 #'\item reMarkets: Testing environment. For credentials go to \url{https://remarkets.primary.ventures}
@@ -64,7 +65,7 @@ trading_login <- function(username, password, env="reMarkets") {
 #'
 #'\code{trading_instruments} list segments and instruments details currently available in Primary API.
 #'
-#'@param request The type of request that you are making:
+#'@param request String. The type of request that you are making:
 #'\itemize{
 #'\item segments: Available Market Segments
 #'\item securities: Available Instruments listed on Rofex
@@ -110,7 +111,7 @@ trading_instruments <- function(request, sec_detailed = FALSE) {
   return(data)
 }
 
-# Market Data Real Time ---------------------------
+# Market Data ---------------------------
 
 #' Primary API Market Data Real Time
 #'
@@ -142,6 +143,8 @@ trading_md <- function(market_id='ROFX', symbol, entries=c('BI', 'OF', 'LA', 'OP
   if (!market_id %in% c("ROFX")) stop("Invalid 'market_id' parameter.")
   if (missing(symbol)) stop("You should pick a 'symbol' to move forward.")
 
+  if (!all(sapply(entries, function(x) x %in% c('BI', 'OF', 'LA', 'OP', 'CL', 'SE', 'OI')))) stop("Invalid 'entries' parameter")
+
   # Base URL
   url <- paste0(.base_url, "/rest/marketdata/get")
 
@@ -168,8 +171,6 @@ trading_md <- function(market_id='ROFX', symbol, entries=c('BI', 'OF', 'LA', 'OP
   return(data)
 }
 
-# Historical Market Data ---------------------------
-
 #' Primary API Historical Market Data
 #'
 #'\code{trading_mdh} retrivies Historical Trades for a given instrument.
@@ -194,15 +195,13 @@ trading_mdh <- function(market_id='ROFX', symbol, date, date_from, date_to) {
   if (missing(symbol)) stop("You should pick a 'symbol' to move forward.")
   if (missing(date) & (missing(date_from) | missing(date_to))) stop("Invalid date parameters")
 
-  validate_fecha <- function(fecha) {
-    tryCatch({!is.na(format.Date(x = fecha, "%Y-%m-%d"))}, error = function(e) {FALSE})
-  }
+
 
   if (!missing(date)) {
-    if (!validate_fecha(fecha = date)) stop("The correct format for 'date' is %Y-%m-%d")
+    if (!.validate_fecha(fecha = date)) stop("The correct format for 'date' is %Y-%m-%d")
   } else {
-    if (!missing(date_from) & !validate_fecha(fecha = date_from)) stop("The correct format for 'date_from' is %Y-%m-%d")
-    if (!missing(date_to) & !validate_fecha(fecha = date_to)) stop("The correct format for 'date_to' is %Y-%m-%d")
+    if (!missing(date_from) & !.validate_fecha(fecha = date_from)) stop("The correct format for 'date_from' is %Y-%m-%d")
+    if (!missing(date_to) & !.validate_fecha(fecha = date_to)) stop("The correct format for 'date_to' is %Y-%m-%d")
   }
 
   # Base URL
@@ -239,5 +238,128 @@ trading_mdh <- function(market_id='ROFX', symbol, date, date_from, date_to) {
   return(data)
 }
 
+# Orders ---------------------------
+#' Send Order to the Market
+#'
+#'The method \code{trading_new_order} is use to send orders.
+#'
+#'@param symbol String. Use \code{\link{primary_instruments}} to see which symbols are available.
+#'@param side String. Either 'Buy' or 'Sell'.
+#'@param quantity Numeric. Quantity of the order.
+#'@param price Numeric. Price of the order.
+#'@param order_type String. Type of order.
+#'\itemize{
+#'\item Limit. Limit order sets the maximum or minimum price at which you are willing to buy or sell.
+#'\item MLL. Market with Leftover as Limit (market order then unexecuted quantity becomes limit order at last price).
+#'}
+#'@param time_in_force String. Specifies how long the order remains in effect. Absence of this field is interpreted as 'Day':
+#'\itemize{
+#'\item Day. Day or session.
+#'\item IOC. Immediate or Cancel. (Not Available)
+#'\item FOK. Fill or Kill. (Not Available)
+#'\item GTD. Good Till Date. (Not Available)
+#'}
+#'@param account String. Account Number / Account ID.
+#'
+#'@return List with outputs like state of the order.
+trading_new_order <- function(symbol, side, quantity, price, order_type='Limit', time_in_force='Day', account) {
+  if (!exists(".x_auth_token")) stop("You should first log in using primary_login()")
 
+  market_id <- "ROFX"
+  if (!market_id %in% c("ROFX")) stop("Invalid 'market_id' parameter")
 
+  if (missing(symbol)) stop("You should pick a 'symbol' to move forward.")
+
+  if (missing(side)) stop("You should pick a 'side' to move forward.")
+  if (!side %in% c("Buy", "Sell")) stop("Invalid 'side' parameter")
+
+  if (missing(quantity)) stop("You should pick a 'quantity' to move forward.")
+
+  if (order_type == "Limit" & missing(price)) stop("You should pick a 'price' to move forward.")
+  if (order_type == "MLL" & missing(price)) {price <- ""}
+
+  if (!order_type %in% c("Limit", "MLL")) stop("Invalid 'order_type' parameter")
+
+  if (!time_in_force %in% c("Day", "IOC", "FOK", "GTD")) stop("Invalid 'time_in_force' parameter")
+  if (time_in_force %in% c("IOC", "FOK", "GTD")) stop("Parameter 'time_in_force' not yet available.")
+
+  if (missing(account)) stop("You should pick a 'account' to move forward.")
+
+  # Query
+  query <- GET(url = paste0(.base_url, "/rest/order/newSingleOrder"),
+               query = list(
+                 marketId    = market_id,
+                 symbol      = symbol,
+                 side        = side,
+                 orderQty    = quantity,
+                 price       = price,
+                 ordType     = if (order_type == "Limit") {"Limit"} else if (order_type == "MLL") {"Market_to_limit"},
+                 timeInForce = time_in_force,
+                 account     = account
+               ),
+               add_headers(.headers = c("X-Auth-Token" = .x_auth_token)))
+
+  if (query$status_code != 200) stop("The query returned an unexpected result.")
+
+  # Result
+  result <- if (content(query)$status == "OK") {
+    .order_lookup <- trading_lookup(lookup_type = "COID",
+                                    order_id = content(query)$order$clientId,
+                                    content(query)$order$proprietary)
+    list(
+      ClientId   = content(query)$order$clientId,
+      State      = .order_lookup$order.status,
+      text       = .order_lookup$order.text
+      )
+  } else {
+    content(query)
+  }
+
+  return(result)
+}
+
+# Orders Lookup ---------------------------
+#' Lookup Order Status
+#'
+#'The method \code{trading_lookup} is used to check the satus of an order.
+#'
+#'@param lookup_type String. Look-up by:
+#'\itemize{
+#'\item COID. Client Order ID.
+#'\item OID. Order ID. (Not Available)
+#'}
+#'@param order_id String. ID given by the \code{trading_order} method.
+#'@param proprietary String. ID given by the \code{trading_order} method.
+#'
+#'@return A data frame.
+trading_lookup <- function(lookup_type, order_id, proprietary) {
+  if (!exists(".x_auth_token")) stop("You should first log in using primary_login()")
+
+  if (missing(lookup_type)) stop("You should pick a 'lookup_type' to move forward.")
+  if (!lookup_type %in% c("COID", "OID")) stop("Invalid 'lookup_type' parameter")
+
+  if (missing(order_id)) stop("You should pick a 'order_id' to move forward.")
+
+  if (lookup_type == "COID" & missing(proprietary)) stop("You should pick a 'proprietary' to move forward.")
+
+  # Query
+  query <- if (lookup_type == "COID") {
+    GET(url = paste0(.base_url, "/rest/order/id"),
+        query = list(
+          clOrdId     = order_id,
+          proprietary = proprietary
+        ),
+        add_headers(.headers = c("X-Auth-Token" = .x_auth_token)))
+  } else if (lookup_type == "OID") {
+    # paste0(.base_url, "/rest/order/cancelById")
+  }
+
+  # Results
+  if (query$status_code != 200 | content(query)$status != "OK") stop("The query returned an unexpected result.")
+
+  result <- if (query$status_code == 200 & content(query)$status == "OK") {
+    as.data.frame(content(x = query), stringsAsFactors = F)
+  }
+
+  return(result)
+}

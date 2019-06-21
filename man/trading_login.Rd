@@ -7,9 +7,9 @@
 trading_login(username, password, env = "reMarkets")
 }
 \arguments{
-\item{username}{User Name}
+\item{username}{String. User Name}
 
-\item{password}{Password}
+\item{password}{String. Password}
 
 \item{env}{String. Wich environment are you going to connect
 \itemize{
