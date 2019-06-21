@@ -55,7 +55,8 @@ These are the currently available methods:
 - LogIn method 
 - Request for Reference Data 
 - Market Data Real Time 
-- Historical Market Data 
+- Historical Market Data
+- Send Orders
 
 Available envirnorments:
 

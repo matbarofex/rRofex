@@ -48,12 +48,13 @@ These are the currently available methods:
   - Request for Reference Data
   - Market Data Real Time
   - Historical Market Data
+  - Send Orders
 
 Available envirnorments:
 
-  - Demo environrment: go to
+  - *Demo environrment*: go to
     [reMarkets](https://remarkets.primary.ventures/) to get credentials.
-  - Production: it needs credetentials. Please contact:
+  - *Production*: it needs credetentials. Please contact:
     <mpi@primary.com.ar> for more information.
 
 ## Examples
@@ -68,7 +69,7 @@ rRofex::trading_login(username=XXX, password=XXX, environment='reMarkets')
 rRofex::trading_instruments(request = "securities", sec_detailed = T)
 
 # Real Time Prices using the REST APP
-rRofex::trading_md(symbol = "DoDic19")
+rRofex::trading_md(symbol = "DODic19")
 
 # Historical Trades
 rRofex::trading_mdh(symbol = "DOJul19", date = "2019-06-06")
