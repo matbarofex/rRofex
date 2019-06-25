@@ -63,7 +63,7 @@ Available envirnorments:
 library(rRofex)
 
 # Once you have cretencials, you'll be able to get a token when you login
-rRofex::trading_login(username=XXX, password=XXX, environment='reMarkets')
+rRofex::trading_login(username=XXX, password=XXX, environment<-'reMarkets')
 
 # You can get a complete Reference Data list with details
 rRofex::trading_instruments(request = "securities", sec_detailed = T)
