@@ -13,9 +13,9 @@ trading_lookup(lookup_type, order_id, proprietary)
 \item OID. Order ID. (Not Available)
 }}
 
-\item{order_id}{String. ID given by the \code{trading_order} method.}
+\item{order_id}{String. ID given by the \code{trading_orders} method.}
 
-\item{proprietary}{String. ID given by the \code{trading_order} method.}
+\item{proprietary}{String. ID given by the \code{trading_orders} method.}
 }
 \value{
 A data frame.

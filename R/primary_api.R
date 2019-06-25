@@ -5,6 +5,9 @@
 #' @export trading_md
 #' @export trading_mdh
 #' @export trading_new_order
+#' @export trading_lookup
+#' @export trading_orders
+#' @export trading_cancel_order
 NULL
 
 # Primary API Login ---------------------------
@@ -318,6 +321,38 @@ trading_new_order <- function(symbol, side, quantity, price, order_type='Limit',
   return(result)
 }
 
+#' Cancel Order Sent to the Market
+#'
+#'The method \code{trading_cancel_order} is use to send orders.
+#'
+#'@param order_id String. clOrdId given by the \code{trading_orders} method.
+#'@param proprietary String. ID given by the \code{trading_orders} method.
+#'
+#'@return List with outputs like state of the order.
+trading_cancel_order <- function(order_id, proprietary) {
+  if (!exists(".x_auth_token")) stop("You should first log in using primary_login()")
+
+  if (missing(order_id)) stop("You should pick a 'order_id' to move forward.")
+  if (missing(proprietary)) stop("You should pick a 'proprietary' to move forward.")
+
+  # Query
+  query <- GET(url = paste0(.base_url, "/rest/order/cancelById"),
+               query = list(
+                 clOrdId     = order_id,
+                 proprietary = proprietary
+               ),
+               add_headers(.headers = c("X-Auth-Token" = .x_auth_token)))
+
+  # Results
+  if (query$status_code != 200 | content(query)$status != "OK") stop("The query returned an unexpected result.")
+
+  result <- if (query$status_code == 200 & content(query)$status == "OK") {
+    "The order has been canceled!"
+  }
+
+  return(result)
+}
+
 # Orders Lookup ---------------------------
 #' Lookup Order Status
 #'
@@ -328,8 +363,8 @@ trading_new_order <- function(symbol, side, quantity, price, order_type='Limit',
 #'\item COID. Client Order ID.
 #'\item OID. Order ID. (Not Available)
 #'}
-#'@param order_id String. ID given by the \code{trading_order} method.
-#'@param proprietary String. ID given by the \code{trading_order} method.
+#'@param order_id String. ID given by the \code{trading_orders} method.
+#'@param proprietary String. ID given by the \code{trading_orders} method.
 #'
 #'@return A data frame.
 trading_lookup <- function(lookup_type, order_id, proprietary) {
@@ -362,4 +397,33 @@ trading_lookup <- function(lookup_type, order_id, proprietary) {
   }
 
   return(result)
+}
+
+#' View Orders
+#'
+#'The method \code{trading_orders} is used to see each order sent by Account.
+#'
+#'@param account String. Account Number / Account ID.
+#'
+#'@return A data frame.
+trading_orders <- function(account) {
+  if (!exists(".x_auth_token")) stop("You should first log in using primary_login()")
+
+  if (missing(account)) stop("You should pick an 'account' to move forward.")
+
+  # Query
+  query <- GET(url = paste0(.base_url, "/rest/order/all"),
+               query = list(
+                 accountId = account
+               ),
+               add_headers(.headers = c("X-Auth-Token" = .x_auth_token)))
+
+  # Results
+  if (query$status_code != 200 | content(query)$status != "OK") stop("The query returned an unexpected result.")
+
+  result <- if (query$status_code == 200 & content(query)$status == "OK") {
+    fromJSON(content(x = query, as = "text"))
+  }
+
+  return(result$orders)
 }
