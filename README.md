@@ -50,7 +50,7 @@ These are the currently available methods:
   - Historical Market Data
   - Send Orders
 
-Available envirnorments:
+Available environments:
 
   - *Demo environrment*: go to
     [reMarkets](https://remarkets.primary.ventures/) to get credentials.
@@ -63,7 +63,7 @@ Available envirnorments:
 library(rRofex)
 
 # Once you have cretencials, you'll be able to get a token when you login
-rRofex::trading_login(username=XXX, password=XXX, environment='reMarkets')
+rRofex::trading_login(username = XXX, password = XXX, env = 'reMarkets')
 
 # You can get a complete Reference Data list with details
 rRofex::trading_instruments(request = "securities", sec_detailed = T)
