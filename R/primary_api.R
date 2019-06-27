@@ -80,7 +80,7 @@ trading_login <- function(username, password, env="reMarkets") {
 #'@examples
 #'\dontrun{trading_instruments()}
 trading_instruments <- function(request, sec_detailed = FALSE) {
-  if (!exists(".x_auth_token")) stop("You should first log in using primary_login()")
+  if (!exists(".x_auth_token")) stop("You should first log in using trading_login()")
   if (!request %in% c("segments", "securities")) stop("Invalid 'request' parameter.")
 
   # Segments
@@ -142,7 +142,7 @@ trading_instruments <- function(request, sec_detailed = FALSE) {
 #'@examples
 #'\dontrun{trading_md(symbol='I.RFX20')}
 trading_md <- function(market_id='ROFX', symbol, entries=c('BI', 'OF', 'LA', 'OP', 'CL', 'SE', 'OI'), depth=1L) {
-  if (!exists(".x_auth_token")) stop("You should first log in using primary_login()")
+  if (!exists(".x_auth_token")) stop("You should first log in using trading_login()")
   if (!market_id %in% c("ROFX")) stop("Invalid 'market_id' parameter.")
   if (missing(symbol)) stop("You should pick a 'symbol' to move forward.")
 
@@ -193,7 +193,7 @@ trading_md <- function(market_id='ROFX', symbol, entries=c('BI', 'OF', 'LA', 'OP
 #'@examples
 #'\dontrun{trading_mdh(symbol='I.RFX20')}
 trading_mdh <- function(market_id='ROFX', symbol, date, date_from, date_to) {
-  if (!exists(".x_auth_token")) stop("You should first log in using primary_login()")
+  if (!exists(".x_auth_token")) stop("You should first log in using trading_login()")
   if (!market_id %in% c("ROFX")) stop("Invalid 'market_id' parameter")
   if (missing(symbol)) stop("You should pick a 'symbol' to move forward.")
   if (missing(date) & (missing(date_from) | missing(date_to))) stop("Invalid date parameters")
@@ -266,7 +266,7 @@ trading_mdh <- function(market_id='ROFX', symbol, date, date_from, date_to) {
 #'
 #'@return List with outputs like state of the order.
 trading_new_order <- function(symbol, side, quantity, price, order_type='Limit', time_in_force='Day', account) {
-  if (!exists(".x_auth_token")) stop("You should first log in using primary_login()")
+  if (!exists(".x_auth_token")) stop("You should first log in using trading_login()")
 
   market_id <- "ROFX"
   if (!market_id %in% c("ROFX")) stop("Invalid 'market_id' parameter")
@@ -330,7 +330,7 @@ trading_new_order <- function(symbol, side, quantity, price, order_type='Limit',
 #'
 #'@return List with outputs like state of the order.
 trading_cancel_order <- function(order_id, proprietary) {
-  if (!exists(".x_auth_token")) stop("You should first log in using primary_login()")
+  if (!exists(".x_auth_token")) stop("You should first log in using trading_login()")
 
   if (missing(order_id)) stop("You should pick a 'order_id' to move forward.")
   if (missing(proprietary)) stop("You should pick a 'proprietary' to move forward.")
@@ -368,7 +368,7 @@ trading_cancel_order <- function(order_id, proprietary) {
 #'
 #'@return A data frame.
 trading_lookup <- function(lookup_type, order_id, proprietary) {
-  if (!exists(".x_auth_token")) stop("You should first log in using primary_login()")
+  if (!exists(".x_auth_token")) stop("You should first log in using trading_login()")
 
   if (missing(lookup_type)) stop("You should pick a 'lookup_type' to move forward.")
   if (!lookup_type %in% c("COID", "OID")) stop("Invalid 'lookup_type' parameter")
@@ -407,7 +407,7 @@ trading_lookup <- function(lookup_type, order_id, proprietary) {
 #'
 #'@return A data frame.
 trading_orders <- function(account) {
-  if (!exists(".x_auth_token")) stop("You should first log in using primary_login()")
+  if (!exists(".x_auth_token")) stop("You should first log in using trading_login()")
 
   if (missing(account)) stop("You should pick an 'account' to move forward.")
 
