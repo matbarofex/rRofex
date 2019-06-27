@@ -258,8 +258,8 @@ trading_mdh <- function(market_id='ROFX', symbol, date, date_from, date_to) {
 #'@param time_in_force String. Specifies how long the order remains in effect. Absence of this field is interpreted as 'Day':
 #'\itemize{
 #'\item Day. Day or session.
-#'\item IOC. Immediate or Cancel. (Not Available)
-#'\item FOK. Fill or Kill. (Not Available)
+#'\item IOC. Immediate or Cancel.
+#'\item FOK. Fill or Kill.
 #'\item GTD. Good Till Date. (Not Available)
 #'}
 #'@param account String. Account Number / Account ID.
@@ -284,7 +284,7 @@ trading_new_order <- function(symbol, side, quantity, price, order_type='Limit',
   if (!order_type %in% c("Limit", "MLL")) stop("Invalid 'order_type' parameter")
 
   if (!time_in_force %in% c("Day", "IOC", "FOK", "GTD")) stop("Invalid 'time_in_force' parameter")
-  if (time_in_force %in% c("IOC", "FOK", "GTD")) stop("Parameter 'time_in_force' not yet available.")
+  if (time_in_force %in% c("GTD")) stop("Parameter 'time_in_force' not yet available.")
 
   if (missing(account)) stop("You should pick a 'account' to move forward.")
 

@@ -25,8 +25,8 @@ trading_new_order(symbol, side, quantity, price, order_type = "Limit",
 \item{time_in_force}{String. Specifies how long the order remains in effect. Absence of this field is interpreted as 'Day':
 \itemize{
 \item Day. Day or session.
-\item IOC. Immediate or Cancel. (Not Available)
-\item FOK. Fill or Kill. (Not Available)
+\item IOC. Immediate or Cancel.
+\item FOK. Fill or Kill.
 \item GTD. Good Till Date. (Not Available)
 }}
 
