@@ -198,13 +198,11 @@ trading_mdh <- function(market_id='ROFX', symbol, date, date_from, date_to) {
   if (missing(symbol)) stop("You should pick a 'symbol' to move forward.")
   if (missing(date) & (missing(date_from) | missing(date_to))) stop("Invalid date parameters")
 
-
-
   if (!missing(date)) {
-    if (!.validate_fecha(fecha = date)) stop("The correct format for 'date' is %Y-%m-%d")
+    if (!.validate_fecha(date = date)) stop("The correct format for 'date' is %Y-%m-%d")
   } else {
-    if (!missing(date_from) & !.validate_fecha(fecha = date_from)) stop("The correct format for 'date_from' is %Y-%m-%d")
-    if (!missing(date_to) & !.validate_fecha(fecha = date_to)) stop("The correct format for 'date_to' is %Y-%m-%d")
+    if (!missing(date_from) & !.validate_fecha(date = date_from)) stop("The correct format for 'date_from' is %Y-%m-%d")
+    if (!missing(date_to) & !.validate_fecha(date = date_to)) stop("The correct format for 'date_to' is %Y-%m-%d")
   }
 
   # Base URL
@@ -260,12 +258,14 @@ trading_mdh <- function(market_id='ROFX', symbol, date, date_from, date_to) {
 #'\item Day. Day or session.
 #'\item IOC. Immediate or Cancel.
 #'\item FOK. Fill or Kill.
-#'\item GTD. Good Till Date. (Not Available)
+#'\item GTD. Good Till Date.
 #'}
+#'@param iceberg Logical: if TRUE, then the order is 'iceberg'. FALSE as default.
+#'@param expire_date String. \strong{Only for GDT orders}. Maturity date of the order, With format '\%Y-\%m-\%d'.
+#'@param display_quantity Numeric. \strong{Only for Iceberg orders}. Indicate the disclosed quantity for the 'iceberg' order.
 #'@param account String. Account Number / Account ID.
-#'
 #'@return List with outputs like state of the order.
-trading_new_order <- function(symbol, side, quantity, price, order_type='Limit', time_in_force='Day', account) {
+trading_new_order <- function(symbol, side, quantity, price, order_type='Limit', time_in_force='Day', iceberg=FALSE, expire_date=NULL, display_quantity=NULL, account) {
   if (!exists(".x_auth_token")) stop("You should first log in using trading_login()")
 
   market_id <- "ROFX"
@@ -284,7 +284,16 @@ trading_new_order <- function(symbol, side, quantity, price, order_type='Limit',
   if (!order_type %in% c("Limit", "MLL")) stop("Invalid 'order_type' parameter")
 
   if (!time_in_force %in% c("Day", "IOC", "FOK", "GTD")) stop("Invalid 'time_in_force' parameter")
-  if (time_in_force %in% c("GTD")) stop("Parameter 'time_in_force' not yet available.")
+
+  if (time_in_force %in% c("GTD") & missing(expire_date)) stop("You should provide an 'expire_date' to move forward.")
+  if (!missing(expire_date) & !.validate_fecha(date = expire_date)) {
+    stop("The correct format for 'expire_date' is %Y-%m-%d")
+  } else if(!missing(expire_date) & .validate_fecha(date = expire_date)) {
+    expire_date <- gsub(pattern = "-", replacement = "", x = expire_date)
+  }
+
+  if (iceberg == "TRUE" & missing(display_quantity)) stop("You should provide a disclosed quantity")
+
 
   if (missing(account)) stop("You should pick a 'account' to move forward.")
 
@@ -298,6 +307,9 @@ trading_new_order <- function(symbol, side, quantity, price, order_type='Limit',
                  price       = price,
                  ordType     = if (order_type == "Limit") {"Limit"} else if (order_type == "MLL") {"Market_to_limit"},
                  timeInForce = time_in_force,
+                 iceberg     = iceberg,
+                 expireDate  = expire_date,
+                 displayQty  = if (iceberg == F) {NULL} else {display_quantity},
                  account     = account
                ),
                add_headers(.headers = c("X-Auth-Token" = .x_auth_token)))
