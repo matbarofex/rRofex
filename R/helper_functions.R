@@ -1,4 +1,5 @@
 # Helper Functions ---------------------------
-.validate_fecha <- function(fecha) {
-  tryCatch({!is.na(format.Date(x = fecha, "%Y-%m-%d"))}, error = function(e) {FALSE})
+# If date invalid, returns FALSE
+.validate_fecha <- function(date) {
+  tryCatch({!is.na(format.Date(x = date, "%Y-%m-%d"))}, error = function(e) {FALSE})
 }

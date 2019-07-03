@@ -5,7 +5,8 @@
 \title{Send Order to the Market}
 \usage{
 trading_new_order(symbol, side, quantity, price, order_type = "Limit",
-  time_in_force = "Day", account)
+  time_in_force = "Day", iceberg = FALSE, expire_date = NULL,
+  display_quantity = NULL, account)
 }
 \arguments{
 \item{symbol}{String. Use \code{\link{primary_instruments}} to see which symbols are available.}
@@ -27,8 +28,14 @@ trading_new_order(symbol, side, quantity, price, order_type = "Limit",
 \item Day. Day or session.
 \item IOC. Immediate or Cancel.
 \item FOK. Fill or Kill.
-\item GTD. Good Till Date. (Not Available)
+\item GTD. Good Till Date.
 }}
+
+\item{iceberg}{Logical: if TRUE, then the order is 'iceberg'. FALSE as default.}
+
+\item{expire_date}{String. \strong{Only for GDT orders}. Maturity date of the order, With format '\%Y-\%m-\%d'.}
+
+\item{display_quantity}{Numeric. \strong{Only for Iceberg orders}. Indicate the disclosed quantity for the 'iceberg' order.}
 
 \item{account}{String. Account Number / Account ID.}
 }
