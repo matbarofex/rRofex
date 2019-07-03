@@ -260,12 +260,14 @@ trading_mdh <- function(market_id='ROFX', symbol, date, date_from, date_to) {
 #'\item Day. Day or session.
 #'\item IOC. Immediate or Cancel.
 #'\item FOK. Fill or Kill.
-#'\item GTD. Good Till Date. (Not Available)
+#'\item GTD. Good Till Date.
 #'}
+#'@param iceberg Logical: if TRUE, then the order is 'iceberg'. FALSE as default.
+#'@param expireDate String. Maturity date of the order, with format 'YYYYMMDD'
+#'@param displayQty Numeric. Indicate the disclosed quantity for the 'iceberg' order.
 #'@param account String. Account Number / Account ID.
-#'
 #'@return List with outputs like state of the order.
-trading_new_order <- function(symbol, side, quantity, price, order_type='Limit', time_in_force='Day', account) {
+trading_new_order <- function(symbol, side, quantity, price, order_type='Limit', time_in_force='Day', iceberg = FALSE, expireDate=NULL, displayQty=NULL, account) {
   if (!exists(".x_auth_token")) stop("You should first log in using trading_login()")
 
   market_id <- "ROFX"
@@ -284,7 +286,12 @@ trading_new_order <- function(symbol, side, quantity, price, order_type='Limit',
   if (!order_type %in% c("Limit", "MLL")) stop("Invalid 'order_type' parameter")
 
   if (!time_in_force %in% c("Day", "IOC", "FOK", "GTD")) stop("Invalid 'time_in_force' parameter")
-  if (time_in_force %in% c("GTD")) stop("Parameter 'time_in_force' not yet available.")
+  # if (time_in_force %in% c("GTD")) stop("Parameter 'time_in_force' not yet available.")
+
+  if (time_in_force %in% c("GTD") & missing(expireDate)) stop("You should provide a maturity date")
+
+  if (iceberg == "TRUE" & missing(displayQty)) stop("You should provide a disclosed quantity")
+
 
   if (missing(account)) stop("You should pick a 'account' to move forward.")
 
@@ -298,6 +305,9 @@ trading_new_order <- function(symbol, side, quantity, price, order_type='Limit',
                  price       = price,
                  ordType     = if (order_type == "Limit") {"Limit"} else if (order_type == "MLL") {"Market_to_limit"},
                  timeInForce = time_in_force,
+                 iceberg     = iceberg,
+                 expireDate  = expireDate,
+                 displayQty  = displayQty,
                  account     = account
                ),
                add_headers(.headers = c("X-Auth-Token" = .x_auth_token)))
