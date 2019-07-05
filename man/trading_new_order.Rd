@@ -9,7 +9,7 @@ trading_new_order(symbol, side, quantity, price, order_type = "Limit",
   display_quantity = NULL, account)
 }
 \arguments{
-\item{symbol}{String. Use \code{\link{primary_instruments}} to see which symbols are available.}
+\item{symbol}{String. Use \code{\link{trading_instruments}} to see which symbols are available.}
 
 \item{side}{String. Either 'Buy' or 'Sell'.}
 

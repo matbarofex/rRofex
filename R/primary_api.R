@@ -124,7 +124,7 @@ trading_instruments <- function(request, sec_detailed = FALSE) {
 #'\itemize{
 #'\item ROFX. Matba Rofex
 #'}
-#'@param symbol String. Use \code{\link{primary_instruments}} to see which symbols are available.
+#'@param symbol String. Use \code{\link{trading_instruments}} to see which symbols are available.
 #'@param entries Vector of Strings. It contains the information to be required:
 #'\itemize{
 #'\item BI. Bid.
@@ -183,7 +183,7 @@ trading_md <- function(market_id='ROFX', symbol, entries=c('BI', 'OF', 'LA', 'OP
 #'\item ROFX. Rofex: Rosario Futures Exchange.
 #'\item MATBA. Matba: Mercado a Termino de Buenos Aires.
 #'}
-#'@param symbol String. Use \code{\link{primary_instruments}} to see which symbols are available.
+#'@param symbol String. Use \code{\link{trading_instruments}} to see which symbols are available.
 #'@param date String. Date to be queried. With format '\%Y-\%m-\%d'.
 #'@param date_from String. Used together with 'date_to'.
 #'@param date_to String. Userd together with 'date_from'.
@@ -244,7 +244,7 @@ trading_mdh <- function(market_id='ROFX', symbol, date, date_from, date_to) {
 #'
 #'The method \code{trading_new_order} is use to send orders.
 #'
-#'@param symbol String. Use \code{\link{primary_instruments}} to see which symbols are available.
+#'@param symbol String. Use \code{\link{trading_instruments}} to see which symbols are available.
 #'@param side String. Either 'Buy' or 'Sell'.
 #'@param quantity Numeric. Quantity of the order.
 #'@param price Numeric. Price of the order.

@@ -13,7 +13,7 @@ trading_md(market_id = "ROFX", symbol, entries = c("BI", "OF", "LA",
 \item ROFX. Matba Rofex
 }}
 
-\item{symbol}{String. Use \code{\link{primary_instruments}} to see which symbols are available.}
+\item{symbol}{String. Use \code{\link{trading_instruments}} to see which symbols are available.}
 
 \item{entries}{Vector of Strings. It contains the information to be required:
 \itemize{

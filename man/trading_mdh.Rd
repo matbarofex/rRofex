@@ -13,7 +13,7 @@ trading_mdh(market_id = "ROFX", symbol, date, date_from, date_to)
 \item MATBA. Matba: Mercado a Termino de Buenos Aires.
 }}
 
-\item{symbol}{String. Use \code{\link{primary_instruments}} to see which symbols are available.}
+\item{symbol}{String. Use \code{\link{trading_instruments}} to see which symbols are available.}
 
 \item{date}{String. Date to be queried. With format '\%Y-\%m-\%d'.}
 
