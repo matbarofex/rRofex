@@ -58,7 +58,8 @@ trading_login <- function(username, password, env="reMarkets") {
   if (!is.null(x_auth_token)) {
     # Writting into environment
     .rRofexGlobalEnv$base_url <<- base_url
-    .rRofexGlobalEnv$user <<- username
+    .rRofexGlobalEnv$env <<- env
+    .rRofexGlobalEnv$username <<- username
     .rRofexGlobalEnv$password <<- password
     .rRofexGlobalEnv$x_auth_token <<- x_auth_token
     .rRofexGlobalEnv$login_date_time <<- Sys.time()
@@ -106,9 +107,9 @@ trading_instruments <- function(request, sec_detailed = FALSE) {
     )
   }
 
-  result <- fromJSON(content(x = query, as = "text"))
+  if (query$status_code != 200 | content(query)$status != "OK") stop("The query returned an unexpected result.")
 
-  if (result$status != 'OK') stop("The query returned an unexpected result.")
+  result <- fromJSON(content(x = query, as = "text"))
 
   # Return
   data <- if (request == 'segments') {
@@ -168,7 +169,7 @@ trading_md <- function(market_id='ROFX', symbol, entries=c('BI', 'OF', 'LA', 'OP
                  depth=depth),
                add_headers(.headers = c("X-Auth-Token" = .rRofexGlobalEnv$x_auth_token)))
 
-  if (content(query)$status != "OK") stop("The query returned an unexpected result.")
+  if (query$status_code != 200 | content(query)$status != "OK") stop("The query returned an unexpected result.")
 
   result <- enframe(unlist(content(x = query)$marketData))
 
@@ -236,7 +237,7 @@ trading_mdh <- function(market_id='ROFX', symbol, date, date_from, date_to) {
         add_headers(.headers = c("X-Auth-Token" = .rRofexGlobalEnv$x_auth_token)))
   }
 
-  if (content(query)$status != "OK") stop("The query returned an unexpected result.")
+  if (query$status_code != 200 | content(query)$status != "OK") stop("The query returned an unexpected result.")
   if (!length(content(query)$trades)) stop("There is no data for the product / period selected.")
 
   result <- fromJSON(content(x = query, as = "text"))
@@ -322,7 +323,7 @@ trading_new_order <- function(symbol, side, quantity, price, order_type='Limit',
                ),
                add_headers(.headers = c("X-Auth-Token" = .rRofexGlobalEnv$x_auth_token)))
 
-  if (query$status_code != 200) stop("The query returned an unexpected result.")
+  if (query$status_code != 200 | content(query)$status != "OK") stop("The query returned an unexpected result.")
 
   # Result
   result <- if (content(query)$status == "OK") {
