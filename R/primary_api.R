@@ -37,13 +37,13 @@ trading_login <- function(username, password, env="reMarkets") {
   .rRofexGlobalEnv <<- new.env(parent = emptyenv())
 
   # Environment
-  base_url <<- if (env == 'reMarkets') {
+  .base_url <<- if (env == 'reMarkets') {
     "http://pbcp-remarket.cloud.primary.com.ar"
     } else if (env == 'production') {
       "https://api.primary.com.ar"
     }
 
-  url <- paste0(base_url, "/auth/getToken")
+  url <- paste0(.base_url, "/auth/getToken")
 
   token <- POST(url = url,
                 add_headers(.headers = c("X-Username" = username,
@@ -57,7 +57,7 @@ trading_login <- function(username, password, env="reMarkets") {
 
   if (!is.null(x_auth_token)) {
     # Writting into environment
-    .rRofexGlobalEnv$base_url <<- base_url
+    .rRofexGlobalEnv$base_url <<- .base_url
     .rRofexGlobalEnv$env <<- env
     .rRofexGlobalEnv$username <<- username
     .rRofexGlobalEnv$password <<- password
@@ -327,14 +327,9 @@ trading_new_order <- function(symbol, side, quantity, price, order_type='Limit',
 
   # Result
   result <- if (content(query)$status == "OK") {
-    .order_lookup <- trading_lookup(lookup_type = "COID",
-                                    order_id = content(query)$order$clientId,
-                                    content(query)$order$proprietary)
-    list(
-      ClientId   = content(query)$order$clientId,
-      State      = .order_lookup$order.status,
-      text       = .order_lookup$order.text
-      )
+    trading_lookup(lookup_type = "COID",
+                   order_id = content(query)$order$clientId,
+                   content(query)$order$proprietary)
   } else {
     content(query)
   }
@@ -414,7 +409,17 @@ trading_lookup <- function(lookup_type, order_id, proprietary) {
   if (query$status_code != 200 | content(query)$status != "OK") stop("The query returned an unexpected result.")
 
   result <- if (query$status_code == 200 & content(query)$status == "OK") {
-    as.data.frame(content(x = query), stringsAsFactors = F)
+    list(
+      ClientId   = content(query)$order$clOrdId,
+      State      = content(query)$order$status,
+      text       = content(query)$order$text
+    )
+  } else {
+    list(
+      ClientId   = "-",
+      State      = "-",
+      text       = "-"
+    )
   }
 
   return(result)
