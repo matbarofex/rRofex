@@ -37,8 +37,8 @@ trading_login <- function(username, password, env="reMarkets") {
   .rRofexGlobalEnv <<- new.env(parent = emptyenv())
 
   # Environment
-  .base_url <<- if (env == 'reMarkets') {
-    "http://pbcp-remarket.cloud.primary.com.ar"
+  .base_url <- if (env == 'reMarkets') {
+    "http://api.remarkets.primary.com.ar"
     } else if (env == 'production') {
       "https://api.primary.com.ar"
     }
@@ -329,7 +329,7 @@ trading_new_order <- function(symbol, side, quantity, price, order_type='Limit',
   result <- if (content(query)$status == "OK") {
     trading_lookup(lookup_type = "COID",
                    order_id = content(query)$order$clientId,
-                   content(query)$order$proprietary)
+                   proprietary =content(query)$order$proprietary)
   } else {
     content(query)
   }
