@@ -11,7 +11,7 @@ This package lets you access ROFEX APIs using R. Having this will enable you to 
 \seealso{
 Useful links:
 \itemize{
-  \item \url{https://github.com./gruporofex}
+  \item \url{https://github.com./matbarofex}
 }
 
 }
