@@ -37,14 +37,13 @@ devtools::install_github("gruporofex/rRofex")
 We provide a convinient wrapper for consuming data from ROFEX APIs:
 
   - **Trading API (in development)**
-  - Risk API (to be developed)
-  - BackOffice API (to be developed)
+  - Back Office API (See [acyRsa](https://github.com/matbarofex/acyrsa))
 
 ### Trading API (in development)
 
 These are the currently available methods:
 
-  - LogIn method
+  - Log-In method
   - Request for Reference Data
   - Market Data Real Time
   - Historical Market Data
@@ -56,6 +55,7 @@ Available environments:
     [reMarkets](https://remarkets.primary.ventures/) to get credentials.
   - *Production*: it needs credetentials. Please contact:
     <mpi@primary.com.ar> for more information.
+  - *xOMS*: contact your broker for credentials.
 
 ## Examples
 
@@ -63,16 +63,16 @@ Available environments:
 library(rRofex)
 
 # Once you have cretencials, you'll be able to get a token when you login
-rRofex::trading_login(username = XXX, password = XXX, env = 'reMarkets')
+conn <- trading_login(username = XXX, password = XXX, base_url ='http://api.remarkets.primary.com.ar')
 
 # You can get a complete Reference Data list with details
-rRofex::trading_instruments(request = "securities", sec_detailed = T)
+trading_instruments(connection = conn, request = "securities", sec_detailed = T)
 
 # Real Time Prices using the REST APP
-rRofex::trading_md(symbol = "DODic19")
+trading_md(connection = conn, symbol = "DODic20")
 
 # Historical Trades
-rRofex::trading_mdh(symbol = "DOJul19", date = "2019-06-06")
+trading_mdh(connection = conn, symbol = "DOJul20", date = "2020-02-06")
 ```
 
 ## Acknowledgements
