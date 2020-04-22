@@ -56,10 +56,17 @@ rRofex_connection <- function(token, base_url) {
 #' \item xOMS: Ask your broker about it.
 #' }
 #'
+#' @note Accesors:
+#' \itemize{
+#' \item \code{token(conn)}
+#' \item \code{base_url(conn)}
+#' \item \code{login_date_time(conn)}
+#' }
+#'
 #' @return If correct, it will save a hidden token into the current environment
 #'
 #' @examples
-#' \dontrun{trading_login(username = "pepe", password = "pepino", base_url = "http://api.remarkets.primary.com.ar")}
+#' \dontrun{conn <- trading_login(username = "pepe", password = "pepino", base_url = "http://api.remarkets.primary.com.ar")}
 trading_login <- function(username, password, base_url) {
   if (missing(username) | missing(password)) stop("Username and Password are needed.")
   if (missing(base_url)) stop("BaseURL is needed.")

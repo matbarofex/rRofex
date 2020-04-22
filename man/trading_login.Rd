@@ -32,7 +32,14 @@ If correct, it will save a hidden token into the current environment
 \item production: Production environment. For credentials send an email to \email{mpi@primary.com.ar}
 \item xOMS: Ask your broker about it.
 }
+
+Accesors:
+\itemize{
+\item \code{token(conn)}
+\item \code{base_url(conn)}
+\item \code{login_date_time(conn)}
+}
 }
 \examples{
-\dontrun{trading_login(username = "pepe", password = "pepino", base_url = "http://api.remarkets.primary.com.ar")}
+\dontrun{conn <- trading_login(username = "pepe", password = "pepino", base_url = "http://api.remarkets.primary.com.ar")}
 }
