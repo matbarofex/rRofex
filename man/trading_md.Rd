@@ -13,7 +13,7 @@ trading_md(
 )
 }
 \arguments{
-\item{connection}{S4. **Mandaroty** Formal rRofexConnection class object}
+\item{connection}{S4. \strong{Mandaroty} Formal rRofexConnection class object}
 
 \item{market_id}{String. Market to wich you are going to connect.
 \itemize{
@@ -41,6 +41,8 @@ If correct, it will load a data frame.
 \description{
 \code{trading_md} retrivies Market Data in Real Time.
 }
-\examples{
-\dontrun{trading_md(symbol='I.RFX20')}
+\seealso{
+Other market data functions: 
+\code{\link{trading_mdh}()}
 }
+\concept{market data functions}

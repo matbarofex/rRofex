@@ -19,10 +19,10 @@ NULL
 #'
 #' @description \code{rRofex_connection} creates a New Connection Object.
 #'
-#' @param token String. **Mandaroty** Obtained with \code{\link{trading_login}}
-#' @param base_url String. **Mandaroty** URL given by  \code{\link{trading_login}} or known by the client.
+#' @param token String. \strong{Mandaroty} Obtained with \code{\link{trading_login}}
+#' @param base_url String. \strong{Mandaroty} URL given by  \code{\link{trading_login}} or known by the client.
 #'
-#' @return Creates a 'rRofex_connection' S4 Object
+#' @return S4 rRofexConnection object.
 #'
 #' @note You can use accesors to get information about the Object by using:
 #' \itemize{
@@ -30,6 +30,8 @@ NULL
 #' \item \code{base_url(conn)}
 #' \item \code{login_date_time(conn)}
 #' }
+#'
+#' @family connection functions
 rRofex_connection <- function(token, base_url) {
   new("rRofexConnection", token = token, base_url = base_url, login_date_time = as.character(Sys.time()))
 }
@@ -56,6 +58,8 @@ rRofex_connection <- function(token, base_url) {
 #' \item xOMS: Ask your broker about it.
 #' }
 #'
+#' @return S4 rRofexConnection object.
+#'
 #' @note Accesors:
 #' \itemize{
 #' \item \code{token(conn)}
@@ -63,10 +67,12 @@ rRofex_connection <- function(token, base_url) {
 #' \item \code{login_date_time(conn)}
 #' }
 #'
-#' @return If correct, it will save a hidden token into the current environment
+#' @family connection functions
 #'
 #' @examples
-#' \dontrun{conn <- trading_login(username = "pepe", password = "pepino", base_url = "http://api.remarkets.primary.com.ar")}
+#' \dontrun{
+#' conn <- trading_login(username = "pepe", password = "pepino", base_url = "http://api.remarkets.primary.com.ar")
+#' }
 trading_login <- function(username, password, base_url) {
   if (missing(username) | missing(password)) stop("Username and Password are needed.")
   if (missing(base_url)) stop("BaseURL is needed.")
@@ -106,7 +112,7 @@ trading_login <- function(username, password, base_url) {
 #'
 #' @description \code{trading_instruments} list segments and instruments details currently available in Primary API.
 #'
-#' @param connection S4. **Mandaroty** Formal rRofexConnection class object
+#' @param connection S4. \strong{Mandaroty} Formal rRofexConnection class object
 #' @param request String. The type of request that you are making:
 #' \itemize{
 #' \item segments: Available Market Segments
@@ -115,9 +121,6 @@ trading_login <- function(username, password, base_url) {
 #' @param sec_detailed Logical. Optional for environment=securities. Brings aditional information like segment, price, minimal/maximal trading quantity, settlement date, etc.
 #'
 #' @return If correct, it will load a data frame.
-#'
-#' @examples
-#' \dontrun{trading_instruments()}
 trading_instruments <- function(connection, request, sec_detailed = FALSE) {
 
   if (missing(connection)) stop("Connection cannot be empty.")
@@ -163,7 +166,7 @@ trading_instruments <- function(connection, request, sec_detailed = FALSE) {
 #'
 #' @description \code{trading_md} retrivies Market Data in Real Time.
 #'
-#' @param connection S4. **Mandaroty** Formal rRofexConnection class object
+#' @param connection S4. \strong{Mandaroty} Formal rRofexConnection class object
 #' @param market_id String. Market to wich you are going to connect.
 #' \itemize{
 #' \item ROFX. Matba Rofex
@@ -183,8 +186,7 @@ trading_instruments <- function(connection, request, sec_detailed = FALSE) {
 #'
 #' @return If correct, it will load a data frame.
 #'
-#' @examples
-#' \dontrun{trading_md(symbol='I.RFX20')}
+#' @family market data functions
 trading_md <- function(connection, market_id='ROFX', symbol, entries=c('BI', 'OF', 'LA', 'OP', 'CL', 'SE', 'OI'), depth=1L) {
 
   if (missing(connection)) stop("Connection cannot be empty.")
@@ -226,7 +228,7 @@ trading_md <- function(connection, market_id='ROFX', symbol, entries=c('BI', 'OF
 #'
 #' @description \code{trading_mdh} retrivies Historical Trades for a given instrument.
 #'
-#' @param connection S4. **Mandaroty** Formal rRofexConnection class object
+#' @param connection S4. \strong{Mandaroty} Formal rRofexConnection class object
 #' @param market_id String. Market to wich we are going to connect.
 #' \itemize{
 #' \item ROFX. Rofex: Rosario Futures Exchange.
@@ -239,8 +241,7 @@ trading_md <- function(connection, market_id='ROFX', symbol, entries=c('BI', 'OF
 #'
 #' @return If correct, it will load a data frame.
 #'
-#' @examples
-#' \dontrun{trading_mdh(symbol='I.RFX20')}
+#' @family market data functions
 trading_mdh <- function(connection, market_id='ROFX', symbol, date, date_from, date_to) {
 
   if (missing(connection)) stop("Connection cannot be empty.")
@@ -298,7 +299,7 @@ trading_mdh <- function(connection, market_id='ROFX', symbol, date, date_from, d
 #'
 #' @description The method \code{trading_new_order} is use to send orders.
 #'
-#' @param connection S4. **Mandaroty** Formal rRofexConnection class object
+#' @param connection S4. \strong{Mandaroty} Formal rRofexConnection class object
 #' @param symbol String. Use \code{\link{trading_instruments}} to see which symbols are available.
 #' @param side String. Either 'Buy' or 'Sell'.
 #' @param quantity Numeric. Quantity of the order.
@@ -319,7 +320,10 @@ trading_mdh <- function(connection, market_id='ROFX', symbol, date, date_from, d
 #' @param expire_date String. \strong{Only for GDT orders}. Maturity date of the order, With format '\%Y-\%m-\%d'.
 #' @param display_quantity Numeric. \strong{Only for Iceberg orders}. Indicate the disclosed quantity for the 'iceberg' order.
 #' @param account String. Account Number / Account ID.
+#'
 #' @return List with outputs like state of the order.
+#'
+#' @family order placements functions
 trading_new_order <- function(connection, symbol, side, quantity, price, order_type='Limit', time_in_force='Day', iceberg=FALSE, expire_date=NULL, display_quantity=NULL, account) {
 
   if (missing(connection)) stop("Connection cannot be empty.")
@@ -390,11 +394,13 @@ trading_new_order <- function(connection, symbol, side, quantity, price, order_t
 #'
 #' @description The method \code{trading_cancel_order} is use to send orders.
 #'
-#' @param connection S4. **Mandaroty** Formal rRofexConnection class object
+#' @param connection S4. \strong{Mandaroty} Formal rRofexConnection class object
 #' @param order_id String. clOrdId given by the \code{trading_orders} method.
 #' @param proprietary String. ID given by the \code{trading_orders} method.
 #'
 #' @return List with outputs like state of the order.
+#'
+#' @family order placements functions
 trading_cancel_order <- function(connection, order_id, proprietary) {
 
   if (missing(connection)) stop("Connection cannot be empty.")
@@ -428,7 +434,7 @@ trading_cancel_order <- function(connection, order_id, proprietary) {
 #'
 #' @description The method \code{trading_lookup} is used to check the satus of an order.
 #'
-#' @param connection S4. **Mandaroty** Formal rRofexConnection class object
+#' @param connection S4. \strong{Mandaroty} Formal rRofexConnection class object
 #' @param lookup_type String. Look-up by:
 #' \itemize{
 #' \item COID. Client Order ID.
@@ -438,6 +444,8 @@ trading_cancel_order <- function(connection, order_id, proprietary) {
 #' @param proprietary String. ID given by the \code{trading_orders} method.
 #'
 #' @return A data frame.
+#'
+#' @family order management functions
 trading_lookup <- function(connection, lookup_type, order_id, proprietary) {
 
   if (missing(connection)) stop("Connection cannot be empty.")
@@ -487,10 +495,12 @@ trading_lookup <- function(connection, lookup_type, order_id, proprietary) {
 #'
 #' @description The method \code{trading_orders} is used to see each order sent by Account.
 #'
-#' @param connection S4. **Mandaroty** Formal rRofexConnection class object
+#' @param connection S4. \strong{Mandaroty} Formal rRofexConnection class object
 #' @param account String. Account Number / Account ID.
 #'
 #' @return A data frame.
+#'
+#' @family order management functions
 trading_orders <- function(connection, account) {
 
   if (missing(connection)) stop("Connection cannot be empty.")

@@ -7,7 +7,7 @@
 trading_orders(connection, account)
 }
 \arguments{
-\item{connection}{S4. **Mandaroty** Formal rRofexConnection class object}
+\item{connection}{S4. \strong{Mandaroty} Formal rRofexConnection class object}
 
 \item{account}{String. Account Number / Account ID.}
 }
@@ -17,3 +17,8 @@ A data frame.
 \description{
 The method \code{trading_orders} is used to see each order sent by Account.
 }
+\seealso{
+Other order management functions: 
+\code{\link{trading_lookup}()}
+}
+\concept{order management functions}

@@ -21,7 +21,7 @@ trading_login(username, password, base_url)
 Note that reMarkets works with 'http' not 'https'.}
 }
 \value{
-If correct, it will save a hidden token into the current environment
+S4 rRofexConnection object.
 }
 \description{
 \code{trading_login} log in the user into de Primary API
@@ -41,5 +41,12 @@ Accesors:
 }
 }
 \examples{
-\dontrun{conn <- trading_login(username = "pepe", password = "pepino", base_url = "http://api.remarkets.primary.com.ar")}
+\dontrun{
+conn <- trading_login(username = "pepe", password = "pepino", base_url = "http://api.remarkets.primary.com.ar")
 }
+}
+\seealso{
+Other connection functions: 
+\code{\link{rRofex_connection}()}
+}
+\concept{connection functions}

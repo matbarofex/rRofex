@@ -7,12 +7,12 @@
 rRofex_connection(token, base_url)
 }
 \arguments{
-\item{token}{String. **Mandaroty** Obtained with \code{\link{trading_login}}}
+\item{token}{String. \strong{Mandaroty} Obtained with \code{\link{trading_login}}}
 
-\item{base_url}{String. **Mandaroty** URL given by  \code{\link{trading_login}} or known by the client.}
+\item{base_url}{String. \strong{Mandaroty} URL given by  \code{\link{trading_login}} or known by the client.}
 }
 \value{
-Creates a 'rRofex_connection' S4 Object
+S4 rRofexConnection object.
 }
 \description{
 \code{rRofex_connection} creates a New Connection Object.
@@ -25,3 +25,8 @@ You can use accesors to get information about the Object by using:
 \item \code{login_date_time(conn)}
 }
 }
+\seealso{
+Other connection functions: 
+\code{\link{trading_login}()}
+}
+\concept{connection functions}

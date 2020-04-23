@@ -7,7 +7,7 @@
 trading_cancel_order(connection, order_id, proprietary)
 }
 \arguments{
-\item{connection}{S4. **Mandaroty** Formal rRofexConnection class object}
+\item{connection}{S4. \strong{Mandaroty} Formal rRofexConnection class object}
 
 \item{order_id}{String. clOrdId given by the \code{trading_orders} method.}
 
@@ -19,3 +19,8 @@ List with outputs like state of the order.
 \description{
 The method \code{trading_cancel_order} is use to send orders.
 }
+\seealso{
+Other order placements functions: 
+\code{\link{trading_new_order}()}
+}
+\concept{order placements functions}

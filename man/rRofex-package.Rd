@@ -6,12 +6,13 @@
 \alias{rRofex-package}
 \title{rRofex: Interface to ROFEX APIs}
 \description{
-This package lets you access ROFEX APIs using R. Having this will enable you to integrate ROFEX data easily into R workflows.
+Provides a convenient wrapper for consuming data from ROFEX APIs: Trading API, Risk API and BackOffice API.
 }
 \seealso{
 Useful links:
 \itemize{
-  \item \url{https://github.com./matbarofex}
+  \item \url{https://github.com/matbarofex}
+  \item Report bugs at \url{https://github.com/matbarofex/issues}
 }
 
 }

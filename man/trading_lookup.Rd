@@ -7,7 +7,7 @@
 trading_lookup(connection, lookup_type, order_id, proprietary)
 }
 \arguments{
-\item{connection}{S4. **Mandaroty** Formal rRofexConnection class object}
+\item{connection}{S4. \strong{Mandaroty} Formal rRofexConnection class object}
 
 \item{lookup_type}{String. Look-up by:
 \itemize{
@@ -25,3 +25,8 @@ A data frame.
 \description{
 The method \code{trading_lookup} is used to check the satus of an order.
 }
+\seealso{
+Other order management functions: 
+\code{\link{trading_orders}()}
+}
+\concept{order management functions}

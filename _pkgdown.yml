@@ -1,0 +1,32 @@
+destination: docs
+
+development:
+  mode: auto
+
+authors:
+  Augusto Hassel:
+    href: http://www.hasselpunk.com
+
+reference:
+- title: Authentication
+  desc:  Methods to obtain a valid token and/or generate a valid rRofexConnection object.
+- contents:
+  - rRofex_connection
+  - trading_login
+- title: Reference Data
+- desc: Methods to obtain information about products
+- contents:
+  - trading_instruments
+- title: Market Data
+- desc: Real-time and historical market data
+- contents:
+  - trading_md
+  - trading_mdh
+- title: Order Placement
+- contents:
+  - trading_new_order
+  - trading_cancel_order
+- title: Order Management
+- contents:
+  - trading_lookup
+  - trading_orders

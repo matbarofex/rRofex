@@ -7,7 +7,7 @@
 trading_mdh(connection, market_id = "ROFX", symbol, date, date_from, date_to)
 }
 \arguments{
-\item{connection}{S4. **Mandaroty** Formal rRofexConnection class object}
+\item{connection}{S4. \strong{Mandaroty} Formal rRofexConnection class object}
 
 \item{market_id}{String. Market to wich we are going to connect.
 \itemize{
@@ -29,6 +29,8 @@ If correct, it will load a data frame.
 \description{
 \code{trading_mdh} retrivies Historical Trades for a given instrument.
 }
-\examples{
-\dontrun{trading_mdh(symbol='I.RFX20')}
+\seealso{
+Other market data functions: 
+\code{\link{trading_md}()}
 }
+\concept{market data functions}

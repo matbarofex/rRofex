@@ -19,7 +19,7 @@ trading_new_order(
 )
 }
 \arguments{
-\item{connection}{S4. **Mandaroty** Formal rRofexConnection class object}
+\item{connection}{S4. \strong{Mandaroty} Formal rRofexConnection class object}
 
 \item{symbol}{String. Use \code{\link{trading_instruments}} to see which symbols are available.}
 
@@ -57,3 +57,8 @@ List with outputs like state of the order.
 \description{
 The method \code{trading_new_order} is use to send orders.
 }
+\seealso{
+Other order placements functions: 
+\code{\link{trading_cancel_order}()}
+}
+\concept{order placements functions}

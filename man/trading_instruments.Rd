@@ -7,7 +7,7 @@
 trading_instruments(connection, request, sec_detailed = FALSE)
 }
 \arguments{
-\item{connection}{S4. **Mandaroty** Formal rRofexConnection class object}
+\item{connection}{S4. \strong{Mandaroty} Formal rRofexConnection class object}
 
 \item{request}{String. The type of request that you are making:
 \itemize{
@@ -22,7 +22,4 @@ If correct, it will load a data frame.
 }
 \description{
 \code{trading_instruments} list segments and instruments details currently available in Primary API.
-}
-\examples{
-\dontrun{trading_instruments()}
 }

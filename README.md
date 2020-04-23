@@ -1,9 +1,13 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# rRofex\! <img src='man/figures/r-rofex.png' align="right" height="139"/>
+# rRofex <img src='man/figures/r-rofex.png' align="right" height="139"/>
 
-## Overview
+<!-- badges: start -->
+
+[![Lifecycle:
+maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
+<!-- badges: end -->
 
 This package lets you access ROFEX APIs using R. Having this will enable
 to integrate ROFEX data easily into R workflows.
@@ -15,19 +19,11 @@ At the moment `rRofex` is only available through GitHub usind
 
 #### Installing with `devtools`
 
-1.  In R install the package `devtools`.
-
-<!-- end list -->
-
 ``` r
+# 1. In R install the package `devtools`.
 install.packages("devtools")
-```
 
-2.  Once `devtools` is installed.
-
-<!-- end list -->
-
-``` r
+# 2. Once `devtools` is installed, install `rRofex`
 library(devtools)
 devtools::install_github("gruporofex/rRofex")
 ```
@@ -43,11 +39,12 @@ We provide a convinient wrapper for consuming data from ROFEX APIs:
 
 These are the currently available methods:
 
-  - Log-In method
+  - Log-in method
   - Request for Reference Data
   - Market Data Real Time
   - Historical Market Data
   - Send Orders
+  - Lookup Orders
 
 Available environments:
 
