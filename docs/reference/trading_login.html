@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Lookup Order Status — trading_lookup • rRofex</title>
+<title>Primary API Log-In — trading_login • rRofex</title>
 
 
 <!-- jquery -->
@@ -39,11 +39,11 @@
 
 
 
-<meta property="og:title" content="Lookup Order Status — trading_lookup" />
-<meta property="og:description" content="The method trading_lookup is used to check the satus of an order." />
+<meta property="og:title" content="Primary API Log-In — trading_login" />
+<meta property="og:description" content="trading_login log in the user into de Primary API" />
 
 
-<meta name="robots" content="noindex">
+
 
 <!-- mathjax -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script>
@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rRofex</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.0.1.0001</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.0001</span>
       </span>
     </div>
 
@@ -111,49 +111,67 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Lookup Order Status</h1>
+    <h1>Primary API Log-In</h1>
     <small class="dont-index">Source: <a href='https://github.com/matbarofex/issues/blob/master/R/functions.R'><code>R/functions.R</code></a></small>
-    <div class="hidden name"><code>trading_lookup.Rd</code></div>
+    <div class="hidden name"><code>trading_login.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>The method <code>trading_lookup</code> is used to check the satus of an order.</p>
+    <p><code>trading_login</code> log in the user into de Primary API</p>
     </div>
 
-    <pre class="usage"><span class='fu'>trading_lookup</span>(<span class='no'>connection</span>, <span class='no'>lookup_type</span>, <span class='no'>order_id</span>, <span class='no'>proprietary</span>)</pre>
+    <pre class="usage"><span class='fu'>trading_login</span>(<span class='no'>username</span>, <span class='no'>password</span>, <span class='no'>base_url</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>connection</th>
-      <td><p>S4. <strong>Mandaroty</strong> Formal rRofexConnection class object</p></td>
+      <th>username</th>
+      <td><p>String. User Name</p></td>
     </tr>
     <tr>
-      <th>lookup_type</th>
-      <td><p>String. Look-up by:</p><ul>
-<li><p>COID. Client Order ID.</p></li>
-<li><p>OID. Order ID. (Not Available)</p></li>
-</ul></td>
+      <th>password</th>
+      <td><p>String. Password</p></td>
     </tr>
     <tr>
-      <th>order_id</th>
-      <td><p>String. ID given by the <code>trading_orders</code> method.</p></td>
-    </tr>
-    <tr>
-      <th>proprietary</th>
-      <td><p>String. ID given by the <code>trading_orders</code> method.</p></td>
+      <th>base_url</th>
+      <td><p>String. Wich environment are you going to connect:</p><ul>
+<li><p>reMarkets: 'http://api.remarkets.primary.com.ar'</p></li>
+<li><p>production: 'https://api.primary.com.ar'</p></li>
+<li><p>xOMS: 'https://api.&lt;BROKER&gt;.xoms.com.ar'</p></li>
+</ul>
+
+<p>Note that reMarkets works with 'http' not 'https'.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A data frame.</p>
+    <p>S4 rRofexConnection object.</p>
+    <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
+
+    
+<ul>
+<li><p>reMarkets: Testing environment. For credentials go to <a href='https://remarkets.primary.ventures'>https://remarkets.primary.ventures</a></p></li>
+<li><p>production: Production environment. For credentials send an email to <a href='mailto:mpi@primary.com.ar'>mpi@primary.com.ar</a></p></li>
+<li><p>xOMS: Ask your broker about it.</p></li>
+</ul>
+
+<p>Accesors:</p><ul>
+<li><p><code>token(conn)</code></p></li>
+<li><p><code>base_url(conn)</code></p></li>
+<li><p><code>login_date_time(conn)</code></p></li>
+</ul>
+
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Other order management functions: 
-<code><a href='trading_orders.html'>trading_orders</a>()</code></p></div>
+    <div class='dont-index'><p>Other connection functions: 
+<code><a href='rRofex_connection.html'>rRofex_connection</a>()</code></p></div>
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+<span class='no'>conn</span> <span class='kw'>&lt;-</span> <span class='fu'>trading_login</span>(<span class='kw'>username</span> <span class='kw'>=</span> <span class='st'>"pepe"</span>, <span class='kw'>password</span> <span class='kw'>=</span> <span class='st'>"pepino"</span>, <span class='kw'>base_url</span> <span class='kw'>=</span> <span class='st'>"http://api.remarkets.primary.com.ar"</span>)
+}</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

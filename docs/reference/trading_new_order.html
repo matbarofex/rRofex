@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Function reference • rRofex</title>
+<title>Send Order to the Market — trading_new_order • rRofex</title>
 
 
 <!-- jquery -->
@@ -39,10 +39,11 @@
 
 
 
-<meta property="og:title" content="Function reference" />
+<meta property="og:title" content="Send Order to the Market — trading_new_order" />
+<meta property="og:description" content="The method trading_new_order is use to send orders." />
 
 
-<meta name="robots" content="noindex">
+
 
 <!-- mathjax -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script>
@@ -58,7 +59,7 @@
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-reference-index">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -71,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rRofex</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.0.1.0001</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.0001</span>
       </span>
     </div>
 
@@ -108,142 +109,97 @@
       </header>
 
 <div class="row">
-  <div class="contents col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Reference</h1>
+    <h1>Send Order to the Market</h1>
+    <small class="dont-index">Source: <a href='https://github.com/matbarofex/issues/blob/master/R/functions.R'><code>R/functions.R</code></a></small>
+    <div class="hidden name"><code>trading_new_order.Rd</code></div>
     </div>
 
-    <table class="ref-index">
+    <div class="ref-description">
+    <p>The method <code>trading_new_order</code> is use to send orders.</p>
+    </div>
 
-    <colgroup>
-      
-      <col class="alias" />
-      <col class="title" />
-    </colgroup>
+    <pre class="usage"><span class='fu'>trading_new_order</span>(
+  <span class='no'>connection</span>,
+  <span class='no'>symbol</span>,
+  <span class='no'>side</span>,
+  <span class='no'>quantity</span>,
+  <span class='no'>price</span>,
+  <span class='kw'>order_type</span> <span class='kw'>=</span> <span class='st'>"Limit"</span>,
+  <span class='kw'>time_in_force</span> <span class='kw'>=</span> <span class='st'>"Day"</span>,
+  <span class='kw'>iceberg</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>expire_date</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>display_quantity</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='no'>account</span>
+)</pre>
 
-    <tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-authentication" class="hasAnchor"><a href="#section-authentication" class="anchor"></a>Authentication</h2>
-          <p class="section-desc"><p>Methods to obtain a valid token and/or generate a valid rRofexConnection object.</p></p>
-        </th>
-      </tr>
-      
-      
-    </tbody><tbody>
-      
-      
-      <tr>
-        
-        <td>
-          <p><code><a href="rRofex_connection.html">rRofex_connection()</a></code> </p>
-        </td>
-        <td><p>Create rRofex Connection Object</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="trading_login.html">trading_login()</a></code> </p>
-        </td>
-        <td><p>Primary API Log-In</p></td>
-      </tr>
-    </tbody><tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-reference-data" class="hasAnchor"><a href="#section-reference-data" class="anchor"></a>Reference Data</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      
-      
-    </tbody><tbody>
-      
-      
-      <tr>
-        
-        <td>
-          <p><code><a href="trading_instruments.html">trading_instruments()</a></code> </p>
-        </td>
-        <td><p>Primary API Insturments</p></td>
-      </tr>
-    </tbody><tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-market-data" class="hasAnchor"><a href="#section-market-data" class="anchor"></a>Market Data</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      
-      
-    </tbody><tbody>
-      
-      
-      <tr>
-        
-        <td>
-          <p><code><a href="trading_md.html">trading_md()</a></code> </p>
-        </td>
-        <td><p>Primary API Market Data Real Time</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="trading_mdh.html">trading_mdh()</a></code> </p>
-        </td>
-        <td><p>Primary API Historical Market Data</p></td>
-      </tr>
-    </tbody><tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-order-placement" class="hasAnchor"><a href="#section-order-placement" class="anchor"></a>Order Placement</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      
-      
-    </tbody><tbody>
-      
-      
-      <tr>
-        
-        <td>
-          <p><code><a href="trading_new_order.html">trading_new_order()</a></code> </p>
-        </td>
-        <td><p>Send Order to the Market</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="trading_cancel_order.html">trading_cancel_order()</a></code> </p>
-        </td>
-        <td><p>Cancel Order Sent to the Market</p></td>
-      </tr>
-    </tbody><tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-order-management" class="hasAnchor"><a href="#section-order-management" class="anchor"></a>Order Management</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      
-      
-    </tbody><tbody>
-      
-      
-      <tr>
-        
-        <td>
-          <p><code><a href="trading_lookup.html">trading_lookup()</a></code> </p>
-        </td>
-        <td><p>Lookup Order Status</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="trading_orders.html">trading_orders()</a></code> </p>
-        </td>
-        <td><p>View Orders</p></td>
-      </tr>
-    </tbody>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>connection</th>
+      <td><p>S4. <strong>Mandaroty</strong> Formal rRofexConnection class object</p></td>
+    </tr>
+    <tr>
+      <th>symbol</th>
+      <td><p>String. Use <code><a href='trading_instruments.html'>trading_instruments</a></code> to see which symbols are available.</p></td>
+    </tr>
+    <tr>
+      <th>side</th>
+      <td><p>String. Either 'Buy' or 'Sell'.</p></td>
+    </tr>
+    <tr>
+      <th>quantity</th>
+      <td><p>Numeric. Quantity of the order.</p></td>
+    </tr>
+    <tr>
+      <th>price</th>
+      <td><p>Numeric. Price of the order.</p></td>
+    </tr>
+    <tr>
+      <th>order_type</th>
+      <td><p>String. Type of order.</p><ul>
+<li><p>Limit. Limit order sets the maximum or minimum price at which you are willing to buy or sell.</p></li>
+<li><p>MLL. Market with Leftover as Limit (market order then unexecuted quantity becomes limit order at last price).</p></li>
+</ul></td>
+    </tr>
+    <tr>
+      <th>time_in_force</th>
+      <td><p>String. Specifies how long the order remains in effect. Absence of this field is interpreted as 'Day':</p><ul>
+<li><p>Day. Day or session.</p></li>
+<li><p>IOC. Immediate or Cancel.</p></li>
+<li><p>FOK. Fill or Kill.</p></li>
+<li><p>GTD. Good Till Date.</p></li>
+</ul></td>
+    </tr>
+    <tr>
+      <th>iceberg</th>
+      <td><p>Logical: if TRUE, then the order is 'iceberg'. FALSE as default.</p></td>
+    </tr>
+    <tr>
+      <th>expire_date</th>
+      <td><p>String. <strong>Only for GDT orders</strong>. Maturity date of the order, With format '%Y-%m-%d'.</p></td>
+    </tr>
+    <tr>
+      <th>display_quantity</th>
+      <td><p>Numeric. <strong>Only for Iceberg orders</strong>. Indicate the disclosed quantity for the 'iceberg' order.</p></td>
+    </tr>
+    <tr>
+      <th>account</th>
+      <td><p>String. Account Number / Account ID.</p></td>
+    </tr>
     </table>
-  </div>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>List with outputs like state of the order.</p>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p>Other order placements functions: 
+<code><a href='trading_cancel_order.html'>trading_cancel_order</a>()</code></p></div>
+
+  </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
       <h2 data-toc-skip>Contents</h2>

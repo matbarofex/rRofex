@@ -1,8 +1,5 @@
 destination: docs
 
-development:
-  mode: auto
-
 authors:
   Augusto Hassel:
     href: http://www.hasselpunk.com

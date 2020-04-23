@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Primary API Historical Market Data — trading_mdh • rRofex</title>
+<title>Primary API Market Data Real Time — trading_md • rRofex</title>
 
 
 <!-- jquery -->
@@ -39,11 +39,11 @@
 
 
 
-<meta property="og:title" content="Primary API Historical Market Data — trading_mdh" />
-<meta property="og:description" content="trading_mdh retrivies Historical Trades for a given instrument." />
+<meta property="og:title" content="Primary API Market Data Real Time — trading_md" />
+<meta property="og:description" content="trading_md retrivies Market Data in Real Time." />
 
 
-<meta name="robots" content="noindex">
+
 
 <!-- mathjax -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script>
@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rRofex</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.0.1.0001</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.0001</span>
       </span>
     </div>
 
@@ -111,16 +111,22 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Primary API Historical Market Data</h1>
+    <h1>Primary API Market Data Real Time</h1>
     <small class="dont-index">Source: <a href='https://github.com/matbarofex/issues/blob/master/R/functions.R'><code>R/functions.R</code></a></small>
-    <div class="hidden name"><code>trading_mdh.Rd</code></div>
+    <div class="hidden name"><code>trading_md.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p><code>trading_mdh</code> retrivies Historical Trades for a given instrument.</p>
+    <p><code>trading_md</code> retrivies Market Data in Real Time.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>trading_mdh</span>(<span class='no'>connection</span>, <span class='kw'>market_id</span> <span class='kw'>=</span> <span class='st'>"ROFX"</span>, <span class='no'>symbol</span>, <span class='no'>date</span>, <span class='no'>date_from</span>, <span class='no'>date_to</span>)</pre>
+    <pre class="usage"><span class='fu'>trading_md</span>(
+  <span class='no'>connection</span>,
+  <span class='kw'>market_id</span> <span class='kw'>=</span> <span class='st'>"ROFX"</span>,
+  <span class='no'>symbol</span>,
+  <span class='kw'>entries</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"BI"</span>, <span class='st'>"OF"</span>, <span class='st'>"LA"</span>, <span class='st'>"OP"</span>, <span class='st'>"CL"</span>, <span class='st'>"SE"</span>, <span class='st'>"OI"</span>),
+  <span class='kw'>depth</span> <span class='kw'>=</span> <span class='fl'>1L</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -131,9 +137,8 @@
     </tr>
     <tr>
       <th>market_id</th>
-      <td><p>String. Market to wich we are going to connect.</p><ul>
-<li><p>ROFX. Rofex: Rosario Futures Exchange.</p></li>
-<li><p>MATBA. Matba: Mercado a Termino de Buenos Aires.</p></li>
+      <td><p>String. Market to wich you are going to connect.</p><ul>
+<li><p>ROFX. Matba Rofex</p></li>
 </ul></td>
     </tr>
     <tr>
@@ -141,16 +146,20 @@
       <td><p>String. Use <code><a href='trading_instruments.html'>trading_instruments</a></code> to see which symbols are available.</p></td>
     </tr>
     <tr>
-      <th>date</th>
-      <td><p>String. Date to be queried. With format '%Y-%m-%d'.</p></td>
+      <th>entries</th>
+      <td><p>Vector of Strings. It contains the information to be required:</p><ul>
+<li><p>BI. Bid.</p></li>
+<li><p>OF. Offer.</p></li>
+<li><p>LA. Last Available Price.</p></li>
+<li><p>OP. Open Price.</p></li>
+<li><p>CL. Close Price.</p></li>
+<li><p>SE. Settlement Price.</p></li>
+<li><p>OI. Open Interest.</p></li>
+</ul></td>
     </tr>
     <tr>
-      <th>date_from</th>
-      <td><p>String. Used together with 'date_to'.</p></td>
-    </tr>
-    <tr>
-      <th>date_to</th>
-      <td><p>String. Userd together with 'date_from'.</p></td>
+      <th>depth</th>
+      <td><p>Integer. Depth of the book to be retrivied.</p></td>
     </tr>
     </table>
 
@@ -160,7 +169,7 @@
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other market data functions: 
-<code><a href='trading_md.html'>trading_md</a>()</code></p></div>
+<code><a href='trading_mdh.html'>trading_mdh</a>()</code></p></div>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Primary API Insturments — trading_instruments • rRofex</title>
+<title>Function reference • rRofex</title>
 
 
 <!-- jquery -->
@@ -39,11 +39,10 @@
 
 
 
-<meta property="og:title" content="Primary API Insturments — trading_instruments" />
-<meta property="og:description" content="trading_instruments list segments and instruments details currently available in Primary API." />
+<meta property="og:title" content="Function reference" />
 
 
-<meta name="robots" content="noindex">
+
 
 <!-- mathjax -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script>
@@ -59,7 +58,7 @@
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-reference-topic">
+    <div class="container template-reference-index">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -72,7 +71,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rRofex</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.0.1.0001</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.0001</span>
       </span>
     </div>
 
@@ -109,44 +108,142 @@
       </header>
 
 <div class="row">
-  <div class="col-md-9 contents">
+  <div class="contents col-md-9">
     <div class="page-header">
-    <h1>Primary API Insturments</h1>
-    <small class="dont-index">Source: <a href='https://github.com/matbarofex/issues/blob/master/R/functions.R'><code>R/functions.R</code></a></small>
-    <div class="hidden name"><code>trading_instruments.Rd</code></div>
+      <h1>Reference</h1>
     </div>
 
-    <div class="ref-description">
-    <p><code>trading_instruments</code> list segments and instruments details currently available in Primary API.</p>
-    </div>
+    <table class="ref-index">
 
-    <pre class="usage"><span class='fu'>trading_instruments</span>(<span class='no'>connection</span>, <span class='no'>request</span>, <span class='kw'>sec_detailed</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <colgroup>
+      
+      <col class="alias" />
+      <col class="title" />
+    </colgroup>
 
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>connection</th>
-      <td><p>S4. <strong>Mandaroty</strong> Formal rRofexConnection class object</p></td>
-    </tr>
-    <tr>
-      <th>request</th>
-      <td><p>String. The type of request that you are making:</p><ul>
-<li><p>segments: Available Market Segments</p></li>
-<li><p>securities: Available Instruments listed on Rofex</p></li>
-</ul></td>
-    </tr>
-    <tr>
-      <th>sec_detailed</th>
-      <td><p>Logical. Optional for environment=securities. Brings aditional information like segment, price, minimal/maximal trading quantity, settlement date, etc.</p></td>
-    </tr>
+    <tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-authentication" class="hasAnchor"><a href="#section-authentication" class="anchor"></a>Authentication</h2>
+          <p class="section-desc"><p>Methods to obtain a valid token and/or generate a valid rRofexConnection object.</p></p>
+        </th>
+      </tr>
+      
+      
+    </tbody><tbody>
+      
+      
+      <tr>
+        
+        <td>
+          <p><code><a href="rRofex_connection.html">rRofex_connection()</a></code> </p>
+        </td>
+        <td><p>Create rRofex Connection Object</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="trading_login.html">trading_login()</a></code> </p>
+        </td>
+        <td><p>Primary API Log-In</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-reference-data" class="hasAnchor"><a href="#section-reference-data" class="anchor"></a>Reference Data</h2>
+          <p class="section-desc"></p>
+        </th>
+      </tr>
+      
+      
+    </tbody><tbody>
+      
+      
+      <tr>
+        
+        <td>
+          <p><code><a href="trading_instruments.html">trading_instruments()</a></code> </p>
+        </td>
+        <td><p>Primary API Insturments</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-market-data" class="hasAnchor"><a href="#section-market-data" class="anchor"></a>Market Data</h2>
+          <p class="section-desc"></p>
+        </th>
+      </tr>
+      
+      
+    </tbody><tbody>
+      
+      
+      <tr>
+        
+        <td>
+          <p><code><a href="trading_md.html">trading_md()</a></code> </p>
+        </td>
+        <td><p>Primary API Market Data Real Time</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="trading_mdh.html">trading_mdh()</a></code> </p>
+        </td>
+        <td><p>Primary API Historical Market Data</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-order-placement" class="hasAnchor"><a href="#section-order-placement" class="anchor"></a>Order Placement</h2>
+          <p class="section-desc"></p>
+        </th>
+      </tr>
+      
+      
+    </tbody><tbody>
+      
+      
+      <tr>
+        
+        <td>
+          <p><code><a href="trading_new_order.html">trading_new_order()</a></code> </p>
+        </td>
+        <td><p>Send Order to the Market</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="trading_cancel_order.html">trading_cancel_order()</a></code> </p>
+        </td>
+        <td><p>Cancel Order Sent to the Market</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-order-management" class="hasAnchor"><a href="#section-order-management" class="anchor"></a>Order Management</h2>
+          <p class="section-desc"></p>
+        </th>
+      </tr>
+      
+      
+    </tbody><tbody>
+      
+      
+      <tr>
+        
+        <td>
+          <p><code><a href="trading_lookup.html">trading_lookup()</a></code> </p>
+        </td>
+        <td><p>Lookup Order Status</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="trading_orders.html">trading_orders()</a></code> </p>
+        </td>
+        <td><p>View Orders</p></td>
+      </tr>
+    </tbody>
     </table>
-
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
-
-    <p>If correct, it will load a data frame.</p>
-
   </div>
+
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
       <h2 data-toc-skip>Contents</h2>

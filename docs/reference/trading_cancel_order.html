@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Create rRofex Connection Object — rRofex_connection • rRofex</title>
+<title>Cancel Order Sent to the Market — trading_cancel_order • rRofex</title>
 
 
 <!-- jquery -->
@@ -39,11 +39,11 @@
 
 
 
-<meta property="og:title" content="Create rRofex Connection Object — rRofex_connection" />
-<meta property="og:description" content="rRofex_connection creates a New Connection Object." />
+<meta property="og:title" content="Cancel Order Sent to the Market — trading_cancel_order" />
+<meta property="og:description" content="The method trading_cancel_order is use to send orders." />
 
 
-<meta name="robots" content="noindex">
+
 
 <!-- mathjax -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script>
@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rRofex</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.0.1.0001</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.0001</span>
       </span>
     </div>
 
@@ -111,45 +111,41 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Create rRofex Connection Object</h1>
+    <h1>Cancel Order Sent to the Market</h1>
     <small class="dont-index">Source: <a href='https://github.com/matbarofex/issues/blob/master/R/functions.R'><code>R/functions.R</code></a></small>
-    <div class="hidden name"><code>rRofex_connection.Rd</code></div>
+    <div class="hidden name"><code>trading_cancel_order.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p><code>rRofex_connection</code> creates a New Connection Object.</p>
+    <p>The method <code>trading_cancel_order</code> is use to send orders.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>rRofex_connection</span>(<span class='no'>token</span>, <span class='no'>base_url</span>)</pre>
+    <pre class="usage"><span class='fu'>trading_cancel_order</span>(<span class='no'>connection</span>, <span class='no'>order_id</span>, <span class='no'>proprietary</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>token</th>
-      <td><p>String. <strong>Mandaroty</strong> Obtained with <code><a href='trading_login.html'>trading_login</a></code></p></td>
+      <th>connection</th>
+      <td><p>S4. <strong>Mandaroty</strong> Formal rRofexConnection class object</p></td>
     </tr>
     <tr>
-      <th>base_url</th>
-      <td><p>String. <strong>Mandaroty</strong> URL given by  <code><a href='trading_login.html'>trading_login</a></code> or known by the client.</p></td>
+      <th>order_id</th>
+      <td><p>String. clOrdId given by the <code>trading_orders</code> method.</p></td>
+    </tr>
+    <tr>
+      <th>proprietary</th>
+      <td><p>String. ID given by the <code>trading_orders</code> method.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>S4 rRofexConnection object.</p>
-    <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
-
-    <p>You can use accesors to get information about the Object by using:</p><ul>
-<li><p><code>token(conn)</code></p></li>
-<li><p><code>base_url(conn)</code></p></li>
-<li><p><code>login_date_time(conn)</code></p></li>
-</ul>
-
+    <p>List with outputs like state of the order.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Other connection functions: 
-<code><a href='trading_login.html'>trading_login</a>()</code></p></div>
+    <div class='dont-index'><p>Other order placements functions: 
+<code><a href='trading_new_order.html'>trading_new_order</a>()</code></p></div>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

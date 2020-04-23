@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>View Orders — trading_orders • rRofex</title>
+<title>Changelog • rRofex</title>
 
 
 <!-- jquery -->
@@ -39,11 +39,10 @@
 
 
 
-<meta property="og:title" content="View Orders — trading_orders" />
-<meta property="og:description" content="The method trading_orders is used to see each order sent by Account." />
+<meta property="og:title" content="Changelog" />
 
 
-<meta name="robots" content="noindex">
+
 
 <!-- mathjax -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script>
@@ -59,7 +58,7 @@
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-reference-topic">
+    <div class="container template-news">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -72,7 +71,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rRofex</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.0.1.0001</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.0001</span>
       </span>
     </div>
 
@@ -111,44 +110,114 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>View Orders</h1>
-    <small class="dont-index">Source: <a href='https://github.com/matbarofex/issues/blob/master/R/functions.R'><code>R/functions.R</code></a></small>
-    <div class="hidden name"><code>trading_orders.Rd</code></div>
+      <h1 data-toc-skip>Changelog <small></small></h1>
+      <small>Source: <a href='https://github.com/matbarofex/issues/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
-    <div class="ref-description">
-    <p>The method <code>trading_orders</code> is used to see each order sent by Account.</p>
-    </div>
-
-    <pre class="usage"><span class='fu'>trading_orders</span>(<span class='no'>connection</span>, <span class='no'>account</span>)</pre>
-
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>connection</th>
-      <td><p>S4. <strong>Mandaroty</strong> Formal rRofexConnection class object</p></td>
-    </tr>
-    <tr>
-      <th>account</th>
-      <td><p>String. Account Number / Account ID.</p></td>
-    </tr>
-    </table>
-
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
-
-    <p>A data frame.</p>
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
-
-    <div class='dont-index'><p>Other order management functions: 
-<code><a href='trading_lookup.html'>trading_lookup</a>()</code></p></div>
-
+    <div id="rrofex-0010001" class="section level1">
+<h1 class="page-header" data-toc-text="0.0.1.0001">
+<a href="#rrofex-0010001" class="anchor"></a>rRofex 0.0.1.0001</h1>
+<div id="changes" class="section level2">
+<h2 class="hasAnchor">
+<a href="#changes" class="anchor"></a>Changes</h2>
+<ul>
+<li>Added a <code>NEWS.md</code> file to track changes to the package.</li>
+<li>Using <code>pkgdown</code> to build the documentation.</li>
+</ul>
+</div>
+</div>
+    <div id="rrofex-0010000" class="section level1">
+<h1 class="page-header" data-toc-text="0.0.1.0000">
+<a href="#rrofex-0010000" class="anchor"></a>rRofex 0.0.1.0000</h1>
+<div id="new-features" class="section level2">
+<h2 class="hasAnchor">
+<a href="#new-features" class="anchor"></a>New Features</h2>
+<ul>
+<li>
+<em>xOMS</em> support. Ask your broker for credentials.</li>
+<li>Use of S4 objects to save connections. This means that you can have different connections on the same R session.</li>
+</ul>
+</div>
+<div id="changes-1" class="section level2">
+<h2 class="hasAnchor">
+<a href="#changes-1" class="anchor"></a>Changes</h2>
+<ul>
+<li>Close issue <a href='https://github.com/matbarofex/issues/issues/12'>#12</a> now that the connection parameters can be access with <code>token()</code>, <code>base_url()</code> and <code>login_date_time()</code>
+</li>
+</ul>
+</div>
+<div id="important" class="section level2">
+<h2 class="hasAnchor">
+<a href="#important" class="anchor"></a>Important</h2>
+<p><strong>This version is not backwards compatible due to the way connections work now.</strong></p>
+</div>
+</div>
+    <div id="rrofex-0009008" class="section level1">
+<h1 class="page-header" data-toc-text="0.0.0.9008">
+<a href="#rrofex-0009008" class="anchor"></a>rRofex 0.0.0.9008</h1>
+<div id="new-features-1" class="section level2">
+<h2 class="hasAnchor">
+<a href="#new-features-1" class="anchor"></a>New Features</h2>
+<ul>
+<li>New <em>time_in_force</em> available. Now supports GTD.</li>
+<li>New Iceberg order.</li>
+</ul>
+</div>
+<div id="changes-2" class="section level2">
+<h2 class="hasAnchor">
+<a href="#changes-2" class="anchor"></a>Changes</h2>
+<ul>
+<li>Sovled issue <a href='https://github.com/matbarofex/issues/issues/8'>#8</a></li>
+</ul>
+</div>
+<div id="acknowledgement" class="section level2">
+<h2 class="hasAnchor">
+<a href="#acknowledgement" class="anchor"></a>Acknowledgement</h2>
+<ul>
+<li>Thanks <a href='https://github.com/jfgomezok'>@jfgomezok</a> for your PR solving <a href='https://github.com/matbarofex/issues/issues/8'>#8</a></li>
+</ul>
+</div>
+</div>
+    <div id="rrofex-0009007" class="section level1">
+<h1 class="page-header" data-toc-text="0.0.0.9007">
+<a href="#rrofex-0009007" class="anchor"></a>rRofex 0.0.0.9007</h1>
+<div id="new-features-2" class="section level2">
+<h2 class="hasAnchor">
+<a href="#new-features-2" class="anchor"></a>New Features</h2>
+<ul>
+<li>New <em>time_in_force</em> available. Now supports IOC and FOK.</li>
+</ul>
+</div>
+<div id="changes-3" class="section level2">
+<h2 class="hasAnchor">
+<a href="#changes-3" class="anchor"></a>Changes</h2>
+<ul>
+<li><a href='https://github.com/matbarofex/issues/issues/6'>#6</a> Corrected mistakes on the documentation.</li>
+</ul>
+</div>
+<div id="bug-fixes" class="section level2">
+<h2 class="hasAnchor">
+<a href="#bug-fixes" class="anchor"></a>BUG FIXES</h2>
+<ul>
+<li><a href='https://github.com/matbarofex/issues/issues/6'>#6</a> ‘Environment’ variable for log-in was misspelled.</li>
+</ul>
+</div>
+<div id="acknowledgement-1" class="section level2">
+<h2 class="hasAnchor">
+<a href="#acknowledgement-1" class="anchor"></a>Acknowledgement</h2>
+<ul>
+<li>Thanks <a href='https://github.com/kenarab'>@kenarab</a> for your PR solving <a href='https://github.com/matbarofex/issues/issues/6'>#6</a></li>
+</ul>
+</div>
+</div>
   </div>
+
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
       <h2 data-toc-skip>Contents</h2>
     </nav>
   </div>
+
 </div>
 
 

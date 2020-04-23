@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Cancel Order Sent to the Market — trading_cancel_order • rRofex</title>
+<title>rRofex: Interface to ROFEX APIs — rRofex-package • rRofex</title>
 
 
 <!-- jquery -->
@@ -39,11 +39,11 @@
 
 
 
-<meta property="og:title" content="Cancel Order Sent to the Market — trading_cancel_order" />
-<meta property="og:description" content="The method trading_cancel_order is use to send orders." />
+<meta property="og:title" content="rRofex: Interface to ROFEX APIs — rRofex-package" />
+<meta property="og:description" content="Provides a convenient wrapper for consuming data from ROFEX APIs: Trading API, Risk API and BackOffice API." />
 
 
-<meta name="robots" content="noindex">
+
 
 <!-- mathjax -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script>
@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rRofex</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.0.1.0001</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.0001</span>
       </span>
     </div>
 
@@ -111,41 +111,25 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Cancel Order Sent to the Market</h1>
-    <small class="dont-index">Source: <a href='https://github.com/matbarofex/issues/blob/master/R/functions.R'><code>R/functions.R</code></a></small>
-    <div class="hidden name"><code>trading_cancel_order.Rd</code></div>
+    <h1>rRofex: Interface to ROFEX APIs</h1>
+    <small class="dont-index">Source: <a href='https://github.com/matbarofex/issues/blob/master/R/rRofex.R'><code>R/rRofex.R</code></a></small>
+    <div class="hidden name"><code>rRofex-package.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>The method <code>trading_cancel_order</code> is use to send orders.</p>
+    <p>Provides a convenient wrapper for consuming data from ROFEX APIs: Trading API, Risk API and BackOffice API.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>trading_cancel_order</span>(<span class='no'>connection</span>, <span class='no'>order_id</span>, <span class='no'>proprietary</span>)</pre>
 
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>connection</th>
-      <td><p>S4. <strong>Mandaroty</strong> Formal rRofexConnection class object</p></td>
-    </tr>
-    <tr>
-      <th>order_id</th>
-      <td><p>String. clOrdId given by the <code>trading_orders</code> method.</p></td>
-    </tr>
-    <tr>
-      <th>proprietary</th>
-      <td><p>String. ID given by the <code>trading_orders</code> method.</p></td>
-    </tr>
-    </table>
 
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
-
-    <p>List with outputs like state of the order.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Other order placements functions: 
-<code><a href='trading_new_order.html'>trading_new_order</a>()</code></p></div>
+    <div class='dont-index'><p>Useful links:</p><ul>
+<li><p><a href='https://github.com/matbarofex'>https://github.com/matbarofex</a></p></li>
+<li><p>Report bugs at <a href='https://github.com/matbarofex/issues'>https://github.com/matbarofex/issues</a></p></li>
+</ul>
+
+</div>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
