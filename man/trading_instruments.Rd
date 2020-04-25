@@ -2,24 +2,67 @@
 % Please edit documentation in R/functions.R
 \name{trading_instruments}
 \alias{trading_instruments}
-\title{Primary API Insturments}
+\title{List of Instruments}
 \usage{
-trading_instruments(connection, request, sec_detailed = FALSE)
+trading_instruments(
+  connection,
+  request,
+  sec_detailed = FALSE,
+  market_id = "ROFX",
+  segment_id,
+  cfi_code,
+  sec_type
+)
 }
 \arguments{
 \item{connection}{S4. \strong{Mandaroty} Formal rRofexConnection class object}
 
-\item{request}{String. The type of request that you are making:
+\item{request}{String. \strong{Mandaroty} The type of request that you are making:
 \itemize{
-\item segments: Available Market Segments
-\item securities: Available Instruments listed on Rofex
+\item \strong{segments}: List available market segments
+\item \strong{securities}: List available instruments listed on Matba Rofex. \emph{Depends on 'sec_detailed'}.
+\item \strong{by_segment}: List available instruments searching by market segment. \emph{Depends on 'market_id' and 'segment_id'}
+\item \strong{by_cfi_code}: List available instruments searching by CFI Code. \emph{Depends on 'cfi_code'}
+\item \strong{by_type}: List available instruments searching by Instrument Type. See section Instrument Types. \emph{Depends on 'sec_detailed' and 'sec_type'}.
 }}
 
-\item{sec_detailed}{Logical. Optional for environment=securities. Brings aditional information like segment, price, minimal/maximal trading quantity, settlement date, etc.}
+\item{sec_detailed}{Logical. Optional for request='securities'. Brings aditional information like segment, price, minimal/maximal trading quantity, settlement date, etc.}
+
+\item{market_id}{String. Needed for request='by_segment'. Market ID.
+\itemize{
+\item \strong{ROFX}: Matba Rofex
+}}
+
+\item{segment_id}{String. Needed for request='by_segment'. Market Segment ID.
+\itemize{
+\item \strong{DDF}: Financial Derivatives
+\item \strong{DDA}: Agropecuarial Derivatives
+\item \strong{DUAL}: Other Derivatives
+\item \strong{MERV}: S&P Merval
+}}
+
+\item{cfi_code}{String. Needed for request='by_cfi_code'. CFI Code. See \url{https://www.quotemedia.com/apifeeds/cfi_code}}
+
+\item{sec_type}{String. Needed for request='by_type'.
+\itemize{
+\item \strong{E}: Equities
+\item \strong{D}: Debt
+\item \strong{C}: Collective Investment Vehicles
+\item \strong{R}: Entitlements (Rights)
+\item \strong{O}: Listed Options
+\item \strong{F}: Futures
+\item \strong{T}: Referencial Instruments
+\item \strong{M}: Others
+}}
 }
 \value{
-If correct, it will load a data frame.
+If correct, it will load a tibble data frame
 }
 \description{
-\code{trading_instruments} list segments and instruments details currently available in Primary API.
+Method to list segments and instruments currently available through the Trading API.
 }
+\seealso{
+Other reference data functions: 
+\code{\link{trading_instruments_fronts}()}
+}
+\concept{reference data functions}

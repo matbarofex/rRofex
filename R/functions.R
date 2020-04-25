@@ -2,6 +2,7 @@
 
 #' @export trading_login
 #' @export trading_instruments
+#' @export trading_instruments_fronts
 #' @export trading_md
 #' @export trading_mdh
 #' @export trading_new_order
@@ -74,8 +75,8 @@ rRofex_connection <- function(token, base_url) {
 #' conn <- trading_login(username = "pepe", password = "pepino", base_url = "http://api.remarkets.primary.com.ar")
 #' }
 trading_login <- function(username, password, base_url) {
-  if (missing(username) | missing(password)) stop("Username and Password are needed.")
-  if (missing(base_url)) stop("BaseURL is needed.")
+  if (missing(username) || missing(password)) stop("Username and Password are needed.")
+  if (missing(base_url)) stop("'base_url' is needed.")
 
   url <- glue(base_url, "/auth/getToken")
 
@@ -108,56 +109,187 @@ trading_login <- function(username, password, base_url) {
 
 # Primary Instruments ---------------------------
 
-#' @title Primary API Insturments
+#' @title List of Instruments
 #'
-#' @description \code{trading_instruments} list segments and instruments details currently available in Primary API.
+#' @description Method to list segments and instruments currently available through the Trading API.
 #'
 #' @param connection S4. \strong{Mandaroty} Formal rRofexConnection class object
-#' @param request String. The type of request that you are making:
+#' @param request String. \strong{Mandaroty} The type of request that you are making:
 #' \itemize{
-#' \item segments: Available Market Segments
-#' \item securities: Available Instruments listed on Rofex
+#' \item \strong{segments}: List available market segments
+#' \item \strong{securities}: List available instruments listed on Matba Rofex. \emph{Depends on 'sec_detailed'}.
+#' \item \strong{by_segment}: List available instruments searching by market segment. \emph{Depends on 'market_id' and 'segment_id'}
+#' \item \strong{by_cfi_code}: List available instruments searching by CFI Code. \emph{Depends on 'cfi_code'}
+#' \item \strong{by_type}: List available instruments searching by Instrument Type. See section Instrument Types. \emph{Depends on 'sec_detailed' and 'sec_type'}.
 #' }
-#' @param sec_detailed Logical. Optional for environment=securities. Brings aditional information like segment, price, minimal/maximal trading quantity, settlement date, etc.
+#' @param sec_detailed Logical. Optional for request='securities'. Brings aditional information like segment, price, minimal/maximal trading quantity, settlement date, etc.
+#' @param market_id String. Needed for request='by_segment'. Market ID.
+#' \itemize{
+#' \item \strong{ROFX}: Matba Rofex
+#' }
+#' @param segment_id String. Needed for request='by_segment'. Market Segment ID.
+#' \itemize{
+#' \item \strong{DDF}: Financial Derivatives
+#' \item \strong{DDA}: Agropecuarial Derivatives
+#' \item \strong{DUAL}: Other Derivatives
+#' \item \strong{MERV}: S&P Merval
+#' }
+#' @param cfi_code String. Needed for request='by_cfi_code'. CFI Code. See \url{https://www.quotemedia.com/apifeeds/cfi_code}
+#' @param sec_type String. Needed for request='by_type'.
+#' \itemize{
+#' \item \strong{E}: Equities
+#' \item \strong{D}: Debt
+#' \item \strong{C}: Collective Investment Vehicles
+#' \item \strong{R}: Entitlements (Rights)
+#' \item \strong{O}: Listed Options
+#' \item \strong{F}: Futures
+#' \item \strong{T}: Referencial Instruments
+#' \item \strong{M}: Others
+#' }
 #'
-#' @return If correct, it will load a data frame.
-trading_instruments <- function(connection, request, sec_detailed = FALSE) {
+#' @return If correct, it will load a tibble data frame
+#'
+#' @family reference data functions
+trading_instruments <- function(connection, request, sec_detailed = FALSE, market_id = "ROFX", segment_id, cfi_code, sec_type) {
 
   if (missing(connection)) stop("Connection cannot be empty.")
   if (!isS4(connection) || rev(class(connection)) != "rRofexConnection" || !validObject(connection)) stop("The 'connection' must be a valid 'rRofexConnection'.")
   if (as.Date(connection@login_date_time) != Sys.Date()) stop("The 'acyRsaConnection' is no longer valid. Please log-in again.")
 
-  if (!request %in% c("segments", "securities")) stop("Invalid 'request' parameter.")
+  if (missing(request)) stop("'request' parameter is required.")
+  if (some(request, ~ !.x %in% c("segments", "securities", "by_segment", "by_cfi_code", "by_type"))) stop("'request' parameter is invalid. See documentation.")
+  if (length(request) > 1) stop("'request' parameter can not be more than one.")
 
-  # Segments
+  if (request == 'by_segment' && some(market_id, ~ !.x %in% c("ROFX"))) stop("'market_id' parameter is invalid. See documentation.")
+  if (request == 'by_segment' && missing(segment_id)) stop("'segment_id' parameter is required when searching by Segment.")
+  if (request == 'by_segment' && length(segment_id) > 1) stop("'segment_id' parameter can not be more than one.")
+  if (request == 'by_segment' && some(segment_id, ~ !.x %in% c("DDF", "DDA", "DUAL", "MERV"))) stop("'segment_id' parameter is invalid. See documentation.")
+
+  if (request == 'by_cfi_code' && missing(cfi_code)) stop("'cfi_code' parameter is required when searching by CFI Code.")
+  if (request == 'by_cfi_code' && length(cfi_code) > 1) stop("'cfi_code' parameter can not be more than one.")
+
+  if (request == 'by_type' && missing(sec_type)) stop("'sec_type' parameter is required when searching by Type")
+  if (request == 'by_type' && some(sec_type, ~ !.x %in% c("E", "D", "C", "R", "O", "F", "T", "M"))) stop("'sec_type' parameter is invalid. See documentation.")
+
+  # Query
   query <- if (request == 'segments') {
-    GET(url = paste0(connection@base_url, "/rest/segment/all"),
+    GET(url = glue(connection@base_url, "/rest/segment/all"),
         add_headers(.headers = c("X-Auth-Token" = connection@token))
         )
-  } else if (request == 'securities' & sec_detailed == F) {
-    GET(url = paste0(connection@base_url, "/rest/instruments/all"),
+  } else if (request %in% c('securities', 'by_type') & sec_detailed == F) {
+    GET(url = glue(connection@base_url, "/rest/instruments/all"),
         add_headers(.headers = c("X-Auth-Token" = connection@token))
     )
-  } else if (request == 'securities' & sec_detailed == T) {
-    GET(url = paste0(connection@base_url, "/rest/instruments/details"),
+  } else if (request %in% c('securities', 'by_type') & sec_detailed == T) {
+    GET(url = glue(connection@base_url, "/rest/instruments/details"),
+        add_headers(.headers = c("X-Auth-Token" = connection@token))
+    )
+  } else if (request == 'by_segment') {
+    GET(url = glue(connection@base_url, "/rest/instruments/bySegment"),
+        query = list(
+          MarketID = market_id,
+          MarketSegmentID = segment_id),
+        add_headers(.headers = c("X-Auth-Token" = connection@token))
+    )
+  } else if (request == 'by_cfi_code') {
+    GET(url = glue(connection@base_url, "/rest/instruments/byCFICode"),
+        query = list(
+          CFICode = cfi_code),
         add_headers(.headers = c("X-Auth-Token" = connection@token))
     )
   }
 
-  if (query$status_code != 200 | content(query)$status != "OK") stop("The query returned an unexpected result.")
+  if (status_code(query) != 200) {
 
-  result <- fromJSON(content(x = query, as = "text"))
+    warn_for_status(query)
+    data <- NULL
 
-  # Return
-  data <- if (request == 'segments') {
-    result$segments
-  } else if (request == 'securities' & sec_detailed == F) {
-    flatten(result$instruments)
-  } else if (request == 'securities' & sec_detailed == T) {
-    flatten(result$instruments)
+  } else {
+
+    message_for_status(query)
+    message("\r")
+
+    data <- fromJSON(toJSON(content(query)))
+
+    if (request == 'segments') {
+
+      data <- data$segments %>%
+        mutate_all(., unlist)
+
+    } else if (request %in% c('securities', 'by_type') & sec_detailed == F) {
+
+      data <- data$instruments %>%
+        jsonlite::flatten(recursive = F) %>%
+        mutate_all(., unlist) %>%
+        rename_all(., .funs = list(~gsub(pattern = ".+\\.", replacement = "", x = .)))
+    } else if (request %in% c('securities', 'by_type') & sec_detailed == T) {
+
+      data <- data$instruments %>%
+        jsonlite::flatten(x = ., recursive = F) %>%
+        mutate_all(., ~ replace_na(., replace = NA)) %>%
+        mutate_all(., unlist) %>%
+        select(-segment.marketId) %>%
+        rename_all(., .funs = list(~gsub(pattern = ".+\\.", replacement = "", x = .))) %>%
+        mutate(maturityDate = as.Date(maturityDate, format = "%Y%m%d"))
+
+    } else if (request == 'by_segment') {
+
+      data <- data$instruments %>%
+        mutate_all(., unlist)
+
+    } else if (request == 'by_cfi_code') {
+
+      data <- data$instruments %>%
+        mutate_all(., unlist)
+    }
+
+    if (request == 'by_type') {
+      data <- data %>%
+        filter(grepl(glue("^[", glue_collapse(sec_type, sep = "|"), "]"), cficode)) %>%
+        arrange(cficode)
+    }
+
+    data <- data %>%
+      rename_all(., .funs = list(~gsub(pattern = "(^.)", replacement = "\\U\\1", x = ., perl = TRUE))) %>%
+      as_tibble()
+
   }
 
   return(data)
+
+}
+
+
+#' @title Front Month of Futures
+#'
+#' @description List all front month contracts for futures.
+#'
+#' @param connection S4. \strong{Mandaroty} Formal rRofexConnection class object
+#'
+#' @return If correct, it will load a tibble data frame
+#'
+#' @family reference data functions
+trading_instruments_fronts <- function(connection) {
+
+  if (missing(connection)) stop("Connection cannot be empty.")
+  if (!isS4(connection) || rev(class(connection)) != "rRofexConnection" || !validObject(connection)) stop("The 'connection' must be a valid 'rRofexConnection'.")
+  if (as.Date(connection@login_date_time) != Sys.Date()) stop("The 'acyRsaConnection' is no longer valid. Please log-in again.")
+
+
+  data <- trading_instruments(connection = connection, request = "by_type", sec_type = "F", sec_detailed = T)
+
+  if (!is_null(data)) {
+    data <- data %>%
+      mutate(Underlying = trimws(gsub(pattern = "(.)?([[:alpha:]]{3})?([0-9]{2})?(/)?([0-9]{2})?( )?((A|Dispo|M)||([0-9]){2})$", replacement = "\\1", x = Symbol, ignore.case = T), which = "both")) %>%
+      group_by(Underlying) %>%
+      arrange(MaturityDate) %>%
+      summarise(MaturityDate = first(MaturityDate), Symbol = first(Symbol))
+  } else {
+    data <- NULL
+  }
+
+  return(data)
+
 }
 
 # Market Data ---------------------------

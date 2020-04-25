@@ -1,3 +1,10 @@
+# rRofex 0.0.1.0002
+
+## Changes
+
+* Added new parameters to `trading_instruments()`. Now you can search instruments by Segment, Type and CFI Code.
+* Added new method `trading_instruments_fronts()` to list only front month future contracts. Thanks @jfgomezok for the request and clarification on how to show the data.
+
 # rRofex 0.0.1.0001
 
 ## Changes

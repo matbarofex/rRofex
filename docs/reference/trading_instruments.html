@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Primary API Insturments — trading_instruments • rRofex</title>
+<title>List of Instruments — trading_instruments • rRofex</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Primary API Insturments — trading_instruments" />
-<meta property="og:description" content="trading_instruments list segments and instruments details currently available in Primary API." />
+<meta property="og:title" content="List of Instruments — trading_instruments" />
+<meta property="og:description" content="Method to list segments and instruments currently available through the Trading API." />
 
 
 
@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rRofex</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.0001</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.0002</span>
       </span>
     </div>
 
@@ -111,16 +111,24 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Primary API Insturments</h1>
+    <h1>List of Instruments</h1>
     <small class="dont-index">Source: <a href='https://github.com/matbarofex/issues/blob/master/R/functions.R'><code>R/functions.R</code></a></small>
     <div class="hidden name"><code>trading_instruments.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p><code>trading_instruments</code> list segments and instruments details currently available in Primary API.</p>
+    <p>Method to list segments and instruments currently available through the Trading API.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>trading_instruments</span>(<span class='no'>connection</span>, <span class='no'>request</span>, <span class='kw'>sec_detailed</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>trading_instruments</span>(
+  <span class='no'>connection</span>,
+  <span class='no'>request</span>,
+  <span class='kw'>sec_detailed</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>market_id</span> <span class='kw'>=</span> <span class='st'>"ROFX"</span>,
+  <span class='no'>segment_id</span>,
+  <span class='no'>cfi_code</span>,
+  <span class='no'>sec_type</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -131,20 +139,59 @@
     </tr>
     <tr>
       <th>request</th>
-      <td><p>String. The type of request that you are making:</p><ul>
-<li><p>segments: Available Market Segments</p></li>
-<li><p>securities: Available Instruments listed on Rofex</p></li>
+      <td><p>String. <strong>Mandaroty</strong> The type of request that you are making:</p><ul>
+<li><p><strong>segments</strong>: List available market segments</p></li>
+<li><p><strong>securities</strong>: List available instruments listed on Matba Rofex. <em>Depends on 'sec_detailed'</em>.</p></li>
+<li><p><strong>by_segment</strong>: List available instruments searching by market segment. <em>Depends on 'market_id' and 'segment_id'</em></p></li>
+<li><p><strong>by_cfi_code</strong>: List available instruments searching by CFI Code. <em>Depends on 'cfi_code'</em></p></li>
+<li><p><strong>by_type</strong>: List available instruments searching by Instrument Type. See section Instrument Types. <em>Depends on 'sec_detailed' and 'sec_type'</em>.</p></li>
 </ul></td>
     </tr>
     <tr>
       <th>sec_detailed</th>
-      <td><p>Logical. Optional for environment=securities. Brings aditional information like segment, price, minimal/maximal trading quantity, settlement date, etc.</p></td>
+      <td><p>Logical. Optional for request='securities'. Brings aditional information like segment, price, minimal/maximal trading quantity, settlement date, etc.</p></td>
+    </tr>
+    <tr>
+      <th>market_id</th>
+      <td><p>String. Needed for request='by_segment'. Market ID.</p><ul>
+<li><p><strong>ROFX</strong>: Matba Rofex</p></li>
+</ul></td>
+    </tr>
+    <tr>
+      <th>segment_id</th>
+      <td><p>String. Needed for request='by_segment'. Market Segment ID.</p><ul>
+<li><p><strong>DDF</strong>: Financial Derivatives</p></li>
+<li><p><strong>DDA</strong>: Agropecuarial Derivatives</p></li>
+<li><p><strong>DUAL</strong>: Other Derivatives</p></li>
+<li><p><strong>MERV</strong>: S&amp;P Merval</p></li>
+</ul></td>
+    </tr>
+    <tr>
+      <th>cfi_code</th>
+      <td><p>String. Needed for request='by_cfi_code'. CFI Code. See <a href='https://www.quotemedia.com/apifeeds/cfi_code'>https://www.quotemedia.com/apifeeds/cfi_code</a></p></td>
+    </tr>
+    <tr>
+      <th>sec_type</th>
+      <td><p>String. Needed for request='by_type'.</p><ul>
+<li><p><strong>E</strong>: Equities</p></li>
+<li><p><strong>D</strong>: Debt</p></li>
+<li><p><strong>C</strong>: Collective Investment Vehicles</p></li>
+<li><p><strong>R</strong>: Entitlements (Rights)</p></li>
+<li><p><strong>O</strong>: Listed Options</p></li>
+<li><p><strong>F</strong>: Futures</p></li>
+<li><p><strong>T</strong>: Referencial Instruments</p></li>
+<li><p><strong>M</strong>: Others</p></li>
+</ul></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>If correct, it will load a data frame.</p>
+    <p>If correct, it will load a tibble data frame</p>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p>Other reference data functions: 
+<code><a href='trading_instruments_fronts.html'>trading_instruments_fronts</a>()</code></p></div>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

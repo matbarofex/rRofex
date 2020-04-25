@@ -6,14 +6,15 @@ authors:
 
 reference:
 - title: Authentication
-  desc:  Methods to obtain a valid token and/or generate a valid rRofexConnection object.
+  desc: Methods to obtain a valid token and/or generate a valid rRofexConnection object.
 - contents:
   - rRofex_connection
   - trading_login
 - title: Reference Data
-- desc: Methods to obtain information about products
+- desc: Methods to obtain information about products.
 - contents:
   - trading_instruments
+  - trading_instruments_fronts
 - title: Market Data
 - desc: Real-time and historical market data
 - contents:
