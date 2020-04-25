@@ -1,3 +1,9 @@
+# rRofex 0.0.1.0003
+
+## Changes
+
+* Improved metadata on `trading_instruments()` method. It has been added: Product Type, Ticker, Option Type, Strike Price, Underlying, Settlement. 
+
 # rRofex 0.0.1.0002
 
 ## Changes
