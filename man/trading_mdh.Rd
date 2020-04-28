@@ -2,17 +2,24 @@
 % Please edit documentation in R/functions.R
 \name{trading_mdh}
 \alias{trading_mdh}
-\title{Primary API Historical Market Data}
+\title{Historical Market Data}
 \usage{
-trading_mdh(connection, market_id = "ROFX", symbol, date, date_from, date_to)
+trading_mdh(
+  connection,
+  market_id = "ROFX",
+  symbol,
+  date,
+  date_from,
+  date_to,
+  tidy = FALSE
+)
 }
 \arguments{
 \item{connection}{S4. \strong{Mandaroty} Formal rRofexConnection class object}
 
 \item{market_id}{String. Market to wich we are going to connect.
 \itemize{
-\item ROFX. Rofex: Rosario Futures Exchange.
-\item MATBA. Matba: Mercado a Termino de Buenos Aires.
+\item \strong{ROFX} - Matba Rofex.
 }}
 
 \item{symbol}{String. Use \code{\link{trading_instruments}} to see which symbols are available.}
@@ -22,12 +29,14 @@ trading_mdh(connection, market_id = "ROFX", symbol, date, date_from, date_to)
 \item{date_from}{String. Used together with 'date_to'.}
 
 \item{date_to}{String. Userd together with 'date_from'.}
+
+\item{tidy}{Logical. Data arranged on a tidy format.}
 }
 \value{
 If correct, it will load a data frame.
 }
 \description{
-\code{trading_mdh} retrivies Historical Trades for a given instrument.
+Access Historical Trades for a given instrument.
 }
 \seealso{
 Other market data functions: 

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Primary API Market Data Real Time — trading_md • rRofex</title>
+<title>Market Data Real Time — trading_md • rRofex</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Primary API Market Data Real Time — trading_md" />
-<meta property="og:description" content="trading_md retrivies Market Data in Real Time." />
+<meta property="og:title" content="Market Data Real Time — trading_md" />
+<meta property="og:description" content="This method brings Market Data in Real Time." />
 
 
 
@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rRofex</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.0003</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.4.0</span>
       </span>
     </div>
 
@@ -111,13 +111,13 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Primary API Market Data Real Time</h1>
+    <h1>Market Data Real Time</h1>
     <small class="dont-index">Source: <a href='https://github.com/matbarofex/rRofex/blob/master/R/functions.R'><code>R/functions.R</code></a></small>
     <div class="hidden name"><code>trading_md.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p><code>trading_md</code> retrivies Market Data in Real Time.</p>
+    <p>This method brings Market Data in Real Time.</p>
     </div>
 
     <pre class="usage"><span class='fu'>trading_md</span>(
@@ -125,7 +125,8 @@
   <span class='kw'>market_id</span> <span class='kw'>=</span> <span class='st'>"ROFX"</span>,
   <span class='no'>symbol</span>,
   <span class='kw'>entries</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"BI"</span>, <span class='st'>"OF"</span>, <span class='st'>"LA"</span>, <span class='st'>"OP"</span>, <span class='st'>"CL"</span>, <span class='st'>"SE"</span>, <span class='st'>"OI"</span>),
-  <span class='kw'>depth</span> <span class='kw'>=</span> <span class='fl'>1L</span>
+  <span class='kw'>depth</span> <span class='kw'>=</span> <span class='fl'>1L</span>,
+  <span class='kw'>tidy</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -133,39 +134,43 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>connection</th>
-      <td><p>S4. <strong>Mandaroty</strong> Formal rRofexConnection class object</p></td>
+      <td><p>S4. <strong>Mandaroty</strong>. Formal rRofexConnection class object</p></td>
     </tr>
     <tr>
       <th>market_id</th>
       <td><p>String. Market to wich you are going to connect.</p><ul>
-<li><p>ROFX. Matba Rofex</p></li>
+<li><p><strong>ROFX</strong> - Matba Rofex</p></li>
 </ul></td>
     </tr>
     <tr>
       <th>symbol</th>
-      <td><p>String. Use <code><a href='trading_instruments.html'>trading_instruments</a></code> to see which symbols are available.</p></td>
+      <td><p>String. <strong>Mandaroty</strong>. Use <code><a href='trading_instruments.html'>trading_instruments</a></code> to see which symbols are available.</p></td>
     </tr>
     <tr>
       <th>entries</th>
-      <td><p>Vector of Strings. It contains the information to be required:</p><ul>
-<li><p>BI. Bid.</p></li>
-<li><p>OF. Offer.</p></li>
-<li><p>LA. Last Available Price.</p></li>
-<li><p>OP. Open Price.</p></li>
-<li><p>CL. Close Price.</p></li>
-<li><p>SE. Settlement Price.</p></li>
-<li><p>OI. Open Interest.</p></li>
+      <td><p>Vector of Strings. It contains the information to be queried:</p><ul>
+<li><p><strong>BI</strong> - Bid.</p></li>
+<li><p><strong>OF</strong> - Offer.</p></li>
+<li><p><strong>LA</strong> - Last Available Price.</p></li>
+<li><p><strong>OP</strong> - Open Price.</p></li>
+<li><p><strong>CL</strong> - Close Price.</p></li>
+<li><p><strong>SE</strong> - Settlement Price.</p></li>
+<li><p><strong>OI</strong> - Open Interest.</p></li>
 </ul></td>
     </tr>
     <tr>
       <th>depth</th>
-      <td><p>Integer. Depth of the book to be retrivied.</p></td>
+      <td><p>Integer. Depth of the book.</p></td>
+    </tr>
+    <tr>
+      <th>tidy</th>
+      <td><p>Logical. Data arranged on a tidy format.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>If correct, it will load a data frame.</p>
+    <p>If correct, it will load a tibble data frame</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other market data functions: 

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Primary API Historical Market Data — trading_mdh • rRofex</title>
+<title>Historical Market Data — trading_mdh • rRofex</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Primary API Historical Market Data — trading_mdh" />
-<meta property="og:description" content="trading_mdh retrivies Historical Trades for a given instrument." />
+<meta property="og:title" content="Historical Market Data — trading_mdh" />
+<meta property="og:description" content="Access Historical Trades for a given instrument." />
 
 
 
@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rRofex</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.0003</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.4.0</span>
       </span>
     </div>
 
@@ -111,16 +111,24 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Primary API Historical Market Data</h1>
+    <h1>Historical Market Data</h1>
     <small class="dont-index">Source: <a href='https://github.com/matbarofex/rRofex/blob/master/R/functions.R'><code>R/functions.R</code></a></small>
     <div class="hidden name"><code>trading_mdh.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p><code>trading_mdh</code> retrivies Historical Trades for a given instrument.</p>
+    <p>Access Historical Trades for a given instrument.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>trading_mdh</span>(<span class='no'>connection</span>, <span class='kw'>market_id</span> <span class='kw'>=</span> <span class='st'>"ROFX"</span>, <span class='no'>symbol</span>, <span class='no'>date</span>, <span class='no'>date_from</span>, <span class='no'>date_to</span>)</pre>
+    <pre class="usage"><span class='fu'>trading_mdh</span>(
+  <span class='no'>connection</span>,
+  <span class='kw'>market_id</span> <span class='kw'>=</span> <span class='st'>"ROFX"</span>,
+  <span class='no'>symbol</span>,
+  <span class='no'>date</span>,
+  <span class='no'>date_from</span>,
+  <span class='no'>date_to</span>,
+  <span class='kw'>tidy</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -132,8 +140,7 @@
     <tr>
       <th>market_id</th>
       <td><p>String. Market to wich we are going to connect.</p><ul>
-<li><p>ROFX. Rofex: Rosario Futures Exchange.</p></li>
-<li><p>MATBA. Matba: Mercado a Termino de Buenos Aires.</p></li>
+<li><p><strong>ROFX</strong> - Matba Rofex.</p></li>
 </ul></td>
     </tr>
     <tr>
@@ -151,6 +158,10 @@
     <tr>
       <th>date_to</th>
       <td><p>String. Userd together with 'date_from'.</p></td>
+    </tr>
+    <tr>
+      <th>tidy</th>
+      <td><p>Logical. Data arranged on a tidy format.</p></td>
     </tr>
     </table>
 

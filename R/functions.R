@@ -90,11 +90,8 @@ trading_login <- function(username, password, base_url) {
     warn_for_status(query)
     NULL
   } else if (typeof(query) == "list" && status_code(query) == 200) {
+    message(glue("Succesfully connected with rRofex to {base_url}..."))
 
-    message_for_status(query)
-    message(glue("
-
-                 Succesfully connected with rRofex to {base_url}..."))
     invisible(rRofex_connection(token = headers(query)$`x-auth-token`, base_url = base_url))
 
   } else {
@@ -206,9 +203,6 @@ trading_instruments <- function(connection, request, sec_detailed = FALSE, marke
     data <- NULL
 
   } else {
-
-    message_for_status(query)
-    message("\r")
 
     data <- fromJSON(toJSON(content(query)))
 
@@ -325,87 +319,111 @@ trading_instruments_fronts <- function(connection) {
 
 # Market Data ---------------------------
 
-#' @title  Primary API Market Data Real Time
+#' @title  Market Data Real Time
 #'
-#' @description \code{trading_md} retrivies Market Data in Real Time.
+#' @description This method brings Market Data in Real Time.
 #'
-#' @param connection S4. \strong{Mandaroty} Formal rRofexConnection class object
+#' @param connection S4. \strong{Mandaroty}. Formal rRofexConnection class object
 #' @param market_id String. Market to wich you are going to connect.
 #' \itemize{
-#' \item ROFX. Matba Rofex
+#' \item \strong{ROFX} - Matba Rofex
 #' }
-#' @param symbol String. Use \code{\link{trading_instruments}} to see which symbols are available.
-#' @param entries Vector of Strings. It contains the information to be required:
+#' @param symbol String. \strong{Mandaroty}. Use \code{\link{trading_instruments}} to see which symbols are available.
+#' @param entries Vector of Strings. It contains the information to be queried:
 #' \itemize{
-#' \item BI. Bid.
-#' \item OF. Offer.
-#' \item LA. Last Available Price.
-#' \item OP. Open Price.
-#' \item CL. Close Price.
-#' \item SE. Settlement Price.
-#' \item OI. Open Interest.
+#' \item \strong{BI} - Bid.
+#' \item \strong{OF} - Offer.
+#' \item \strong{LA} - Last Available Price.
+#' \item \strong{OP} - Open Price.
+#' \item \strong{CL} - Close Price.
+#' \item \strong{SE} - Settlement Price.
+#' \item \strong{OI} - Open Interest.
 #' }
-#' @param depth Integer. Depth of the book to be retrivied.
+#' @param depth Integer. Depth of the book.
+#' @param tidy Logical. Data arranged on a tidy format.
 #'
-#' @return If correct, it will load a data frame.
+#' @return If correct, it will load a tibble data frame
 #'
 #' @family market data functions
-trading_md <- function(connection, market_id='ROFX', symbol, entries=c('BI', 'OF', 'LA', 'OP', 'CL', 'SE', 'OI'), depth=1L) {
+trading_md <- function(connection, market_id='ROFX', symbol, entries=c('BI', 'OF', 'LA', 'OP', 'CL', 'SE', 'OI'), depth = 1L, tidy = FALSE) {
 
   if (missing(connection)) stop("Connection cannot be empty.")
   if (!isS4(connection) || rev(class(connection)) != "rRofexConnection" || !validObject(connection)) stop("The 'connection' must be a valid 'rRofexConnection'.")
   if (as.Date(connection@login_date_time) != Sys.Date()) stop("The 'acyRsaConnection' is no longer valid. Please log-in again.")
 
   if (!market_id %in% c("ROFX")) stop("Invalid 'market_id' parameter.")
+
   if (missing(symbol)) stop("You should pick a 'symbol' to move forward.")
 
-  if (!all(sapply(entries, function(x) x %in% c('BI', 'OF', 'LA', 'OP', 'CL', 'SE', 'OI')))) stop("Invalid 'entries' parameter")
-
-  # Base URL
-  url <- paste0(connection@base_url, "/rest/marketdata/get")
+  if (some(entries, ~ !.x %in% c('BI', 'OF', 'LA', 'OP', 'CL', 'SE', 'OI'))) stop("'entries' parameter is invalid. See documentation.")
 
   # Query
-  query <- GET(url = url,
+  query <- GET(url = glue(connection@base_url, "/rest/marketdata/get"),
                query = list(
-                 marketId=market_id,
-                 symbol=symbol,
-                 entries=paste0(entries, collapse = ","),
-                 depth=depth),
+                 marketId   =     market_id,
+                 symbol     =     symbol,
+                 entries    =     glue_collapse(entries, sep = ","),
+                 depth      =     depth),
                add_headers(.headers = c("X-Auth-Token" = connection@token)))
 
-  if (query$status_code != 200 | content(query)$status != "OK") stop("The query returned an unexpected result.")
+  if (status_code(query) != 200) {
 
-  result <- enframe(unlist(content(x = query)$marketData))
+    warn_for_status(query)
+    message("\r")
+    data <- NULL
 
-  data <- suppressWarnings(result %>%
-    separate(col = name, into = c("entries", "type"), sep = '\\.') %>%
-    mutate(type = case_when(
-      is.na(type) ~ 'value',
-      TRUE ~ type
-    )))
+  } else {
+
+    if (tidy == TRUE) {
+
+      data <- fromJSON(toJSON(content(query), auto_unbox = T, null = "null"))
+
+      data <- data$marketData %>%
+        enframe() %>%
+        mutate(value = map(.x = value, function(x) if(is_null(x)) {NA_real_} else {x})) %>%
+        pivot_wider() %>%
+        mutate_if(., .predicate = ~ class(.[[1]]) == 'list', .funs = ~ modify_depth(.x = ., .depth = 1, ~ replace_na(data = ., replace = NA_real_))) %>%
+        mutate_if(., .predicate = ~ length(unlist(.)) == 1, .funs =  ~ unlist(x = ., recursive = F)) %>%
+        mutate_if(., .predicate = ~ class(.) == 'list', .funs = ~ modify_depth(.x = ., .depth = 1, ~ as_tibble(.))) %>%
+        mutate_if(., .predicate = ~ class(.) == 'list', .funs = ~ modify_depth(.x = ., .depth = 1, ~ mutate_at(.tbl = ., .vars = vars(matches("date")), .funs = ~ as.POSIXct(./1000, origin = "1970-01-01", tz = "America/Buenos_Aires")))) %>%
+        mutate_if(., .predicate = ~ class(.) == 'list', .funs = ~ modify_depth(.x = ., .depth = 1, ~ mutate_at(.tbl = ., .vars = vars(matches("price")), .funs = ~ as.double(.)))) %>%
+        mutate_if(., .predicate = ~ class(.) == 'list', .funs = ~ modify_depth(.x = ., .depth = 1, ~ mutate_at(.tbl = ., .vars = vars(matches("size")), .funs = ~ as.double(.))))
+
+    } else {
+      result <- enframe(unlist(content(x = query)$marketData))
+
+      data <- suppressWarnings(result %>%
+                                 separate(col = name, into = c("entries", "type"), sep = '\\.') %>%
+                                 mutate(type = case_when(
+                                   is.na(type) ~ 'value',
+                                   TRUE ~ type)
+                                   )
+                               )
+      }
+    }
 
   return(data)
 }
 
-#' @title Primary API Historical Market Data
+#' @title Historical Market Data
 #'
-#' @description \code{trading_mdh} retrivies Historical Trades for a given instrument.
+#' @description Access Historical Trades for a given instrument.
 #'
 #' @param connection S4. \strong{Mandaroty} Formal rRofexConnection class object
 #' @param market_id String. Market to wich we are going to connect.
 #' \itemize{
-#' \item ROFX. Rofex: Rosario Futures Exchange.
-#' \item MATBA. Matba: Mercado a Termino de Buenos Aires.
+#' \item \strong{ROFX} - Matba Rofex.
 #' }
 #' @param symbol String. Use \code{\link{trading_instruments}} to see which symbols are available.
 #' @param date String. Date to be queried. With format '\%Y-\%m-\%d'.
 #' @param date_from String. Used together with 'date_to'.
 #' @param date_to String. Userd together with 'date_from'.
+#' @param tidy Logical. Data arranged on a tidy format.
 #'
 #' @return If correct, it will load a data frame.
 #'
 #' @family market data functions
-trading_mdh <- function(connection, market_id='ROFX', symbol, date, date_from, date_to) {
+trading_mdh <- function(connection, market_id='ROFX', symbol, date, date_from, date_to, tidy = FALSE) {
 
   if (missing(connection)) stop("Connection cannot be empty.")
   if (!isS4(connection) || rev(class(connection)) != "rRofexConnection" || !validObject(connection)) stop("The 'connection' must be a valid 'rRofexConnection'.")
@@ -422,36 +440,56 @@ trading_mdh <- function(connection, market_id='ROFX', symbol, date, date_from, d
     if (!missing(date_to) & !.validate_fecha(date = date_to)) stop("The correct format for 'date_to' is %Y-%m-%d")
   }
 
-  # Base URL
-  url <- paste0(connection@base_url, "/rest/data/getTrades")
-
   # Query
   query <- if (!missing(date)) {
-    GET(url = url,
+    GET(url = glue(connection@base_url, "/rest/data/getTrades"),
         query = list(
-          marketId=market_id,
-          symbol=symbol,
-          date=date
+          marketId   =   market_id,
+          symbol     =   symbol,
+          date       =   date
         ),
         add_headers(.headers = c("X-Auth-Token" = connection@token)))
   } else if (!missing(date_from) & !missing(date_to)) {
-    GET(url = url,
+    GET(url = glue(connection@base_url, "/rest/data/getTrades"),
         query = list(
-          marketId=market_id,
-          symbol=symbol,
-          dateFrom=date_from,
-          dateTo=date_to
+          marketId   =   market_id,
+          symbol     =   symbol,
+          dateFrom   =   date_from,
+          dateTo     =   date_to
         ),
         add_headers(.headers = c("X-Auth-Token" = connection@token)))
   }
 
-  if (query$status_code != 200 | content(query)$status != "OK") stop("The query returned an unexpected result.")
-  if (!length(content(query)$trades)) stop("There is no data for the product / period selected.")
+  if (status_code(query) != 200) {
 
-  result <- fromJSON(content(x = query, as = "text"))
+    warn_for_status(query)
+    message("\r")
+    data <- NULL
 
-  # Return
-  data <- flatten(result$trades)
+  } else if (!length(content(query)$trades)) {
+
+    message("There is no data for the product / period selected.")
+    data <- NULL
+
+  } else {
+
+    if (tidy == TRUE) {
+
+      data <- fromJSON(toJSON(content(query), auto_unbox = T, null = "null"))
+
+      data <- data$trades %>%
+        mutate_all(.funs = ~ map(.x = ., function(x) if(is_null(x)) {NA_real_} else {x})) %>%
+        mutate_at(., .vars = vars(matches("price|size")), .funs = ~ as.double(.)) %>%
+        mutate_at(., .vars = vars(matches("datetime")), .funs = ~ as.POSIXct(x = unlist(.), tz = "America/Buenos_Aires")) %>%
+        mutate_at(., .vars = vars(matches("servertime")), .funs = ~ as.POSIXct(x = unlist(.)/1000,  origin = "1970-01-01", tz = "America/Buenos_Aires")) %>%
+        mutate_at(., .vars = vars(matches("symbol")), .funs = ~ as.character(.)) %>%
+        as_tibble()
+
+    } else {
+      result <- fromJSON(content(x = query, as = "text"))
+      data <- flatten(result$trades)
+    }
+  }
 
   return(data)
 }

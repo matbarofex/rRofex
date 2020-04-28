@@ -2,44 +2,47 @@
 % Please edit documentation in R/functions.R
 \name{trading_md}
 \alias{trading_md}
-\title{Primary API Market Data Real Time}
+\title{Market Data Real Time}
 \usage{
 trading_md(
   connection,
   market_id = "ROFX",
   symbol,
   entries = c("BI", "OF", "LA", "OP", "CL", "SE", "OI"),
-  depth = 1L
+  depth = 1L,
+  tidy = FALSE
 )
 }
 \arguments{
-\item{connection}{S4. \strong{Mandaroty} Formal rRofexConnection class object}
+\item{connection}{S4. \strong{Mandaroty}. Formal rRofexConnection class object}
 
 \item{market_id}{String. Market to wich you are going to connect.
 \itemize{
-\item ROFX. Matba Rofex
+\item \strong{ROFX} - Matba Rofex
 }}
 
-\item{symbol}{String. Use \code{\link{trading_instruments}} to see which symbols are available.}
+\item{symbol}{String. \strong{Mandaroty}. Use \code{\link{trading_instruments}} to see which symbols are available.}
 
-\item{entries}{Vector of Strings. It contains the information to be required:
+\item{entries}{Vector of Strings. It contains the information to be queried:
 \itemize{
-\item BI. Bid.
-\item OF. Offer.
-\item LA. Last Available Price.
-\item OP. Open Price.
-\item CL. Close Price.
-\item SE. Settlement Price.
-\item OI. Open Interest.
+\item \strong{BI} - Bid.
+\item \strong{OF} - Offer.
+\item \strong{LA} - Last Available Price.
+\item \strong{OP} - Open Price.
+\item \strong{CL} - Close Price.
+\item \strong{SE} - Settlement Price.
+\item \strong{OI} - Open Interest.
 }}
 
-\item{depth}{Integer. Depth of the book to be retrivied.}
+\item{depth}{Integer. Depth of the book.}
+
+\item{tidy}{Logical. Data arranged on a tidy format.}
 }
 \value{
-If correct, it will load a data frame.
+If correct, it will load a tibble data frame
 }
 \description{
-\code{trading_md} retrivies Market Data in Real Time.
+This method brings Market Data in Real Time.
 }
 \seealso{
 Other market data functions: 

@@ -1,10 +1,10 @@
 #' @import dplyr
 #' @import httr
 #' @import jsonlite
-#' @importFrom tibble enframe
-#' @importFrom tidyr separate replace_na
+#' @importFrom tibble enframe as_tibble
+#' @importFrom tidyr separate replace_na pivot_wider
 #' @importFrom magrittr %>%
 #' @importFrom glue glue glue_collapse
-#' @importFrom purrr some
+#' @importFrom purrr some modify_depth
 #' @importFrom rlang is_null
 "_PACKAGE"
