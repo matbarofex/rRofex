@@ -11,6 +11,7 @@
 #' @export trading_orders
 #' @export trading_cancel_order
 #' @export trading_account
+#' @export trading_account_report
 
 NULL
 
@@ -875,98 +876,138 @@ trading_account <- function(connection, account, detailed = FALSE) {
 #'
 #' @return If correct, it will load a tibble.
 #'
+#' @note
+#' To access nested data is strongly recommended the use of `pluck`.
+#'
 #' @family account functions
-# trading_account_report <- function(connection, account) {
-#
-#   if (missing(connection)) stop("Connection cannot be empty.")
-#   if (!isS4(connection) || rev(class(connection)) != "rRofexConnection" || !validObject(connection)) stop("The 'connection' must be a valid 'rRofexConnection'.")
-#   if (as.Date(connection@login_date_time) != Sys.Date()) stop("The 'acyRsaConnection' is no longer valid. Please log-in again.")
-#
-#   if (missing(account)) stop("'account' parameter cannot be empty.")
-#
-#   # Query
-#   query <- GET(url = glue(connection@base_url, "/rest/risk/accountReport/{account}"),
-#                add_headers(.headers = c("X-Auth-Token" = connection@token)))
-#
-#   if (status_code(query) != 200) {
-#
-#     warn_for_status(query)
-#     message("\r")
-#     data <- NULL
-#
-#   } else {
-#
-#     data <- fromJSON(toJSON(content(query), auto_unbox = T, null = "null"))
-#
-#     data <- if (length(data$accountData)) {
-#
-#       data$accountData %>%
-#         t() %>%
-#         as_tibble() %>%
-#         mutate_if(., .predicate = ~ class(.) == 'list', .funs = ~ replace_na(data = ., replace = NA)) %>%
-#         mutate_if(., .predicate = ~ length(unlist(.)) == 1, .funs =  ~ unlist(x = ., recursive = F)) %>%
-#         mutate_at(.tbl = ., .vars = vars(matches("detailedAccountReports")), .funs = ~ list(
-#           unlist(x = ., recursive = F) %>%
-#             as_tibble() %>%
-#             pivot_longer(cols = everything(), names_to = "Term", values_to = "values") %>%
-#             mutate(
-#               Term = as.integer(Term),
-#               Names = unlist(attributes(values))
-#               ) %>%
-#             pivot_wider(data = ., values_from = values, names_from = Names) %>%
-#             mutate(
-#               settlementDate = as.POSIXct(unlist(settlementDate)/1000, origin = "1970-01-01", tz = "America/Buenos_Aires")
-#             )
-#         )) %>%
-#         select(detailedAccountReports) %>%
-#         pluck(1)
-#
-#         test
-#
-#
-#         pija <- test[[1]] %>%
-#           mutate(
-#             currencyBalance = map(currencyBalance, .f = ~ unlist(., recursive = F) %>% as_tibble())
-#           )
-#
-#
-#         pija$currencyBalance[[1]] %>%
-#
-#
-#
-#
-#
-#
-#           mutate(
-#             currencyBalance = map(currencyBalance, .f = ~ purrr::flatten(.) %>% as_tibble())
-#           ) #%>%
-#           mutate(
-#             currencyBalance = modify_depth(currencyBalance, .depth = 1, .f = ~ unnest(.))
-#             )
-#
-#
-#
-#
-#
-# list(unlist(. %>% pluck(1), recursive = F) %>% purrr::map_df(., .f = ~ pluck(.) %>% as_tibble())
-#
-#       mutate_if(., .predicate = ~ class(.[[1]]) == 'list', .funs = ~ modify_depth(.x = ., .depth = 1, ~ replace_na(data = ., replace = NA_real_)))
-#
-#
-#                 t() %>%
-#         as_tibble() %>%
-#         mutate_if(., .predicate = ~ length(unlist(.)) == 1, .funs =  ~ unlist(x = ., recursive = F)) %>%
-#         mutate_if(., .predicate = ~ any(map(.[[1]], .f = ~ length(.)) > 1), .funs = ~ list(unlist(.[[1]], recursive = F))) %>%
-#         mutate(report = list(unlist(report, recursive = F) %>% purrr::map_df(., .f = ~ pluck(., "detailedPositions")) %>% as_tibble())) %>%
-#         mutate(lastCalculation = as.POSIXct(lastCalculation/1000, origin = "1970-01-01", tz = "America/Buenos_Aires")) %>%
-#         mutate_at(.tbl = ., .vars = vars(matches("report")), .funs = ~ modify_depth(.x = ., .depth = 1, ~ mutate_at(.tbl = ., .vars = vars(matches("date")), .funs = ~ as.POSIXct(./1000, origin = "1970-01-01", tz = "America/Buenos_Aires"))))
-#     } else {
-#       message("No data available at the moment...")
-#       NULL
-#     }
-#
-#
-#   }
-#
-#   return(data)
-# }
+#'
+#' @examples
+#' \dontrun{
+#' data %>% pluck("detailedAccountReports", 1, "availableToOperate", 1, "cash")
+#' }
+trading_account_report <- function(connection, account) {
+
+  if (missing(connection)) stop("Connection cannot be empty.")
+  if (!isS4(connection) || rev(class(connection)) != "rRofexConnection" || !validObject(connection)) stop("The 'connection' must be a valid 'rRofexConnection'.")
+  if (as.Date(connection@login_date_time) != Sys.Date()) stop("The 'acyRsaConnection' is no longer valid. Please log-in again.")
+
+  if (missing(account)) stop("'account' parameter cannot be empty.")
+
+  # Query
+  query <- GET(url = glue(connection@base_url, "/rest/risk/accountReport/{account}"),
+               add_headers(.headers = c("X-Auth-Token" = connection@token)))
+
+  if (status_code(query) != 200) {
+
+    warn_for_status(query)
+    message("\r")
+    data <- NULL
+
+  } else {
+
+    data <- fromJSON(toJSON(content(query), auto_unbox = T, null = "null"), simplifyDataFrame = T)
+
+    data <- if (length(data$accountData)) {
+
+      data <- data$accountData %>%
+        replace_na(data = ., replace = NA) %>%
+        t() %>%
+        as_tibble() %>%
+        mutate_at(.tbl = ., .vars = vars(matches("detailedAccountReports")), .funs = ~ modify_depth(., .depth = 3, ~ replace_na(., replace = NA))) %>%
+        mutate_if(.tbl = ., .predicate = ~ length(unlist(.)) == 1, .funs =  ~ unlist(x = ., recursive = F))
+
+      data <- if (data$detailedAccountReports[[1]] %>% length() > 1) {
+        data %>%
+          mutate(detailedAccountReports = list(
+            select(.data = ., detailedAccountReports) %>%
+              unlist() %>%
+              enframe() %>%
+              separate(data = ., col = name, into = c(glue("X{1:", .$name %>% strsplit(x = ., split = "\\.") %>% map_int(., length) %>% max, "}")), sep = "\\.", fill = "right") %>%
+              select(-X1) %>%
+              rename(Term = X2) %>%
+              mutate(Term = as.integer(Term)) %>%
+              split(x = .,f = .$X3) %>%
+              t() %>%
+              as_tibble() %>%
+              mutate_at(.tbl = .,
+                        .vars = vars(matches("settlementDate")),
+                        .funs = ~ modify_depth(.x = .,
+                                               .depth = 1,
+                                               .f = ~ select(., Term, value) %>%
+                                                 rename(settlementDate = value) %>%
+                                                 mutate(settlementDate = as.POSIXct(unlist(settlementDate)/1000, origin = "1970-01-01", tz = "America/Buenos_Aires"))
+                        )
+              ) %>%
+              mutate_at(.tbl = .,
+                        .vars = vars(matches("availableToOperate")),
+                        .funs = ~ modify_depth(.x = .,
+                                               .depth = 1,
+                                               .f = ~ split(x = ., .$X4) %>%
+                                                 t() %>%
+                                                 as_tibble(.) %>%
+                                                 mutate_at(.tbl = .,
+                                                           .vars = vars(matches("cash", ignore.case = F)),
+                                                           .funs = ~ modify_depth(.x = .,
+                                                                                  .depth = 1,
+                                                                                  .f = ~ select(., Term, X5, X6, value) %>%
+                                                                                    pivot_wider(data = ., names_from = c(X5, X6), values_from = value) %>%
+                                                                                    rename_all(.tbl = ., .funs = ~ gsub(pattern = "_NA|detailedCash_", replacement = "", x = .)) %>%
+                                                                                    rename_all(.tbl = ., .funs = ~ gsub(pattern = " ", replacement = "_", x = .))
+                                                           )) %>%
+                                                 mutate_at(.tbl = .,
+                                                           .vars = vars(matches("movements", ignore.case = F)),
+                                                           .funs = ~ modify_depth(.x = .,
+                                                                                  .depth = 1,
+                                                                                  .f = ~ select(., Term, value) %>%
+                                                                                    rename(Movements = value)
+                                                           )) %>%
+                                                 mutate_at(.tbl = .,
+                                                           .vars = vars(matches("credit", ignore.case = F)),
+                                                           .funs = ~ modify_depth(.x = .,
+                                                                                  .depth = 1,
+                                                                                  .f = ~ select(., Term, value) %>%
+                                                                                    rename(Credit = value) %>%
+                                                                                    mutate(Credit = replace_na(Credit, 0))
+                                                           )) %>%
+                                                 mutate_at(.tbl = .,
+                                                           .vars = vars(matches("total", ignore.case = F)),
+                                                           .funs = ~ modify_depth(.x = .,
+                                                                                  .depth = 1,
+                                                                                  .f = ~ select(., Term, value) %>%
+                                                                                    rename(Total = value)
+                                                           )) %>%
+                                                 mutate_at(.tbl = .,
+                                                           .vars = vars(matches("pendingMovements", ignore.case = F)),
+                                                           .funs = ~ modify_depth(.x = .,
+                                                                                  .depth = 1,
+                                                                                  .f = ~ select(., Term, value) %>%
+                                                                                    rename(PendingMovements = value)
+                                                           ))
+
+                        )
+              ) %>%
+              mutate_at(.tbl = .,
+                        .vars = vars(matches("currencyBalance")),
+                        .funs = ~ modify_depth(.x = .,
+                                               .depth = 1,
+                                               .f = ~ select(., Term, X5, X6, value) %>%
+                                                 pivot_wider(data = ., names_from = X5, values_from = value) %>%
+                                                 rename(Type = X6) %>%
+                                                 rename_all(.tbl = ., .funs = ~ gsub(pattern = " ", replacement = "_", x = .))
+                        )
+              ))
+          )
+      } else {
+        message("No complete data available at the moment...")
+        data
+      }
+
+    } else {
+      message("No data available at the moment...")
+      NULL
+    }
+
+  }
+
+  return(data)
+}

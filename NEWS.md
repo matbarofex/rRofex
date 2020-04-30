@@ -1,3 +1,9 @@
+## rRofex 1.6.0
+
+### Changes
+
+* New method `trading_account_report()` to request information about your trading account.
+
 ## rRofex 1.5.0
 
 ### Changes
