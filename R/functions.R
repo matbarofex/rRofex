@@ -5,11 +5,13 @@
 #' @export trading_instruments_fronts
 #' @export trading_md
 #' @export trading_mdh
+#' @export trading_currencies
 #' @export trading_new_order
 #' @export trading_lookup
 #' @export trading_orders
 #' @export trading_cancel_order
 #' @export trading_account
+
 NULL
 
 #' @include s4_object.R
