@@ -784,7 +784,7 @@ trading_orders <- function(connection, account) {
 #'
 #' @param connection S4. \strong{Mandaroty} Formal rRofexConnection class object
 #' @param account String. \strong{Mandaroty} Account Number
-#' @param account Logical. Expanded information.
+#' @param detailed Logical. Expanded information.
 #'
 #' @return If correct, it will load a tibble.
 #'
@@ -863,3 +863,108 @@ trading_account <- function(connection, account, detailed = FALSE) {
 
   return(data)
 }
+
+#' @title Account Report
+#'
+#' @description Access report about your trading account.
+#'
+#' @param connection S4. \strong{Mandaroty} Formal rRofexConnection class object
+#' @param account String. \strong{Mandaroty} Account Number
+#'
+#' @return If correct, it will load a tibble.
+#'
+#' @family account functions
+# trading_account_report <- function(connection, account) {
+#
+#   if (missing(connection)) stop("Connection cannot be empty.")
+#   if (!isS4(connection) || rev(class(connection)) != "rRofexConnection" || !validObject(connection)) stop("The 'connection' must be a valid 'rRofexConnection'.")
+#   if (as.Date(connection@login_date_time) != Sys.Date()) stop("The 'acyRsaConnection' is no longer valid. Please log-in again.")
+#
+#   if (missing(account)) stop("'account' parameter cannot be empty.")
+#
+#   # Query
+#   query <- GET(url = glue(connection@base_url, "/rest/risk/accountReport/{account}"),
+#                add_headers(.headers = c("X-Auth-Token" = connection@token)))
+#
+#   if (status_code(query) != 200) {
+#
+#     warn_for_status(query)
+#     message("\r")
+#     data <- NULL
+#
+#   } else {
+#
+#     data <- fromJSON(toJSON(content(query), auto_unbox = T, null = "null"))
+#
+#     data <- if (length(data$accountData)) {
+#
+#       data$accountData %>%
+#         t() %>%
+#         as_tibble() %>%
+#         mutate_if(., .predicate = ~ class(.) == 'list', .funs = ~ replace_na(data = ., replace = NA)) %>%
+#         mutate_if(., .predicate = ~ length(unlist(.)) == 1, .funs =  ~ unlist(x = ., recursive = F)) %>%
+#         mutate_at(.tbl = ., .vars = vars(matches("detailedAccountReports")), .funs = ~ list(
+#           unlist(x = ., recursive = F) %>%
+#             as_tibble() %>%
+#             pivot_longer(cols = everything(), names_to = "Term", values_to = "values") %>%
+#             mutate(
+#               Term = as.integer(Term),
+#               Names = unlist(attributes(values))
+#               ) %>%
+#             pivot_wider(data = ., values_from = values, names_from = Names) %>%
+#             mutate(
+#               settlementDate = as.POSIXct(unlist(settlementDate)/1000, origin = "1970-01-01", tz = "America/Buenos_Aires")
+#             )
+#         )) %>%
+#         select(detailedAccountReports) %>%
+#         pluck(1)
+#
+#         test
+#
+#
+#         pija <- test[[1]] %>%
+#           mutate(
+#             currencyBalance = map(currencyBalance, .f = ~ unlist(., recursive = F) %>% as_tibble())
+#           )
+#
+#
+#         pija$currencyBalance[[1]] %>%
+#
+#
+#
+#
+#
+#
+#           mutate(
+#             currencyBalance = map(currencyBalance, .f = ~ purrr::flatten(.) %>% as_tibble())
+#           ) #%>%
+#           mutate(
+#             currencyBalance = modify_depth(currencyBalance, .depth = 1, .f = ~ unnest(.))
+#             )
+#
+#
+#
+#
+#
+# list(unlist(. %>% pluck(1), recursive = F) %>% purrr::map_df(., .f = ~ pluck(.) %>% as_tibble())
+#
+#       mutate_if(., .predicate = ~ class(.[[1]]) == 'list', .funs = ~ modify_depth(.x = ., .depth = 1, ~ replace_na(data = ., replace = NA_real_)))
+#
+#
+#                 t() %>%
+#         as_tibble() %>%
+#         mutate_if(., .predicate = ~ length(unlist(.)) == 1, .funs =  ~ unlist(x = ., recursive = F)) %>%
+#         mutate_if(., .predicate = ~ any(map(.[[1]], .f = ~ length(.)) > 1), .funs = ~ list(unlist(.[[1]], recursive = F))) %>%
+#         mutate(report = list(unlist(report, recursive = F) %>% purrr::map_df(., .f = ~ pluck(., "detailedPositions")) %>% as_tibble())) %>%
+#         mutate(lastCalculation = as.POSIXct(lastCalculation/1000, origin = "1970-01-01", tz = "America/Buenos_Aires")) %>%
+#         mutate_at(.tbl = ., .vars = vars(matches("report")), .funs = ~ modify_depth(.x = ., .depth = 1, ~ mutate_at(.tbl = ., .vars = vars(matches("date")), .funs = ~ as.POSIXct(./1000, origin = "1970-01-01", tz = "America/Buenos_Aires"))))
+#     } else {
+#       message("No data available at the moment...")
+#       NULL
+#     }
+#
+#
+#   }
+#
+#   return(data)
+# }

@@ -9,7 +9,9 @@ trading_account(connection, account, detailed = FALSE)
 \arguments{
 \item{connection}{S4. \strong{Mandaroty} Formal rRofexConnection class object}
 
-\item{account}{Logical. Expanded information.}
+\item{account}{String. \strong{Mandaroty} Account Number}
+
+\item{detailed}{Logical. Expanded information.}
 }
 \value{
 If correct, it will load a tibble.
