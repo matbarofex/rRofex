@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">rRofex</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.4.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.5.0</span>
       </span>
     </div>
 
@@ -75,7 +75,8 @@
 </h1></div>
 <!-- badges: start -->
 
-<p>This package lets you access ROFEX APIs using R. Having this will enable to integrate ROFEX data easily into R workflows.</p>
+<p>This package lets you access Matba Rofex API for trading using R. This will enable you to integrate Matba Rofex’ data easily into R workflows.</p>
+<p>You can find the complete documentation under <a href="https://apihub.primary.com.ar/" class="uri">https://apihub.primary.com.ar/</a></p>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
@@ -95,31 +96,33 @@
 <div id="references" class="section level2">
 <h2 class="hasAnchor">
 <a href="#references" class="anchor"></a>References</h2>
-<p>We provide a convinient wrapper for consuming data from ROFEX APIs:</p>
+<p>We provide two libraries for ingesting data from Matba Rofex:</p>
 <ul>
-<li><strong>Trading API (in development)</strong></li>
-<li>Back Office API (See <a href="https://github.com/matbarofex/acyrsa">acyRsa</a>)</li>
+<li>
+<strong>rRofex</strong>: methods for trading.</li>
+<li>
+<a href="https://github.com/matbarofex/acyrsa">acyRsa</a>: methods to accesing Back Office data from ACyRSA</li>
 </ul>
-<div id="trading-api-in-development" class="section level3">
+<div id="methods-for-trading" class="section level3">
 <h3 class="hasAnchor">
-<a href="#trading-api-in-development" class="anchor"></a>Trading API (in development)</h3>
+<a href="#methods-for-trading" class="anchor"></a>Methods for trading</h3>
 <p>These are the currently available methods:</p>
 <ul>
-<li>Log-in method</li>
-<li>Request for Reference Data</li>
-<li>Market Data Real Time</li>
-<li>Historical Market Data</li>
-<li>Send Orders</li>
-<li>Lookup Orders</li>
+<li>Authentication</li>
+<li>Methods to obtain information about products</li>
+<li>Real-time and historical market data</li>
+<li>Orders Placement</li>
+<li>Orders Management</li>
+<li>Account Information</li>
 </ul>
 <p>Available environments:</p>
 <ul>
 <li>
-<em>Demo environrment</em>: go to <a href="https://remarkets.primary.ventures/">reMarkets</a> to get credentials.</li>
+<em>Demo Environrment</em>: go to <a href="https://remarkets.primary.ventures/">reMarkets</a> to get free credentials.</li>
 <li>
-<em>Production</em>: it needs credetentials. Please contact: <a href="mailto:mpi@primary.com.ar" class="email">mpi@primary.com.ar</a> for more information.</li>
+<em>Production</em>: for credetentials please contact: <a href="mailto:mpi@primary.com.ar" class="email">mpi@primary.com.ar</a> for more information.</li>
 <li>
-<em>xOMS</em>: contact your broker for credentials.</li>
+<em>Production - xOMS</em>: please contact your broker for credentials.</li>
 </ul>
 </div>
 </div>
@@ -143,7 +146,7 @@
 <div id="acknowledgements" class="section level2">
 <h2 class="hasAnchor">
 <a href="#acknowledgements" class="anchor"></a>Acknowledgements</h2>
-<p>Development of this software was driven by <a href="https://www.primary.com.ar/">Primary</a> as part of an Open Source initiative of <a href="https://www.rofex.com.ar/">Grupo Rofex</a>.</p>
+<p>Development of this software was driven by <a href="https://www.primary.com.ar/">Primary</a> as part of an Open Source initiative of <a href="https://matbarofex.com.ar/">Matba Rofex</a>.</p>
 <div id="authormaintainer" class="section level4">
 <h4 class="hasAnchor">
 <a href="#authormaintainer" class="anchor"></a>Author/Maintainer</h4>

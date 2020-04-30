@@ -1,3 +1,12 @@
+## rRofex 1.5.0
+
+### Changes
+
+* New method `trading_currencies()` to request currencies prices.
+* New method `trading_account()` to request information about your trading account.
+* Added new entries to metdho `trading_md()`.
+* `trading_mdh()` now supports `market_id = 'MERV'`.
+
 ## rRofex 1.4.0
 
 ### Changes

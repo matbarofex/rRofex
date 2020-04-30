@@ -8,7 +8,8 @@ trading_md(
   connection,
   market_id = "ROFX",
   symbol,
-  entries = c("BI", "OF", "LA", "OP", "CL", "SE", "OI"),
+  entries = c("BI", "OF", "LA", "OP", "CL", "SE", "OI", "HI", "LO", "TV", "IV", "EV",
+    "NV"),
   depth = 1L,
   tidy = FALSE
 )
@@ -32,6 +33,13 @@ trading_md(
 \item \strong{CL} - Close Price.
 \item \strong{SE} - Settlement Price.
 \item \strong{OI} - Open Interest.
+\item \strong{HI} - Trading Session High Price
+\item \strong{LO} - Trading Session Low Price
+\item \strong{TV} - Trading Volume
+\item \strong{IV} - Index Value
+\item \strong{EV} - Trading Effective Volume
+\item \strong{NV} - Nominal Volume
+
 }}
 
 \item{depth}{Integer. Depth of the book.}
@@ -46,6 +54,7 @@ This method brings Market Data in Real Time.
 }
 \seealso{
 Other market data functions: 
+\code{\link{trading_currencies}()},
 \code{\link{trading_mdh}()}
 }
 \concept{market data functions}

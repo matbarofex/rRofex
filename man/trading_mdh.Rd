@@ -20,6 +20,7 @@ trading_mdh(
 \item{market_id}{String. Market to wich we are going to connect.
 \itemize{
 \item \strong{ROFX} - Matba Rofex.
+\item \strong{MERV} - S&P Merval.
 }}
 
 \item{symbol}{String. Use \code{\link{trading_instruments}} to see which symbols are available.}
@@ -40,6 +41,7 @@ Access Historical Trades for a given instrument.
 }
 \seealso{
 Other market data functions: 
+\code{\link{trading_currencies}()},
 \code{\link{trading_md}()}
 }
 \concept{market data functions}

@@ -9,8 +9,11 @@
 maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
 <!-- badges: end -->
 
-This package lets you access ROFEX APIs using R. Having this will enable
-to integrate ROFEX data easily into R workflows.
+This package lets you access Matba Rofex API for trading using R. This
+will enable you to integrate Matba Rofex’ data easily into R workflows.
+
+You can find the complete documentation under
+<https://apihub.primary.com.ar/>
 
 ## Installation
 
@@ -30,29 +33,31 @@ devtools::install_github("gruporofex/rRofex")
 
 ## References
 
-We provide a convinient wrapper for consuming data from ROFEX APIs:
+We provide two libraries for ingesting data from Matba Rofex:
 
-  - **Trading API (in development)**
-  - Back Office API (See [acyRsa](https://github.com/matbarofex/acyrsa))
+  - **rRofex**: methods for trading.
+  - [acyRsa](https://github.com/matbarofex/acyrsa): methods to accesing
+    Back Office data from ACyRSA
 
-### Trading API (in development)
+### Methods for trading
 
 These are the currently available methods:
 
-  - Log-in method
-  - Request for Reference Data
-  - Market Data Real Time
-  - Historical Market Data
-  - Send Orders
-  - Lookup Orders
+  - Authentication
+  - Methods to obtain information about products
+  - Real-time and historical market data
+  - Orders Placement
+  - Orders Management
+  - Account Information
 
 Available environments:
 
-  - *Demo environrment*: go to
-    [reMarkets](https://remarkets.primary.ventures/) to get credentials.
-  - *Production*: it needs credetentials. Please contact:
-    <mpi@primary.com.ar> for more information.
-  - *xOMS*: contact your broker for credentials.
+  - *Demo Environrment*: go to
+    [reMarkets](https://remarkets.primary.ventures/) to get free
+    credentials.
+  - *Production*: for credetentials please contact: <mpi@primary.com.ar>
+    for more information.
+  - *Production - xOMS*: please contact your broker for credentials.
 
 ## Examples
 
@@ -76,7 +81,7 @@ trading_mdh(connection = conn, symbol = "DOJul20", date = "2020-02-06")
 
 Development of this software was driven by
 [Primary](https://www.primary.com.ar/) as part of an Open Source
-initiative of [Grupo Rofex](https://www.rofex.com.ar/).
+initiative of [Matba Rofex](https://matbarofex.com.ar/).
 
 #### Author/Maintainer
 

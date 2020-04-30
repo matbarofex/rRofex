@@ -9,6 +9,7 @@
 #' @export trading_lookup
 #' @export trading_orders
 #' @export trading_cancel_order
+#' @export trading_account
 NULL
 
 #' @include s4_object.R
@@ -338,6 +339,13 @@ trading_instruments_fronts <- function(connection) {
 #' \item \strong{CL} - Close Price.
 #' \item \strong{SE} - Settlement Price.
 #' \item \strong{OI} - Open Interest.
+#' \item \strong{HI} - Trading Session High Price
+#' \item \strong{LO} - Trading Session Low Price
+#' \item \strong{TV} - Trading Volume
+#' \item \strong{IV} - Index Value
+#' \item \strong{EV} - Trading Effective Volume
+#' \item \strong{NV} - Nominal Volume
+#'
 #' }
 #' @param depth Integer. Depth of the book.
 #' @param tidy Logical. Data arranged on a tidy format.
@@ -345,7 +353,7 @@ trading_instruments_fronts <- function(connection) {
 #' @return If correct, it will load a tibble data frame
 #'
 #' @family market data functions
-trading_md <- function(connection, market_id='ROFX', symbol, entries=c('BI', 'OF', 'LA', 'OP', 'CL', 'SE', 'OI'), depth = 1L, tidy = FALSE) {
+trading_md <- function(connection, market_id='ROFX', symbol, entries=c('BI', 'OF', 'LA', 'OP', 'CL', 'SE', 'OI', 'HI', 'LO', 'TV', 'IV', 'EV', 'NV'), depth = 1L, tidy = FALSE) {
 
   if (missing(connection)) stop("Connection cannot be empty.")
   if (!isS4(connection) || rev(class(connection)) != "rRofexConnection" || !validObject(connection)) stop("The 'connection' must be a valid 'rRofexConnection'.")
@@ -355,7 +363,7 @@ trading_md <- function(connection, market_id='ROFX', symbol, entries=c('BI', 'OF
 
   if (missing(symbol)) stop("You should pick a 'symbol' to move forward.")
 
-  if (some(entries, ~ !.x %in% c('BI', 'OF', 'LA', 'OP', 'CL', 'SE', 'OI'))) stop("'entries' parameter is invalid. See documentation.")
+  if (some(entries, ~ !.x %in% c('BI', 'OF', 'LA', 'OP', 'CL', 'SE', 'OI', 'HI', 'LO', 'TV', 'IV', 'EV', 'NV'))) stop("'entries' parameter is invalid. See documentation.")
 
   # Query
   query <- GET(url = glue(connection@base_url, "/rest/marketdata/get"),
@@ -413,6 +421,7 @@ trading_md <- function(connection, market_id='ROFX', symbol, entries=c('BI', 'OF
 #' @param market_id String. Market to wich we are going to connect.
 #' \itemize{
 #' \item \strong{ROFX} - Matba Rofex.
+#' \item \strong{MERV} - S&P Merval.
 #' }
 #' @param symbol String. Use \code{\link{trading_instruments}} to see which symbols are available.
 #' @param date String. Date to be queried. With format '\%Y-\%m-\%d'.
@@ -429,7 +438,7 @@ trading_mdh <- function(connection, market_id='ROFX', symbol, date, date_from, d
   if (!isS4(connection) || rev(class(connection)) != "rRofexConnection" || !validObject(connection)) stop("The 'connection' must be a valid 'rRofexConnection'.")
   if (as.Date(connection@login_date_time) != Sys.Date()) stop("The 'acyRsaConnection' is no longer valid. Please log-in again.")
 
-  if (!market_id %in% c("ROFX")) stop("Invalid 'market_id' parameter")
+  if (!market_id %in% c("ROFX", "MERV")) stop("Invalid 'market_id' parameter")
   if (missing(symbol)) stop("You should pick a 'symbol' to move forward.")
   if (missing(date) & (missing(date_from) | missing(date_to))) stop("Invalid date parameters")
 
@@ -446,7 +455,8 @@ trading_mdh <- function(connection, market_id='ROFX', symbol, date, date_from, d
         query = list(
           marketId   =   market_id,
           symbol     =   symbol,
-          date       =   date
+          date       =   date,
+          external   =   ifelse(market_id != "ROFX", TRUE, FALSE)
         ),
         add_headers(.headers = c("X-Auth-Token" = connection@token)))
   } else if (!missing(date_from) & !missing(date_to)) {
@@ -455,7 +465,8 @@ trading_mdh <- function(connection, market_id='ROFX', symbol, date, date_from, d
           marketId   =   market_id,
           symbol     =   symbol,
           dateFrom   =   date_from,
-          dateTo     =   date_to
+          dateTo     =   date_to,
+          external   =   ifelse(market_id != "ROFX", TRUE, FALSE)
         ),
         add_headers(.headers = c("X-Auth-Token" = connection@token)))
   }
@@ -489,6 +500,44 @@ trading_mdh <- function(connection, market_id='ROFX', symbol, date, date_from, d
       result <- fromJSON(content(x = query, as = "text"))
       data <- flatten(result$trades)
     }
+  }
+
+  return(data)
+}
+
+#' @title Currencies
+#'
+#' @description Access currencies prices.
+#'
+#' @param connection S4. \strong{Mandaroty} Formal rRofexConnection class object
+#'
+#' @return If correct, it will load a data frame.
+#'
+#' @family market data functions
+trading_currencies <- function(connection) {
+
+  if (missing(connection)) stop("Connection cannot be empty.")
+  if (!isS4(connection) || rev(class(connection)) != "rRofexConnection" || !validObject(connection)) stop("The 'connection' must be a valid 'rRofexConnection'.")
+  if (as.Date(connection@login_date_time) != Sys.Date()) stop("The 'acyRsaConnection' is no longer valid. Please log-in again.")
+
+  # Query
+  query <- GET(url = glue(connection@base_url, "/rest/risk/currency/getAll"),
+               add_headers(.headers = c("X-Auth-Token" = connection@token)))
+
+  if (status_code(query) != 200) {
+
+    warn_for_status(query)
+    message("\r")
+    data <- NULL
+
+  } else {
+
+    data <- fromJSON(toJSON(content(query), auto_unbox = T, null = "null"))
+
+    data <- data$currencies %>%
+      mutate_if(.tbl = ., .predicate = is.character, .funs = ~ na_if(., y = "")) %>%
+      as_tibble()
+
   }
 
   return(data)
@@ -725,4 +774,92 @@ trading_orders <- function(connection, account) {
   }
 
   return(result$orders)
+}
+
+# Account Information ---------------------------
+
+#' @title Account Information
+#'
+#' @description Access information about the trading account.
+#'
+#' @param connection S4. \strong{Mandaroty} Formal rRofexConnection class object
+#' @param account String. \strong{Mandaroty} Account Number
+#' @param account Logical. Expanded information.
+#'
+#' @return If correct, it will load a tibble.
+#'
+#' @family account functions
+trading_account <- function(connection, account, detailed = FALSE) {
+
+  if (missing(connection)) stop("Connection cannot be empty.")
+  if (!isS4(connection) || rev(class(connection)) != "rRofexConnection" || !validObject(connection)) stop("The 'connection' must be a valid 'rRofexConnection'.")
+  if (as.Date(connection@login_date_time) != Sys.Date()) stop("The 'acyRsaConnection' is no longer valid. Please log-in again.")
+
+  if (missing(account)) stop("'account' parameter cannot be empty.")
+
+  # Query
+  query <- if (detailed == FALSE) {
+
+    GET(url = glue(connection@base_url, "/rest/risk/position/getPositions/{account}"),
+        add_headers(.headers = c("X-Auth-Token" = connection@token)))
+
+    } else if(detailed == TRUE) {
+
+    GET(url = glue(connection@base_url, "/rest/risk/detailedPosition/{account}"),
+        add_headers(.headers = c("X-Auth-Token" = connection@token)))
+
+    }
+
+  if (status_code(query) != 200) {
+
+    warn_for_status(query)
+    message("\r")
+    data <- NULL
+
+  } else if (content(query)$status != "OK") {
+
+    message(glue(content(query)$message, "\n", content(query)$description))
+    data <- NULL
+
+  } else {
+
+    data <- fromJSON(toJSON(content(query), auto_unbox = T, null = "null"))
+
+    if (detailed == FALSE) {
+
+      if(length(data$positions)) {1} else {0}
+
+      data <- if (length(data$positions)) {
+        data$positions %>%
+          jsonlite::flatten(., recursive = F) %>%
+          mutate_all(., .funs = ~ map(.x = ., function(x) if(is_null(x)) {NA_real_} else {x})) %>%
+          simplify_all() %>%
+          as_tibble() %>%
+          rename_all(.tbl = ., .funs = ~ gsub(pattern = "^instrument\\.", replacement = "", x = .))
+      } else {
+        message("No data available at the moment...")
+        NULL
+      }
+
+    } else if(detailed == TRUE) {
+
+      data <- if (length(data$detailedPosition$report)) {
+        data$detailedPosition %>%
+          t() %>%
+          as_tibble() %>%
+          mutate_if(., .predicate = ~ length(unlist(.)) == 1, .funs =  ~ unlist(x = ., recursive = F)) %>%
+          mutate_if(., .predicate = ~ any(map(.[[1]], .f = ~ length(.)) > 1), .funs = ~ list(unlist(.[[1]], recursive = F))) %>%
+          mutate(report = list(unlist(report, recursive = F) %>% purrr::map_df(., .f = ~ pluck(., "detailedPositions")) %>% as_tibble())) %>%
+          mutate(lastCalculation = as.POSIXct(lastCalculation/1000, origin = "1970-01-01", tz = "America/Buenos_Aires")) %>%
+          mutate_at(.tbl = ., .vars = vars(matches("report")), .funs = ~ modify_depth(.x = ., .depth = 1, ~ mutate_at(.tbl = ., .vars = vars(matches("date")), .funs = ~ as.POSIXct(./1000, origin = "1970-01-01", tz = "America/Buenos_Aires"))))
+      } else {
+        message("No data available at the moment...")
+        NULL
+      }
+
+    }
+
+  }
+
+  return(data)
 }

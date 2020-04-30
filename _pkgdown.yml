@@ -20,11 +20,15 @@ reference:
 - contents:
   - trading_md
   - trading_mdh
-- title: Order Placement
+  - trading_currencies
+- title: Orders Placement
 - contents:
   - trading_new_order
   - trading_cancel_order
-- title: Order Management
+- title: Orders Management
 - contents:
   - trading_lookup
   - trading_orders
+- title: Account Information
+- contents:
+  - trading_account
