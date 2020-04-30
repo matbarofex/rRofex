@@ -916,7 +916,7 @@ trading_account_report <- function(connection, account) {
         mutate_at(.tbl = ., .vars = vars(matches("detailedAccountReports")), .funs = ~ modify_depth(., .depth = 3, ~ replace_na(., replace = NA))) %>%
         mutate_if(.tbl = ., .predicate = ~ length(unlist(.)) == 1, .funs =  ~ unlist(x = ., recursive = F))
 
-      data <- if (data$detailedAccountReports[[1]] %>% length() > 1) {
+      data <- if (length(data$detailedAccountReports[[1]])) {
         data %>%
           mutate(detailedAccountReports = list(
             select(.data = ., detailedAccountReports) %>%
