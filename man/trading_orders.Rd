@@ -9,10 +9,10 @@ trading_orders(connection, account)
 \arguments{
 \item{connection}{S4. \strong{Mandaroty} Formal rRofexConnection class object}
 
-\item{account}{String. Account Number / Account ID.}
+\item{account}{String. \strong{Mandaroty} Account Number}
 }
 \value{
-A data frame.
+If correct, it will load a tibble.
 }
 \description{
 The method \code{trading_orders} is used to see each order sent by Account.

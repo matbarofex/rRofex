@@ -40,7 +40,7 @@
 
 
 <meta property="og:title" content="Cancel Order Sent to the Market — trading_cancel_order" />
-<meta property="og:description" content="The method trading_cancel_order is use to send orders." />
+<meta property="og:description" content="The method trading_cancel_order should be use to cancel orders that are open on the market." />
 
 
 
@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rRofex</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.6.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.6.4</span>
       </span>
     </div>
 
@@ -117,10 +117,10 @@
     </div>
 
     <div class="ref-description">
-    <p>The method <code>trading_cancel_order</code> is use to send orders.</p>
+    <p>The method <code>trading_cancel_order</code> should be use to cancel orders that are open on the market.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>trading_cancel_order</span>(<span class='no'>connection</span>, <span class='no'>order_id</span>, <span class='no'>proprietary</span>)</pre>
+    <pre class="usage"><span class='fu'>trading_cancel_order</span>(<span class='no'>connection</span>, <span class='no'>id</span>, <span class='no'>proprietary</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -130,18 +130,20 @@
       <td><p>S4. <strong>Mandaroty</strong> Formal rRofexConnection class object</p></td>
     </tr>
     <tr>
-      <th>order_id</th>
-      <td><p>String. clOrdId given by the <code>trading_orders</code> method.</p></td>
+      <th>id</th>
+      <td><p>String. <strong>Mandaroty</strong> clOrdId given by the <code>trading_orders</code> method.</p></td>
     </tr>
     <tr>
       <th>proprietary</th>
-      <td><p>String. ID given by the <code>trading_orders</code> method.</p></td>
+      <td><p>String. <strong>Mandaroty</strong> ID given by the <code>trading_orders</code> method.</p><ul>
+<li><p><strong>PBCP</strong></p></li>
+</ul></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>List with outputs like state of the order.</p>
+    <p>If correct, it will load a tibble.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other order placements functions: 

@@ -4,20 +4,23 @@
 \alias{trading_cancel_order}
 \title{Cancel Order Sent to the Market}
 \usage{
-trading_cancel_order(connection, order_id, proprietary)
+trading_cancel_order(connection, id, proprietary)
 }
 \arguments{
 \item{connection}{S4. \strong{Mandaroty} Formal rRofexConnection class object}
 
-\item{order_id}{String. clOrdId given by the \code{trading_orders} method.}
+\item{id}{String. \strong{Mandaroty} clOrdId given by the \code{trading_orders} method.}
 
-\item{proprietary}{String. ID given by the \code{trading_orders} method.}
+\item{proprietary}{String. \strong{Mandaroty} ID given by the \code{trading_orders} method.
+\itemize{
+\item \strong{PBCP}
+}}
 }
 \value{
-List with outputs like state of the order.
+If correct, it will load a tibble.
 }
 \description{
-The method \code{trading_cancel_order} is use to send orders.
+The method \code{trading_cancel_order} should be use to cancel orders that are open on the market.
 }
 \seealso{
 Other order placements functions: 

@@ -4,23 +4,26 @@
 \alias{trading_lookup}
 \title{Lookup Order Status}
 \usage{
-trading_lookup(connection, lookup_type, order_id, proprietary)
+trading_lookup(connection, lookup_type, id, proprietary)
 }
 \arguments{
 \item{connection}{S4. \strong{Mandaroty} Formal rRofexConnection class object}
 
-\item{lookup_type}{String. Look-up by:
+\item{lookup_type}{String. \strong{Mandaroty}. Look-up by:
 \itemize{
-\item COID. Client Order ID.
-\item OID. Order ID. (Not Available)
+\item \strong{COID} - Client Order ID.
+\item \strong{OID} - Order ID.
 }}
 
-\item{order_id}{String. ID given by the \code{trading_orders} method.}
+\item{id}{String. \strong{Mandaroty}. ID given by the \code{trading_orders} method. Depends on `lookup_type`.}
 
-\item{proprietary}{String. ID given by the \code{trading_orders} method.}
+\item{proprietary}{String. ID given by the \code{trading_orders} method. Only for 'lookup_type=COID' In most cases:
+\itemize{
+\item \strong{PBCP}
+}}
 }
 \value{
-A data frame.
+If correct, it will load a tibble.
 }
 \description{
 The method \code{trading_lookup} is used to check the satus of an order.
