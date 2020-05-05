@@ -4,6 +4,13 @@ authors:
   Augusto Hassel:
     href: http://www.hasselpunk.com
 
+template:
+ opengraph:
+  twitter:
+    creator: "@augustohassel"
+    site: "@matba_rofex"
+    card: summary_large_image
+
 reference:
 - title: Authentication
   desc: Methods to obtain a valid token and/or generate a valid rRofexConnection object.

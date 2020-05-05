@@ -4,8 +4,8 @@ Title: Interface to Matba Rofex trading API
 Version: 1.6.4
 Authors@R: c(person("Augusto", "Hassel", role = c("aut", "cre"), email = "ahassel@primary.com.ar"))
 Description: Provides a convenient wrapper for consuming data from ROFEX APIs: Trading API, Risk API and BackOffice API.
-License: MIT
-URL: https://github.com/matbarofex/rRofex
+License: MIT + file LICENSE
+URL: https://matbarofex.github.io/rRofex, https://github.com/matbarofex/rRofex
 BugReports: https://github.com/matbarofex/rRofex/issues
 Encoding: UTF-8
 LazyData: true
@@ -15,12 +15,18 @@ Imports:
     jsonlite,
     magrittr,
     tibble,
-    tidyr
+    tidyr,
+    rlang,
+    purrr,
+    glue,
+    methods
 Credetencials:
     reMarkets <https://remarkets.primary.ventures>
     productive <mpi@primary.com.ar>
 RoxygenNote: 7.1.0
-Suggests: 
-    rlang,
-    purrr,
-    glue
+Collate: 
+    'attach.R'
+    's4_object.R'
+    'functions.R'
+    'functions_helpers.R'
+    'rRofex.R'
