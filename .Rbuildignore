@@ -4,3 +4,8 @@
 ^docs$
 ^pkgdown$
 ^LICENSE\.md$
+cran-comments.md
+\.github
+README\.Rmd
+CODE_OF_CONDUCT\.md
+^\.travis\.yml$

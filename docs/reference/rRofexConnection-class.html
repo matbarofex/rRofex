@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Create rRofex Connection Object — rRofex_connection • rRofex</title>
+<title>Connection Class: rRofexConnection — rRofexConnection-class • rRofex</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Create rRofex Connection Object — rRofex_connection" />
-<meta property="og:description" content="rRofex_connection creates a New Connection Object." />
+<meta property="og:title" content="Connection Class: rRofexConnection — rRofexConnection-class" />
+<meta property="og:description" content="Creates a rRofex connection object" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:creator" content="@augustohassel" />
 <meta name="twitter:site" content="@matba_rofex" />
@@ -114,45 +114,48 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Create rRofex Connection Object</h1>
-    <small class="dont-index">Source: <a href='https://github.com/matbarofex/rRofex/blob/master/R/functions.R'><code>R/functions.R</code></a></small>
-    <div class="hidden name"><code>rRofex_connection.Rd</code></div>
+    <h1>Connection Class: rRofexConnection</h1>
+    <small class="dont-index">Source: <a href='https://github.com/matbarofex/rRofex/blob/master/R/s4_object.R'><code>R/s4_object.R</code></a></small>
+    <div class="hidden name"><code>rRofexConnection-class.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p><code>rRofex_connection</code> creates a New Connection Object.</p>
+    <p>Creates a rRofex connection object</p>
     </div>
 
-    <pre class="usage"><span class='fu'>rRofex_connection</span>(<span class='no'>token</span>, <span class='no'>base_url</span>)</pre>
+    <pre class="usage"><span class='fu'>token</span>(<span class='no'>x</span>)
 
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>token</th>
-      <td><p>String. <strong>Mandaroty</strong> Obtained with <code><a href='trading_login.html'>trading_login</a></code></p></td>
-    </tr>
-    <tr>
-      <th>base_url</th>
-      <td><p>String. <strong>Mandaroty</strong> URL given by  <code><a href='trading_login.html'>trading_login</a></code> or known by the client.</p></td>
-    </tr>
-    </table>
+<span class='fu'>token</span>(<span class='no'>x</span>) <span class='kw'>&lt;-</span> <span class='no'>value</span>
 
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+<span class='fu'>base_url</span>(<span class='no'>x</span>)
 
-    <p>S4 rRofexConnection object.</p>
-    <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
+<span class='fu'>base_url</span>(<span class='no'>x</span>) <span class='kw'>&lt;-</span> <span class='no'>value</span>
 
-    <p>You can use accesors to get information about the Object by using:</p><ul>
-<li><p><code><a href='rRofexConnection-class.html'>token(conn)</a></code></p></li>
-<li><p><code><a href='rRofexConnection-class.html'>base_url(conn)</a></code></p></li>
-<li><p><code><a href='rRofexConnection-class.html'>login_date_time(conn)</a></code></p></li>
+<span class='fu'>login_date_time</span>(<span class='no'>x</span>)</pre>
+
+
+    <h2 class="hasAnchor" id="functions"><a class="anchor" href="#functions"></a>Functions</h2>
+
+    
+<ul>
+<li><p><code>token</code>: Access token</p></li>
+<li><p><code>token&lt;-</code>: Access token</p></li>
+<li><p><code>base_url</code>: Access base url</p></li>
+<li><p><code>base_url&lt;-</code>: Access base url</p></li>
+<li><p><code>login_date_time</code>: Access log in date time</p></li>
 </ul>
+    <h2 class="hasAnchor" id="slots"><a class="anchor" href="#slots"></a>Slots</h2>
 
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+    
 
-    <div class='dont-index'><p>Other connection functions: 
-<code><a href='trading_login.html'>trading_login</a>()</code></p></div>
+<dl'>
+<dt><code>token</code></dt><dd><p>character.</p></dd>
+
+<dt><code>base_url</code></dt><dd><p>character.</p></dd>
+
+<dt><code>login_date_time</code></dt><dd><p>character.</p></dd>
+
+</dl>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

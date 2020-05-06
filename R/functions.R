@@ -12,7 +12,6 @@
 #' @export trading_cancel_order
 #' @export trading_account
 #' @export trading_account_report
-
 NULL
 
 #' @include s4_object.R
@@ -38,7 +37,7 @@ NULL
 #'
 #' @family connection functions
 rRofex_connection <- function(token, base_url) {
-  new("rRofexConnection", token = token, base_url = base_url, login_date_time = as.character(Sys.time()))
+  rRofexConnection(token = token, base_url = base_url, login_date_time = as.character(Sys.time()))
 }
 
 #' @title Primary API Log-In
@@ -76,7 +75,11 @@ rRofex_connection <- function(token, base_url) {
 #'
 #' @examples
 #' \dontrun{
-#' conn <- trading_login(username = "pepe", password = "pepino", base_url = "http://api.remarkets.primary.com.ar")
+#' conn <- trading_login(
+#' username = "pepe",
+#' password = "pepino",
+#' base_url = "http://api.remarkets.primary.com.ar"
+#' )
 #' }
 trading_login <- function(username, password, base_url) {
   if (missing(username) || missing(password)) stop("Username and Password are needed.")

@@ -161,9 +161,9 @@
 </ul>
 
 <p>Accesors:</p><ul>
-<li><p><code>token(conn)</code></p></li>
-<li><p><code>base_url(conn)</code></p></li>
-<li><p><code>login_date_time(conn)</code></p></li>
+<li><p><code><a href='rRofexConnection-class.html'>token(conn)</a></code></p></li>
+<li><p><code><a href='rRofexConnection-class.html'>base_url(conn)</a></code></p></li>
+<li><p><code><a href='rRofexConnection-class.html'>login_date_time(conn)</a></code></p></li>
 </ul>
 
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
@@ -173,7 +173,11 @@
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='no'>conn</span> <span class='kw'>&lt;-</span> <span class='fu'>trading_login</span>(<span class='kw'>username</span> <span class='kw'>=</span> <span class='st'>"pepe"</span>, <span class='kw'>password</span> <span class='kw'>=</span> <span class='st'>"pepino"</span>, <span class='kw'>base_url</span> <span class='kw'>=</span> <span class='st'>"http://api.remarkets.primary.com.ar"</span>)
+<span class='no'>conn</span> <span class='kw'>&lt;-</span> <span class='fu'>trading_login</span>(
+<span class='kw'>username</span> <span class='kw'>=</span> <span class='st'>"pepe"</span>,
+<span class='kw'>password</span> <span class='kw'>=</span> <span class='st'>"pepino"</span>,
+<span class='kw'>base_url</span> <span class='kw'>=</span> <span class='st'>"http://api.remarkets.primary.com.ar"</span>
+)
 }</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

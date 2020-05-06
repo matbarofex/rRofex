@@ -42,7 +42,11 @@ Accesors:
 }
 \examples{
 \dontrun{
-conn <- trading_login(username = "pepe", password = "pepino", base_url = "http://api.remarkets.primary.com.ar")
+conn <- trading_login(
+username = "pepe",
+password = "pepino",
+base_url = "http://api.remarkets.primary.com.ar"
+)
 }
 }
 \seealso{
