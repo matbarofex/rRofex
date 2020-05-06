@@ -4,9 +4,9 @@
 \name{rRofex-package}
 \alias{rRofex}
 \alias{rRofex-package}
-\title{rRofex: Interface to Matba Rofex trading API}
+\title{rRofex: Interface to Matba Rofex Trading API}
 \description{
-Provides a convenient wrapper for consuming data from Matba Rofex Trading APIs
+Provides a convenient wrapper for consuming data from Matba Rofex Trading APIs.
 }
 \seealso{
 Useful links:
