@@ -15,9 +15,9 @@ trading_mdh(
 )
 }
 \arguments{
-\item{connection}{S4. \strong{Mandaroty} Formal rRofexConnection class object}
+\item{connection}{S4. \strong{Mandatory} Formal rRofexConnection class object}
 
-\item{market_id}{String. Market to wich we are going to connect.
+\item{market_id}{String. Market to which we are going to connect.
 \itemize{
 \item \strong{ROFX} - Matba Rofex.
 \item \strong{MERV} - S&P Merval.

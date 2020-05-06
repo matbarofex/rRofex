@@ -23,8 +23,8 @@ NULL
 #'
 #' @description \code{rRofex_connection} creates a New Connection Object.
 #'
-#' @param token String. \strong{Mandaroty} Obtained with \code{\link{trading_login}}
-#' @param base_url String. \strong{Mandaroty} URL given by  \code{\link{trading_login}} or known by the client.
+#' @param token String. \strong{Mandatory} Obtained with \code{\link{trading_login}}
+#' @param base_url String. \strong{Mandatory} URL given by  \code{\link{trading_login}} or known by the client.
 #'
 #' @return S4 rRofexConnection object.
 #'
@@ -42,11 +42,11 @@ rRofex_connection <- function(token, base_url) {
 
 #' @title Primary API Log-In
 #'
-#' @description \code{trading_login} log in the user into de Primary API
+#' @description \code{trading_login} log in the user into Primary API
 #'
 #' @param username String. User Name
 #' @param password String. Password
-#' @param base_url String. Wich environment are you going to connect:
+#' @param base_url String. Which environment are you going to connect:
 #' \itemize{
 #' \item reMarkets: 'http://api.remarkets.primary.com.ar'
 #' \item production: 'https://api.primary.com.ar'
@@ -117,8 +117,8 @@ trading_login <- function(username, password, base_url) {
 #'
 #' @description Method to list segments and instruments currently available through the Trading API.
 #'
-#' @param connection S4. \strong{Mandaroty} Formal rRofexConnection class object
-#' @param request String. \strong{Mandaroty} The type of request that you are making:
+#' @param connection S4. \strong{Mandatory} Formal rRofexConnection class object
+#' @param request String. \strong{Mandatory} The type of request that you are making:
 #' \itemize{
 #' \item \strong{segments}: List available market segments
 #' \item \strong{securities}: List available instruments listed on Matba Rofex. \emph{Depends on 'sec_detailed'}.
@@ -147,7 +147,7 @@ trading_login <- function(username, password, base_url) {
 #' \item \strong{R}: Entitlements (Rights)
 #' \item \strong{O}: Listed Options
 #' \item \strong{F}: Futures
-#' \item \strong{T}: Referencial Instruments
+#' \item \strong{T}: Referential Instruments
 #' \item \strong{M}: Others
 #' }
 #'
@@ -298,7 +298,7 @@ trading_instruments <- function(connection, request, sec_detailed = FALSE, marke
 #'
 #' @description List all front month contracts for futures.
 #'
-#' @param connection S4. \strong{Mandaroty} Formal rRofexConnection class object
+#' @param connection S4. \strong{Mandatory} Formal rRofexConnection class object
 #'
 #' @return If correct, it will load a tibble data frame
 #'
@@ -330,12 +330,12 @@ trading_instruments_fronts <- function(connection) {
 #'
 #' @description This method brings Market Data in Real Time.
 #'
-#' @param connection S4. \strong{Mandaroty}. Formal rRofexConnection class object
-#' @param market_id String. Market to wich you are going to connect.
+#' @param connection S4. \strong{Mandatory}. Formal rRofexConnection class object
+#' @param market_id String. Market to which you are going to connect.
 #' \itemize{
 #' \item \strong{ROFX} - Matba Rofex
 #' }
-#' @param symbol String. \strong{Mandaroty}. Use \code{\link{trading_instruments}} to see which symbols are available.
+#' @param symbol String. \strong{Mandatory}. Use \code{\link{trading_instruments}} to see which symbols are available.
 #' @param entries Vector of Strings. It contains the information to be queried:
 #' \itemize{
 #' \item \strong{BI} - Bid.
@@ -424,8 +424,8 @@ trading_md <- function(connection, market_id='ROFX', symbol, entries=c('BI', 'OF
 #'
 #' @description Access Historical Trades for a given instrument.
 #'
-#' @param connection S4. \strong{Mandaroty} Formal rRofexConnection class object
-#' @param market_id String. Market to wich we are going to connect.
+#' @param connection S4. \strong{Mandatory} Formal rRofexConnection class object
+#' @param market_id String. Market to which we are going to connect.
 #' \itemize{
 #' \item \strong{ROFX} - Matba Rofex.
 #' \item \strong{MERV} - S&P Merval.
@@ -516,7 +516,7 @@ trading_mdh <- function(connection, market_id='ROFX', symbol, date, date_from, d
 #'
 #' @description Access currencies prices.
 #'
-#' @param connection S4. \strong{Mandaroty} Formal rRofexConnection class object
+#' @param connection S4. \strong{Mandatory} Formal rRofexConnection class object
 #'
 #' @return If correct, it will load a data frame.
 #'
@@ -556,16 +556,16 @@ trading_currencies <- function(connection) {
 #'
 #' @description The method \code{trading_new_order} is use to send orders.
 #'
-#' @param connection S4. \strong{Mandaroty} Formal rRofexConnection class object
-#' @param account String. \strong{Mandaroty} Account Number
+#' @param connection S4. \strong{Mandatory} Formal rRofexConnection class object
+#' @param account String. \strong{Mandatory} Account Number
 #' @param symbol String. Use \code{\link{trading_instruments}} to see which symbols are available.
-#' @param side String. \strong{Mandaroty} Either:
+#' @param side String. \strong{Mandatory} Either:
 #' \itemize{
 #' \item \strong{Buy}
 #' \item \strong{Sell}
 #' }
-#' @param quantity Numeric. \strong{Mandaroty} Quantity of the order.
-#' @param price Numeric. \strong{Mandaroty} Price of the order.
+#' @param quantity Numeric. \strong{Mandatory} Quantity of the order.
+#' @param price Numeric. \strong{Mandatory} Price of the order.
 #' @param order_type String. Type of order.
 #' \itemize{
 #' \item \strong{Limit} - Default. Limit order sets the maximum or minimum price at which you are willing to buy or sell.
@@ -668,9 +668,9 @@ trading_new_order <- function(connection, account, symbol, side, quantity, price
 #'
 #' @description The method \code{trading_cancel_order} should be use to cancel orders that are open on the market.
 #'
-#' @param connection S4. \strong{Mandaroty} Formal rRofexConnection class object
-#' @param id String. \strong{Mandaroty} clOrdId given by the \code{trading_orders} method.
-#' @param proprietary String. \strong{Mandaroty} ID given by the \code{trading_orders} method.
+#' @param connection S4. \strong{Mandatory} Formal rRofexConnection class object
+#' @param id String. \strong{Mandatory} clOrdId given by the \code{trading_orders} method.
+#' @param proprietary String. \strong{Mandatory} ID given by the \code{trading_orders} method.
 #' \itemize{
 #' \item \strong{PBCP}
 #' }
@@ -730,15 +730,15 @@ trading_cancel_order <- function(connection, id, proprietary) {
 
 #' @title Lookup Order Status
 #'
-#' @description The method \code{trading_lookup} is used to check the satus of an order.
+#' @description The method \code{trading_lookup} is used to check the status of an order.
 #'
-#' @param connection S4. \strong{Mandaroty} Formal rRofexConnection class object
-#' @param lookup_type String. \strong{Mandaroty}. Look-up by:
+#' @param connection S4. \strong{Mandatory} Formal rRofexConnection class object
+#' @param lookup_type String. \strong{Mandatory}. Look-up by:
 #' \itemize{
 #' \item \strong{COID} - Client Order ID.
 #' \item \strong{OID} - Order ID.
 #' }
-#' @param id String. \strong{Mandaroty}. ID given by the \code{trading_orders} method. Depends on `lookup_type`.
+#' @param id String. \strong{Mandatory}. ID given by the \code{trading_orders} method. Depends on `lookup_type`.
 #' @param proprietary String. ID given by the \code{trading_orders} method. Only for 'lookup_type=COID' In most cases:
 #' \itemize{
 #' \item \strong{PBCP}
@@ -819,8 +819,8 @@ trading_lookup <- function(connection, lookup_type, id, proprietary) {
 #'
 #' @description The method \code{trading_orders} is used to see each order sent by Account.
 #'
-#' @param connection S4. \strong{Mandaroty} Formal rRofexConnection class object
-#' @param account String. \strong{Mandaroty} Account Number
+#' @param connection S4. \strong{Mandatory} Formal rRofexConnection class object
+#' @param account String. \strong{Mandatory} Account Number
 #'
 #' @return If correct, it will load a tibble.
 #'
@@ -886,8 +886,8 @@ trading_orders <- function(connection, account) {
 #'
 #' @description Access information about the trading account.
 #'
-#' @param connection S4. \strong{Mandaroty} Formal rRofexConnection class object
-#' @param account String. \strong{Mandaroty} Account Number
+#' @param connection S4. \strong{Mandatory} Formal rRofexConnection class object
+#' @param account String. \strong{Mandatory} Account Number
 #' @param detailed Logical. Expanded information.
 #'
 #' @return If correct, it will load a tibble.
@@ -972,8 +972,8 @@ trading_account <- function(connection, account, detailed = FALSE) {
 #'
 #' @description Access report about your trading account.
 #'
-#' @param connection S4. \strong{Mandaroty} Formal rRofexConnection class object
-#' @param account String. \strong{Mandaroty} Account Number
+#' @param connection S4. \strong{Mandatory} Formal rRofexConnection class object
+#' @param account String. \strong{Mandatory} Account Number
 #'
 #' @return If correct, it will load a tibble.
 #'

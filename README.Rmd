@@ -27,7 +27,7 @@ You can find the complete documentation under https://apihub.primary.com.ar/
 
 ## Installation
 
-At the moment `rRofex` is only available through GitHub usind `devtools`. 
+At the moment `rRofex` is only available through GitHub using `devtools`. 
 
 #### Installing with `devtools`
 
@@ -45,7 +45,7 @@ devtools::install_github("gruporofex/rRofex")
 We provide two libraries for ingesting data from Matba Rofex:
 
 - **rRofex**: methods for trading. 
-- [acyRsa](https://github.com/matbarofex/acyrsa): methods to accesing Back Office data from ACyRSA
+- [acyRsa](https://github.com/matbarofex/acyrsa): methods to accessing Back Office data from ACyRSA
 
 
 ### Methods for trading
@@ -61,8 +61,8 @@ These are the currently available methods:
 
 Available environments:
 
-- *Demo Environrment*: go to [reMarkets](https://remarkets.primary.ventures/) to get free credentials. 
-- *Production*: for credetentials please contact: <mpi@primary.com.ar> for more information. 
+- *Demo Environment*: go to [reMarkets](https://remarkets.primary.ventures/) to get free credentials. 
+- *Production*: for credentials please contact: <mpi@primary.com.ar> for more information. 
 - *Production - xOMS*: please contact your broker for credentials.
 
 ## Examples
@@ -83,7 +83,7 @@ trading_md(connection = conn, symbol = "DODic20")
 trading_mdh(connection = conn, symbol = "DOJul20", date = "2020-02-06")
 ```
 
-## Acknowledgements
+## Acknowledgments
 
 Development of this software was driven by [Primary](https://www.primary.com.ar/) as part of an Open Source initiative of [Matba Rofex](https://matbarofex.com.ar/).
 

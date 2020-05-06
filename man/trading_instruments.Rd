@@ -15,9 +15,9 @@ trading_instruments(
 )
 }
 \arguments{
-\item{connection}{S4. \strong{Mandaroty} Formal rRofexConnection class object}
+\item{connection}{S4. \strong{Mandatory} Formal rRofexConnection class object}
 
-\item{request}{String. \strong{Mandaroty} The type of request that you are making:
+\item{request}{String. \strong{Mandatory} The type of request that you are making:
 \itemize{
 \item \strong{segments}: List available market segments
 \item \strong{securities}: List available instruments listed on Matba Rofex. \emph{Depends on 'sec_detailed'}.
@@ -51,7 +51,7 @@ trading_instruments(
 \item \strong{R}: Entitlements (Rights)
 \item \strong{O}: Listed Options
 \item \strong{F}: Futures
-\item \strong{T}: Referencial Instruments
+\item \strong{T}: Referential Instruments
 \item \strong{M}: Others
 }}
 }

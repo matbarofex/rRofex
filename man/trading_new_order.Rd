@@ -19,21 +19,21 @@ trading_new_order(
 )
 }
 \arguments{
-\item{connection}{S4. \strong{Mandaroty} Formal rRofexConnection class object}
+\item{connection}{S4. \strong{Mandatory} Formal rRofexConnection class object}
 
-\item{account}{String. \strong{Mandaroty} Account Number}
+\item{account}{String. \strong{Mandatory} Account Number}
 
 \item{symbol}{String. Use \code{\link{trading_instruments}} to see which symbols are available.}
 
-\item{side}{String. \strong{Mandaroty} Either:
+\item{side}{String. \strong{Mandatory} Either:
 \itemize{
 \item \strong{Buy}
 \item \strong{Sell}
 }}
 
-\item{quantity}{Numeric. \strong{Mandaroty} Quantity of the order.}
+\item{quantity}{Numeric. \strong{Mandatory} Quantity of the order.}
 
-\item{price}{Numeric. \strong{Mandaroty} Price of the order.}
+\item{price}{Numeric. \strong{Mandatory} Price of the order.}
 
 \item{order_type}{String. Type of order.
 \itemize{

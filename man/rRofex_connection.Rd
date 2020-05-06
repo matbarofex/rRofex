@@ -7,9 +7,9 @@
 rRofex_connection(token, base_url)
 }
 \arguments{
-\item{token}{String. \strong{Mandaroty} Obtained with \code{\link{trading_login}}}
+\item{token}{String. \strong{Mandatory} Obtained with \code{\link{trading_login}}}
 
-\item{base_url}{String. \strong{Mandaroty} URL given by  \code{\link{trading_login}} or known by the client.}
+\item{base_url}{String. \strong{Mandatory} URL given by  \code{\link{trading_login}} or known by the client.}
 }
 \value{
 S4 rRofexConnection object.

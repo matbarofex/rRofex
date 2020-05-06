@@ -7,9 +7,9 @@
 trading_account_report(connection, account)
 }
 \arguments{
-\item{connection}{S4. \strong{Mandaroty} Formal rRofexConnection class object}
+\item{connection}{S4. \strong{Mandatory} Formal rRofexConnection class object}
 
-\item{account}{String. \strong{Mandaroty} Account Number}
+\item{account}{String. \strong{Mandatory} Account Number}
 }
 \value{
 If correct, it will load a tibble.

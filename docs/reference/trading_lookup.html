@@ -40,7 +40,7 @@
 
 
 <meta property="og:title" content="Lookup Order Status — trading_lookup" />
-<meta property="og:description" content="The method trading_lookup is used to check the satus of an order." />
+<meta property="og:description" content="The method trading_lookup is used to check the status of an order." />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:creator" content="@augustohassel" />
 <meta name="twitter:site" content="@matba_rofex" />
@@ -120,7 +120,7 @@
     </div>
 
     <div class="ref-description">
-    <p>The method <code>trading_lookup</code> is used to check the satus of an order.</p>
+    <p>The method <code>trading_lookup</code> is used to check the status of an order.</p>
     </div>
 
     <pre class="usage"><span class='fu'>trading_lookup</span>(<span class='no'>connection</span>, <span class='no'>lookup_type</span>, <span class='no'>id</span>, <span class='no'>proprietary</span>)</pre>
@@ -130,18 +130,18 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>connection</th>
-      <td><p>S4. <strong>Mandaroty</strong> Formal rRofexConnection class object</p></td>
+      <td><p>S4. <strong>Mandatory</strong> Formal rRofexConnection class object</p></td>
     </tr>
     <tr>
       <th>lookup_type</th>
-      <td><p>String. <strong>Mandaroty</strong>. Look-up by:</p><ul>
+      <td><p>String. <strong>Mandatory</strong>. Look-up by:</p><ul>
 <li><p><strong>COID</strong> - Client Order ID.</p></li>
 <li><p><strong>OID</strong> - Order ID.</p></li>
 </ul></td>
     </tr>
     <tr>
       <th>id</th>
-      <td><p>String. <strong>Mandaroty</strong>. ID given by the <code>trading_orders</code> method. Depends on `lookup_type`.</p></td>
+      <td><p>String. <strong>Mandatory</strong>. ID given by the <code>trading_orders</code> method. Depends on `lookup_type`.</p></td>
     </tr>
     <tr>
       <th>proprietary</th>

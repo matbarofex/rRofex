@@ -11,7 +11,7 @@ trading_login(username, password, base_url)
 
 \item{password}{String. Password}
 
-\item{base_url}{String. Wich environment are you going to connect:
+\item{base_url}{String. Which environment are you going to connect:
 \itemize{
 \item reMarkets: 'http://api.remarkets.primary.com.ar'
 \item production: 'https://api.primary.com.ar'
@@ -24,7 +24,7 @@ Note that reMarkets works with 'http' not 'https'.}
 S4 rRofexConnection object.
 }
 \description{
-\code{trading_login} log in the user into de Primary API
+\code{trading_login} log in the user into Primary API
 }
 \note{
 \itemize{

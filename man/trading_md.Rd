@@ -15,14 +15,14 @@ trading_md(
 )
 }
 \arguments{
-\item{connection}{S4. \strong{Mandaroty}. Formal rRofexConnection class object}
+\item{connection}{S4. \strong{Mandatory}. Formal rRofexConnection class object}
 
-\item{market_id}{String. Market to wich you are going to connect.
+\item{market_id}{String. Market to which you are going to connect.
 \itemize{
 \item \strong{ROFX} - Matba Rofex
 }}
 
-\item{symbol}{String. \strong{Mandaroty}. Use \code{\link{trading_instruments}} to see which symbols are available.}
+\item{symbol}{String. \strong{Mandatory}. Use \code{\link{trading_instruments}} to see which symbols are available.}
 
 \item{entries}{Vector of Strings. It contains the information to be queried:
 \itemize{

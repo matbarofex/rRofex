@@ -17,14 +17,14 @@
 
 * New method `trading_currencies()` to request currencies prices.
 * New method `trading_account()` to request information about your trading account.
-* Added new entries to metdho `trading_md()`.
+* Added new entries to method `trading_md()`.
 * `trading_mdh()` now supports `market_id = 'MERV'`.
 
 ## rRofex 1.4.0
 
 ### Changes
 
-* Corrected package version according to standars from [R Packages](http://r-pkgs.had.co.nz/)
+* Corrected package version according to standards from [R Packages](http://r-pkgs.had.co.nz/)
 * `trading_md()` and `trading_mdh()` gain a new parameter: **tidy**. If `tidy = TRUE` the information will be arrange in a tidy format.
 
 ## rRofex 1.3.0
@@ -71,7 +71,7 @@
 
 ### Changes
 
-* Sovled issue #8 
+* Solved issue #8 
 
 ### Acknowledgement
 

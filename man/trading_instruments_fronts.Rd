@@ -7,7 +7,7 @@
 trading_instruments_fronts(connection)
 }
 \arguments{
-\item{connection}{S4. \strong{Mandaroty} Formal rRofexConnection class object}
+\item{connection}{S4. \strong{Mandatory} Formal rRofexConnection class object}
 }
 \value{
 If correct, it will load a tibble data frame

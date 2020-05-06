@@ -7,11 +7,11 @@
 trading_cancel_order(connection, id, proprietary)
 }
 \arguments{
-\item{connection}{S4. \strong{Mandaroty} Formal rRofexConnection class object}
+\item{connection}{S4. \strong{Mandatory} Formal rRofexConnection class object}
 
-\item{id}{String. \strong{Mandaroty} clOrdId given by the \code{trading_orders} method.}
+\item{id}{String. \strong{Mandatory} clOrdId given by the \code{trading_orders} method.}
 
-\item{proprietary}{String. \strong{Mandaroty} ID given by the \code{trading_orders} method.
+\item{proprietary}{String. \strong{Mandatory} ID given by the \code{trading_orders} method.
 \itemize{
 \item \strong{PBCP}
 }}
