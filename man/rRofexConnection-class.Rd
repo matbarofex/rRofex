@@ -3,47 +3,17 @@
 \docType{class}
 \name{rRofexConnection-class}
 \alias{rRofexConnection-class}
-\alias{rRofexConnection}
-\alias{token}
-\alias{token<-}
-\alias{base_url}
-\alias{base_url<-}
-\alias{login_date_time}
 \title{Connection Class: rRofexConnection}
-\usage{
-token(x)
-
-token(x) <- value
-
-base_url(x)
-
-base_url(x) <- value
-
-login_date_time(x)
-}
 \description{
 Creates a rRofex connection object
 }
-\section{Functions}{
-\itemize{
-\item \code{token}: Access token
-
-\item \code{token<-}: Access token
-
-\item \code{base_url}: Access base url
-
-\item \code{base_url<-}: Access base url
-
-\item \code{login_date_time}: Access log in date time
-}}
-
 \section{Slots}{
 
 \describe{
-\item{\code{token}}{character.}
+\item{\code{token}}{character. Obtained from login method}
 
-\item{\code{base_url}}{character.}
+\item{\code{base_url}}{character. Connected environment}
 
-\item{\code{login_date_time}}{character.}
+\item{\code{login_date_time}}{character. Log-in date time. Valid for a day.}
 }}
 

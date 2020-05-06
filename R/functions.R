@@ -37,7 +37,7 @@ NULL
 #'
 #' @family connection functions
 rRofex_connection <- function(token, base_url) {
-  rRofexConnection(token = token, base_url = base_url, login_date_time = as.character(Sys.time()))
+  new(Class = "rRofexConnection", token = token, base_url = base_url, login_date_time = as.character(Sys.time()))
 }
 
 #' @title Primary API Log-In

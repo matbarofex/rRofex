@@ -3,14 +3,23 @@
 #' @export login_date_time
 NULL
 
+#' @title rRofexConnection-method
+#' @name rRofexConnection-method
+#' @rdname rRofexConnection-method
+#' @param x S4 Class. rRofexConnection object
+#' @param value New value to be assigned
+NULL
+
+# class definition -----
+
 #' @title Connection Class: rRofexConnection
 #'
 #' @description Creates a rRofex connection object
 #'
-#' @slot token character.
-#' @slot base_url character.
-#' @slot login_date_time character.
-rRofexConnection <- setClass("rRofexConnection",
+#' @slot token character. Obtained from login method
+#' @slot base_url character. Connected environment
+#' @slot login_date_time character. Log-in date time. Valid for a day.
+setClass("rRofexConnection",
          slots = c(
            token = "character",
            base_url = "character",
@@ -23,6 +32,8 @@ rRofexConnection <- setClass("rRofexConnection",
          )
 )
 
+# class validation ----
+
 setValidity("rRofexConnection", function(object){
   if (length(object@token) != 1 || length(object@base_url) != 1) {
     "@token and @base_url must have lenght 1"
@@ -33,31 +44,44 @@ setValidity("rRofexConnection", function(object){
   }
 })
 
-#' @describeIn rRofexConnection Access token
+ # generics -----
+
+#' @rdname rRofexConnection-method
 setGeneric("token", function(x) standardGeneric("token"))
 
+#' @rdname rRofexConnection-method
+setGeneric("token<-", function(x, value) standardGeneric("token<-"))
+
+#' @rdname rRofexConnection-method
+setGeneric("base_url", function(x) standardGeneric("base_url"))
+
+#' @rdname rRofexConnection-method
+setGeneric("base_url<-", function(x, value) standardGeneric("base_url<-"))
+
+#' @rdname rRofexConnection-method
+setGeneric("login_date_time", function(x) standardGeneric("login_date_time"))
+
+# methods -----
+
+#' @rdname rRofexConnection-method
 setMethod("token", "rRofexConnection", function(x) x@token)
 
-#' @describeIn rRofexConnection Access token
-setGeneric("token<-", function(x, value) standardGeneric("token<-"))
+#' @rdname rRofexConnection-method
 setMethod("token<-", "rRofexConnection", function(x, value) {
   x@token <- value
   validObject(x)
   x
 })
 
-#' @describeIn rRofexConnection Access base url
-setGeneric("base_url", function(x) standardGeneric("base_url"))
+#' @rdname rRofexConnection-method
 setMethod("base_url", "rRofexConnection", function(x) x@base_url)
 
-#' @describeIn rRofexConnection Access base url
-setGeneric("base_url<-", function(x, value) standardGeneric("base_url<-"))
+#' @rdname rRofexConnection-method
 setMethod("base_url<-", "rRofexConnection", function(x, value) {
   x@base_url <- value
   validObject(x)
   x
 })
 
-#' @describeIn rRofexConnection Access log in date time
-setGeneric("login_date_time", function(x) standardGeneric("login_date_time"))
+#' @rdname rRofexConnection-method
 setMethod("login_date_time", "rRofexConnection", function(x) x@login_date_time)

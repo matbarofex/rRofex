@@ -1,3 +1,9 @@
+## rRofex 1.6.5
+
+### Changes
+
+* Preparing repo to apply to CRAN.
+
 ## rRofex 1.6.0
 
 ### Changes
