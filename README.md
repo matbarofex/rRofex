@@ -38,7 +38,7 @@ devtools::install_github("gruporofex/rRofex")
 We provide two libraries for ingesting data from Matba Rofex:
 
   - **rRofex**: methods for trading.
-  - [acyRsa](https://github.com/matbarofex/acyrsa): methods to accesing
+  - [acyRsa](https://github.com/matbarofex/acyrsa): methods to accessing
     Back Office data from ACyRSA
 
 ### Methods for trading

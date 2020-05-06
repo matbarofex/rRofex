@@ -3,6 +3,7 @@
 ### Changes
 
 * Preparing repo to apply to CRAN.
+* Added 'Trade Count' entry type to `trading_md()`.
 
 ## rRofex 1.6.0
 

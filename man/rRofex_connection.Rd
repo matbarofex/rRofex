@@ -18,7 +18,7 @@ S4 rRofexConnection object.
 \code{rRofex_connection} creates a New Connection Object.
 }
 \note{
-You can use accesors to get information about the Object by using:
+You can use accessors to get information about the Object by using:
 \itemize{
 \item \code{token(conn)}
 \item \code{base_url(conn)}

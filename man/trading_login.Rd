@@ -33,7 +33,7 @@ S4 rRofexConnection object.
 \item xOMS: Ask your broker about it.
 }
 
-Accesors:
+Accessors:
 \itemize{
 \item \code{token(conn)}
 \item \code{base_url(conn)}

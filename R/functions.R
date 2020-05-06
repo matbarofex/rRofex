@@ -28,7 +28,7 @@ NULL
 #'
 #' @return S4 rRofexConnection object.
 #'
-#' @note You can use accesors to get information about the Object by using:
+#' @note You can use accessors to get information about the Object by using:
 #' \itemize{
 #' \item \code{token(conn)}
 #' \item \code{base_url(conn)}
@@ -64,7 +64,7 @@ rRofex_connection <- function(token, base_url) {
 #'
 #' @return S4 rRofexConnection object.
 #'
-#' @note Accesors:
+#' @note Accessors:
 #' \itemize{
 #' \item \code{token(conn)}
 #' \item \code{base_url(conn)}
@@ -126,7 +126,7 @@ trading_login <- function(username, password, base_url) {
 #' \item \strong{by_cfi_code}: List available instruments searching by CFI Code. \emph{Depends on 'cfi_code'}
 #' \item \strong{by_type}: List available instruments searching by Instrument Type. See section Instrument Types. \emph{Depends on 'sec_detailed' and 'sec_type'}.
 #' }
-#' @param sec_detailed Logical. Optional for request='securities'. Brings aditional information like segment, price, minimal/maximal trading quantity, settlement date, etc.
+#' @param sec_detailed Logical. Optional for request='securities'. Brings additional information like segment, price, minimal/maximal trading quantity, settlement date, etc.
 #' @param market_id String. Needed for request='by_segment'. Market ID.
 #' \itemize{
 #' \item \strong{ROFX}: Matba Rofex
@@ -134,7 +134,7 @@ trading_login <- function(username, password, base_url) {
 #' @param segment_id String. Needed for request='by_segment'. Market Segment ID.
 #' \itemize{
 #' \item \strong{DDF}: Financial Derivatives
-#' \item \strong{DDA}: Agropecuarial Derivatives
+#' \item \strong{DDA}: Agricultural Derivatives
 #' \item \strong{DUAL}: Other Derivatives
 #' \item \strong{MERV}: S&P Merval
 #' }
@@ -351,6 +351,7 @@ trading_instruments_fronts <- function(connection) {
 #' \item \strong{IV} - Index Value
 #' \item \strong{EV} - Trading Effective Volume
 #' \item \strong{NV} - Nominal Volume
+#' \item \strong{TC} - Trade Count
 #'
 #' }
 #' @param depth Integer. Depth of the book.
@@ -359,7 +360,7 @@ trading_instruments_fronts <- function(connection) {
 #' @return If correct, it will load a tibble data frame
 #'
 #' @family market data functions
-trading_md <- function(connection, market_id='ROFX', symbol, entries=c('BI', 'OF', 'LA', 'OP', 'CL', 'SE', 'OI', 'HI', 'LO', 'TV', 'IV', 'EV', 'NV'), depth = 1L, tidy = FALSE) {
+trading_md <- function(connection, market_id='ROFX', symbol, entries=c('BI', 'OF', 'LA', 'OP', 'CL', 'SE', 'OI', 'HI', 'LO', 'TV', 'IV', 'EV', 'NV', 'TC'), depth = 1L, tidy = FALSE) {
 
   if (missing(connection)) stop("Connection cannot be empty.")
   if (!isS4(connection) || rev(class(connection)) != "rRofexConnection" || !validObject(connection)) stop("The 'connection' must be a valid 'rRofexConnection'.")
@@ -369,7 +370,7 @@ trading_md <- function(connection, market_id='ROFX', symbol, entries=c('BI', 'OF
 
   if (missing(symbol)) stop("You should pick a 'symbol' to move forward.")
 
-  if (some(entries, ~ !.x %in% c('BI', 'OF', 'LA', 'OP', 'CL', 'SE', 'OI', 'HI', 'LO', 'TV', 'IV', 'EV', 'NV'))) stop("'entries' parameter is invalid. See documentation.")
+  if (some(entries, ~ !.x %in% c('BI', 'OF', 'LA', 'OP', 'CL', 'SE', 'OI', 'HI', 'LO', 'TV', 'IV', 'EV', 'NV', 'TC'))) stop("'entries' parameter is invalid. See documentation.")
 
   # Query
   query <- GET(url = glue(connection@base_url, "/rest/marketdata/get"),

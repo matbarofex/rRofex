@@ -26,7 +26,7 @@ trading_instruments(
 \item \strong{by_type}: List available instruments searching by Instrument Type. See section Instrument Types. \emph{Depends on 'sec_detailed' and 'sec_type'}.
 }}
 
-\item{sec_detailed}{Logical. Optional for request='securities'. Brings aditional information like segment, price, minimal/maximal trading quantity, settlement date, etc.}
+\item{sec_detailed}{Logical. Optional for request='securities'. Brings additional information like segment, price, minimal/maximal trading quantity, settlement date, etc.}
 
 \item{market_id}{String. Needed for request='by_segment'. Market ID.
 \itemize{
@@ -36,7 +36,7 @@ trading_instruments(
 \item{segment_id}{String. Needed for request='by_segment'. Market Segment ID.
 \itemize{
 \item \strong{DDF}: Financial Derivatives
-\item \strong{DDA}: Agropecuarial Derivatives
+\item \strong{DDA}: Agricultural Derivatives
 \item \strong{DUAL}: Other Derivatives
 \item \strong{MERV}: S&P Merval
 }}

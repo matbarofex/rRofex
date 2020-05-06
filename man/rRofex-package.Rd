@@ -6,7 +6,7 @@
 \alias{rRofex-package}
 \title{rRofex: Interface to Matba Rofex trading API}
 \description{
-Provides a convenient wrapper for consuming data from ROFEX APIs: Trading API, Risk API and BackOffice API.
+Provides a convenient wrapper for consuming data from Matba Rofex Trading APIs
 }
 \seealso{
 Useful links:

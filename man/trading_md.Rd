@@ -9,7 +9,7 @@ trading_md(
   market_id = "ROFX",
   symbol,
   entries = c("BI", "OF", "LA", "OP", "CL", "SE", "OI", "HI", "LO", "TV", "IV", "EV",
-    "NV"),
+    "NV", "TC"),
   depth = 1L,
   tidy = FALSE
 )
@@ -39,6 +39,7 @@ trading_md(
 \item \strong{IV} - Index Value
 \item \strong{EV} - Trading Effective Volume
 \item \strong{NV} - Nominal Volume
+\item \strong{TC} - Trade Count
 
 }}
 
