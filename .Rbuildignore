@@ -9,3 +9,4 @@ cran-comments.md
 README\.Rmd
 CODE_OF_CONDUCT\.md
 ^\.travis\.yml$
+^CRAN-RELEASE$
