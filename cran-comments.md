@@ -3,15 +3,12 @@
 * Ubuntu 16.04 (on travis-ci), R version 4.0.0
 
 ## R CMD check results
-There are no ERRORs or WARNINGs
-
-The is one NOTE:
-
-* checking R code for possible problems ... NOTE
-  Undefined global functions or variables: ...
-  
-  Those are names from requests made to an API inside the function,
-  not parameters for the end user.
+There are no ERRORs, WARNINGs or NOTEs
 
 ## Downstream dependencies
 There are currently no downstream dependencies for this package
+
+## Resubmission
+This is a resubmission. In this version I have:
+
+* Corrected the NOTE that stated 'Undefined global functions or variables'. 

@@ -7,5 +7,5 @@
 #' @importFrom magrittr %>%
 #' @importFrom glue glue glue_collapse
 #' @importFrom purrr some modify_depth map_df pluck map simplify_all map_int
-#' @importFrom rlang is_null
+#' @importFrom rlang is_null is_empty
 "_PACKAGE"

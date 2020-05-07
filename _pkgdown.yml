@@ -15,7 +15,6 @@ reference:
 - title: Authentication
   desc: Methods to obtain a valid token and/or generate a valid rRofexConnection object.
 - contents:
-  - rRofex_connection
   - trading_login
 - title: Reference Data
 - desc: Methods to obtain information about products.

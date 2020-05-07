@@ -11,7 +11,7 @@ trading_mdh(
   date,
   date_from,
   date_to,
-  tidy = FALSE
+  tidy = TRUE
 )
 }
 \arguments{

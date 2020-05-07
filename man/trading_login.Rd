@@ -34,10 +34,13 @@ S4 rRofexConnection object.
 }
 
 Accessors:
+You can use accessors to get information about the Object by using:
 \itemize{
 \item \code{token(conn)}
 \item \code{base_url(conn)}
 \item \code{login_date_time(conn)}
+\item \code{agent(conn)}
+\item \code{user_name(conn)}
 }
 }
 \examples{
@@ -48,9 +51,5 @@ password = "pepino",
 base_url = "http://api.remarkets.primary.com.ar"
 )
 }
-}
-\seealso{
-Other connection functions: 
-\code{\link{rRofex_connection}()}
 }
 \concept{connection functions}

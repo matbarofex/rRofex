@@ -1,3 +1,13 @@
+## rRofex 1.6.6
+
+### Changes
+
+* I've improved log-in method by storing more information into it.
+* Now sending 'user-agent' in each API request.
+* Extra validation on `trading_md()` and `trading_mdh()`. It only supports one instrument at the time. See documentation page for requesting many.
+* "tidy = TRUE" is set by default in `trading_md()` and `trading_mdh()`.
+* CRAN submission fix: Corrected the NOTE that stated 'Undefined global functions or variables'. 
+
 ## rRofex 1.6.5
 
 ### Changes

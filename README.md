@@ -19,7 +19,7 @@ You can find the complete documentation under
 
 ## Installation
 
-At the moment `rRofex` is only available through GitHub usind
+At the moment `rRofex` is only available through GitHub using
 `devtools`.
 
 #### Installing with `devtools`
@@ -54,10 +54,10 @@ These are the currently available methods:
 
 Available environments:
 
-  - *Demo Environrment*: go to
+  - *Demo Environment*: go to
     [reMarkets](https://remarkets.primary.ventures/) to get free
     credentials.
-  - *Production*: for credetentials please contact: <mpi@primary.com.ar>
+  - *Production*: for credentials please contact: <mpi@primary.com.ar>
     for more information.
   - *Production - xOMS*: please contact your broker for credentials.
 
@@ -79,7 +79,7 @@ trading_md(connection = conn, symbol = "DODic20")
 trading_mdh(connection = conn, symbol = "DOJul20", date = "2020-02-06")
 ```
 
-## Acknowledgements
+## Acknowledgments
 
 Development of this software was driven by
 [Primary](https://www.primary.com.ar/) as part of an Open Source

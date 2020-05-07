@@ -3,41 +3,44 @@
 \name{rRofexConnection-method}
 \alias{rRofexConnection-method}
 \alias{token}
-\alias{token<-}
 \alias{base_url}
-\alias{base_url<-}
 \alias{login_date_time}
+\alias{agent}
+\alias{user_name}
 \alias{token,rRofexConnection-method}
-\alias{token<-,rRofexConnection-method}
 \alias{base_url,rRofexConnection-method}
-\alias{base_url<-,rRofexConnection-method}
 \alias{login_date_time,rRofexConnection-method}
+\alias{agent,rRofexConnection-method}
+\alias{user_name,rRofexConnection-method}
+\alias{show,rRofexConnection-method}
 \title{rRofexConnection-method}
 \usage{
 token(x)
 
-token(x) <- value
-
 base_url(x)
-
-base_url(x) <- value
 
 login_date_time(x)
 
-\S4method{token}{rRofexConnection}(x)
+agent(x)
 
-\S4method{token}{rRofexConnection}(x) <- value
+user_name(x)
+
+\S4method{token}{rRofexConnection}(x)
 
 \S4method{base_url}{rRofexConnection}(x)
 
-\S4method{base_url}{rRofexConnection}(x) <- value
-
 \S4method{login_date_time}{rRofexConnection}(x)
+
+\S4method{agent}{rRofexConnection}(x)
+
+\S4method{user_name}{rRofexConnection}(x)
+
+\S4method{show}{rRofexConnection}(object)
 }
 \arguments{
 \item{x}{S4 Class. rRofexConnection object}
 
-\item{value}{New value to be assigned}
+\item{object}{S4 Class. rRofexConnection object}
 }
 \description{
 rRofexConnection-method

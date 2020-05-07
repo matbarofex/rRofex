@@ -19,27 +19,6 @@ NULL
 
 # Primary API Login ---------------------------
 
-#' @title Create rRofex Connection Object
-#'
-#' @description \code{rRofex_connection} creates a New Connection Object.
-#'
-#' @param token String. \strong{Mandatory} Obtained with \code{\link{trading_login}}
-#' @param base_url String. \strong{Mandatory} URL given by  \code{\link{trading_login}} or known by the client.
-#'
-#' @return S4 rRofexConnection object.
-#'
-#' @note You can use accessors to get information about the Object by using:
-#' \itemize{
-#' \item \code{token(conn)}
-#' \item \code{base_url(conn)}
-#' \item \code{login_date_time(conn)}
-#' }
-#'
-#' @family connection functions
-rRofex_connection <- function(token, base_url) {
-  new(Class = "rRofexConnection", token = token, base_url = base_url, login_date_time = as.character(Sys.time()))
-}
-
 #' @title Primary API Log-In
 #'
 #' @description \code{trading_login} log in the user into Primary API
@@ -65,10 +44,13 @@ rRofex_connection <- function(token, base_url) {
 #' @return S4 rRofexConnection object.
 #'
 #' @note Accessors:
+#' You can use accessors to get information about the Object by using:
 #' \itemize{
 #' \item \code{token(conn)}
 #' \item \code{base_url(conn)}
 #' \item \code{login_date_time(conn)}
+#' \item \code{agent(conn)}
+#' \item \code{user_name(conn)}
 #' }
 #'
 #' @family connection functions
@@ -82,12 +64,11 @@ rRofex_connection <- function(token, base_url) {
 #' )
 #' }
 trading_login <- function(username, password, base_url) {
-  if (missing(username) || missing(password)) stop("Username and Password are needed.")
+  if (missing(username) || missing(password)) stop("'username' and 'password' are needed.")
   if (missing(base_url)) stop("'base_url' is needed.")
+  if (!grepl(pattern = "^(http|https)://", x = base_url)) stop("'base_url' has an invalid format")
 
-  url <- glue(base_url, "/auth/getToken")
-
-  query <- tryCatch(POST(url = url,
+  query <- tryCatch(POST(url = glue(base_url, "/auth/getToken"),
                          add_headers(.headers = c("X-Username" = username,
                                                   "X-Password" = password)
                                      )
@@ -99,7 +80,9 @@ trading_login <- function(username, password, base_url) {
   } else if (typeof(query) == "list" && status_code(query) == 200) {
     message(glue("Succesfully connected with rRofex to {base_url}..."))
 
-    invisible(rRofex_connection(token = headers(query)$`x-auth-token`, base_url = base_url))
+    invisible(rRofex_connection(token = headers(query)$`x-auth-token`,
+                                base_url = base_url,
+                                user_name = username))
 
   } else {
     message(glue("Something went wrong...
@@ -178,28 +161,33 @@ trading_instruments <- function(connection, request, sec_detailed = FALSE, marke
   # Query
   query <- if (request == 'segments') {
     GET(url = glue(connection@base_url, "/rest/segment/all"),
-        add_headers(.headers = c("X-Auth-Token" = connection@token))
+        add_headers(.headers = c("X-Auth-Token" = connection@token)),
+        user_agent(connection@agent)
         )
   } else if (request %in% c('securities', 'by_type') & sec_detailed == F) {
     GET(url = glue(connection@base_url, "/rest/instruments/all"),
-        add_headers(.headers = c("X-Auth-Token" = connection@token))
+        add_headers(.headers = c("X-Auth-Token" = connection@token)),
+        user_agent(connection@agent)
     )
   } else if (request %in% c('securities', 'by_type') & sec_detailed == T) {
     GET(url = glue(connection@base_url, "/rest/instruments/details"),
-        add_headers(.headers = c("X-Auth-Token" = connection@token))
+        add_headers(.headers = c("X-Auth-Token" = connection@token)),
+        user_agent(connection@agent)
     )
   } else if (request == 'by_segment') {
     GET(url = glue(connection@base_url, "/rest/instruments/bySegment"),
         query = list(
           MarketID = market_id,
           MarketSegmentID = segment_id),
-        add_headers(.headers = c("X-Auth-Token" = connection@token))
+        add_headers(.headers = c("X-Auth-Token" = connection@token)),
+        user_agent(connection@agent)
     )
   } else if (request == 'by_cfi_code') {
     GET(url = glue(connection@base_url, "/rest/instruments/byCFICode"),
         query = list(
           CFICode = cfi_code),
-        add_headers(.headers = c("X-Auth-Token" = connection@token))
+        add_headers(.headers = c("X-Auth-Token" = connection@token)),
+        user_agent(connection@agent)
     )
   }
 
@@ -360,7 +348,19 @@ trading_instruments_fronts <- function(connection) {
 #' @return If correct, it will load a tibble data frame
 #'
 #' @family market data functions
-trading_md <- function(connection, market_id='ROFX', symbol, entries=c('BI', 'OF', 'LA', 'OP', 'CL', 'SE', 'OI', 'HI', 'LO', 'TV', 'IV', 'EV', 'NV', 'TC'), depth = 1L, tidy = FALSE) {
+#'
+#' @examples
+#'
+#' # If you want to query many products at once,
+#' # I recommend you to use "purrr::map" family like this:
+#'
+#' \dontrun{
+#' purrr::map_df(
+#' list('MERV - XMEV - GGAL - 48hs','MERV - XMEV - BYMA - 48hs'),
+#' ~trading_md(connection = conn, symbol = .x, entries = c("LA","OP", "NV"), tidy = T)
+#' )
+#' }
+trading_md <- function(connection, market_id='ROFX', symbol, entries=c('BI', 'OF', 'LA', 'OP', 'CL', 'SE', 'OI', 'HI', 'LO', 'TV', 'IV', 'EV', 'NV', 'TC'), depth = 1L, tidy = TRUE) {
 
   if (missing(connection)) stop("Connection cannot be empty.")
   if (!isS4(connection) || rev(class(connection)) != "rRofexConnection" || !validObject(connection)) stop("The 'connection' must be a valid 'rRofexConnection'.")
@@ -369,6 +369,7 @@ trading_md <- function(connection, market_id='ROFX', symbol, entries=c('BI', 'OF
   if (!market_id %in% c("ROFX")) stop("Invalid 'market_id' parameter.")
 
   if (missing(symbol)) stop("You should pick a 'symbol' to move forward.")
+  if (length(symbol) > 1) stop("'symbol' parameter can not be more than one.")
 
   if (some(entries, ~ !.x %in% c('BI', 'OF', 'LA', 'OP', 'CL', 'SE', 'OI', 'HI', 'LO', 'TV', 'IV', 'EV', 'NV', 'TC'))) stop("'entries' parameter is invalid. See documentation.")
 
@@ -379,7 +380,8 @@ trading_md <- function(connection, market_id='ROFX', symbol, entries=c('BI', 'OF
                  symbol     =     symbol,
                  entries    =     glue_collapse(entries, sep = ","),
                  depth      =     depth),
-               add_headers(.headers = c("X-Auth-Token" = connection@token)))
+               add_headers(.headers = c("X-Auth-Token" = connection@token)),
+               user_agent(connection@agent))
 
   if (status_code(query) != 200) {
 
@@ -387,7 +389,13 @@ trading_md <- function(connection, market_id='ROFX', symbol, entries=c('BI', 'OF
     message("\r")
     data <- NULL
 
-  } else {
+
+  } else if (content(query)$status != "OK") {
+
+      message(glue(content(query)$status, "\n", content(query)$description))
+      data <- NULL
+
+  } else  {
 
     if (tidy == TRUE) {
 
@@ -439,7 +447,7 @@ trading_md <- function(connection, market_id='ROFX', symbol, entries=c('BI', 'OF
 #' @return If correct, it will load a data frame.
 #'
 #' @family market data functions
-trading_mdh <- function(connection, market_id='ROFX', symbol, date, date_from, date_to, tidy = FALSE) {
+trading_mdh <- function(connection, market_id='ROFX', symbol, date, date_from, date_to, tidy = TRUE) {
 
   if (missing(connection)) stop("Connection cannot be empty.")
   if (!isS4(connection) || rev(class(connection)) != "rRofexConnection" || !validObject(connection)) stop("The 'connection' must be a valid 'rRofexConnection'.")
@@ -465,7 +473,8 @@ trading_mdh <- function(connection, market_id='ROFX', symbol, date, date_from, d
           date       =   date,
           external   =   ifelse(market_id != "ROFX", TRUE, FALSE)
         ),
-        add_headers(.headers = c("X-Auth-Token" = connection@token)))
+        add_headers(.headers = c("X-Auth-Token" = connection@token)),
+        user_agent(connection@agent))
   } else if (!missing(date_from) & !missing(date_to)) {
     GET(url = glue(connection@base_url, "/rest/data/getTrades"),
         query = list(
@@ -475,13 +484,19 @@ trading_mdh <- function(connection, market_id='ROFX', symbol, date, date_from, d
           dateTo     =   date_to,
           external   =   ifelse(market_id != "ROFX", TRUE, FALSE)
         ),
-        add_headers(.headers = c("X-Auth-Token" = connection@token)))
+        add_headers(.headers = c("X-Auth-Token" = connection@token)),
+        user_agent(connection@agent))
   }
 
   if (status_code(query) != 200) {
 
     warn_for_status(query)
     message("\r")
+    data <- NULL
+
+  } else if (content(query)$status != "OK") {
+
+    message(glue(content(query)$status, "\n", content(query)$description))
     data <- NULL
 
   } else if (!length(content(query)$trades)) {
@@ -529,7 +544,8 @@ trading_currencies <- function(connection) {
 
   # Query
   query <- GET(url = glue(connection@base_url, "/rest/risk/currency/getAll"),
-               add_headers(.headers = c("X-Auth-Token" = connection@token)))
+               add_headers(.headers = c("X-Auth-Token" = connection@token)),
+               user_agent(connection@agent))
 
   if (status_code(query) != 200) {
 
@@ -631,7 +647,8 @@ trading_new_order <- function(connection, account, symbol, side, quantity, price
                  displayQty  = if (iceberg == F) {NULL} else {display_quantity},
                  account     = account
                ),
-               add_headers(.headers = c("X-Auth-Token" = connection@token)))
+               add_headers(.headers = c("X-Auth-Token" = connection@token)),
+               user_agent(connection@agent))
 
   if (status_code(query) != 200) {
 
@@ -693,7 +710,8 @@ trading_cancel_order <- function(connection, id, proprietary) {
                  clOrdId     = id,
                  proprietary = proprietary
                ),
-               add_headers(.headers = c("X-Auth-Token" = connection@token)))
+               add_headers(.headers = c("X-Auth-Token" = connection@token)),
+               user_agent(connection@agent))
 
   if (status_code(query) != 200) {
 
@@ -767,13 +785,15 @@ trading_lookup <- function(connection, lookup_type, id, proprietary) {
           clOrdId     = id,
           proprietary = proprietary
         ),
-        add_headers(.headers = c("X-Auth-Token" = connection@token)))
+        add_headers(.headers = c("X-Auth-Token" = connection@token)),
+        user_agent(connection@agent))
   } else if (lookup_type == "OID") {
     GET(url = glue(connection@base_url, "/rest/order/byOrderId"),
         query = list(
           orderId     = id
         ),
-        add_headers(.headers = c("X-Auth-Token" = connection@token)))
+        add_headers(.headers = c("X-Auth-Token" = connection@token)),
+        user_agent(connection@agent))
   }
 
   if (status_code(query) != 200) {
@@ -838,7 +858,8 @@ trading_orders <- function(connection, account) {
                query = list(
                  accountId = account
                ),
-               add_headers(.headers = c("X-Auth-Token" = connection@token)))
+               add_headers(.headers = c("X-Auth-Token" = connection@token)),
+               user_agent(connection@agent))
 
 
   if (status_code(query) != 200) {
@@ -905,12 +926,14 @@ trading_account <- function(connection, account, detailed = FALSE) {
   query <- if (detailed == FALSE) {
 
     GET(url = glue(connection@base_url, "/rest/risk/position/getPositions/{account}"),
-        add_headers(.headers = c("X-Auth-Token" = connection@token)))
+        add_headers(.headers = c("X-Auth-Token" = connection@token)),
+        user_agent(connection@agent))
 
     } else if(detailed == TRUE) {
 
     GET(url = glue(connection@base_url, "/rest/risk/detailedPosition/{account}"),
-        add_headers(.headers = c("X-Auth-Token" = connection@token)))
+        add_headers(.headers = c("X-Auth-Token" = connection@token)),
+        user_agent(connection@agent))
 
     }
 
@@ -996,7 +1019,8 @@ trading_account_report <- function(connection, account) {
 
   # Query
   query <- GET(url = glue(connection@base_url, "/rest/risk/accountReport/{account}"),
-               add_headers(.headers = c("X-Auth-Token" = connection@token)))
+               add_headers(.headers = c("X-Auth-Token" = connection@token)),
+               user_agent(connection@agent))
 
   if (status_code(query) != 200) {
 

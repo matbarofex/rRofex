@@ -11,7 +11,7 @@ trading_md(
   entries = c("BI", "OF", "LA", "OP", "CL", "SE", "OI", "HI", "LO", "TV", "IV", "EV",
     "NV", "TC"),
   depth = 1L,
-  tidy = FALSE
+  tidy = TRUE
 )
 }
 \arguments{
@@ -52,6 +52,18 @@ If correct, it will load a tibble data frame
 }
 \description{
 This method brings Market Data in Real Time.
+}
+\examples{
+
+# If you want to query many products at once,
+# I recommend you to use "purrr::map" family like this:
+
+\dontrun{
+purrr::map_df(
+list('MERV - XMEV - GGAL - 48hs','MERV - XMEV - BYMA - 48hs'),
+~trading_md(connection = conn, symbol = .x, entries = c("LA","OP", "NV"), tidy = T)
+)
+}
 }
 \seealso{
 Other market data functions: 
