@@ -1,7 +1,7 @@
 Package: rRofex
 Type: Package
 Title: Interface to Matba Rofex Trading API
-Version: 1.6.6
+Version: 1.6.7
 Authors@R: c(person("Augusto", "Hassel", role = c("aut", "cre"), email = "ahassel@primary.com.ar"))
 Description: Provides a convenient wrapper for consuming data from Matba Rofex Trading API.
 License: MIT + file LICENSE

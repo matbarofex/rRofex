@@ -1,3 +1,9 @@
+## rRofex 1.6.7
+
+### Changes
+
+* reMarkets now is served on https instead of http.
+
 ## rRofex 1.6.6
 
 ### Changes
