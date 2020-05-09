@@ -58,7 +58,7 @@ NULL
 #' conn <- trading_login(
 #' username = "pepe",
 #' password = "pepino",
-#' base_url = "http://api.remarkets.primary.com.ar"
+#' base_url = "https://api.remarkets.primary.com.ar"
 #' )
 #' }
 trading_login <- function(username, password, base_url) {

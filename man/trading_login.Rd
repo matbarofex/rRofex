@@ -46,7 +46,7 @@ You can use accessors to get information about the Object by using:
 conn <- trading_login(
 username = "pepe",
 password = "pepino",
-base_url = "http://api.remarkets.primary.com.ar"
+base_url = "https://api.remarkets.primary.com.ar"
 )
 }
 }

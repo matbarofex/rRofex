@@ -135,7 +135,7 @@
 <div class="sourceCode" id="cb2"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">rRofex</span>)
 
 <span class="co"># Once you have cretencials, you'll be able to get a token when you login</span>
-<span class="no">conn</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/trading_login.html">trading_login</a></span>(<span class="kw">username</span> <span class="kw">=</span> <span class="no">XXX</span>, <span class="kw">password</span> <span class="kw">=</span> <span class="no">XXX</span>, <span class="kw">base_url</span> <span class="kw">=</span><span class="st">'http://api.remarkets.primary.com.ar'</span>)
+<span class="no">conn</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/trading_login.html">trading_login</a></span>(<span class="kw">username</span> <span class="kw">=</span> <span class="no">XXX</span>, <span class="kw">password</span> <span class="kw">=</span> <span class="no">XXX</span>, <span class="kw">base_url</span> <span class="kw">=</span><span class="st">'https://api.remarkets.primary.com.ar'</span>)
 
 <span class="co"># You can get a complete Reference Data list with details</span>
 <span class="fu"><a href="reference/trading_instruments.html">trading_instruments</a></span>(<span class="kw">connection</span> <span class="kw">=</span> <span class="no">conn</span>, <span class="kw">request</span> <span class="kw">=</span> <span class="st">"securities"</span>, <span class="kw">sec_detailed</span> <span class="kw">=</span> <span class="no">T</span>)
