@@ -71,7 +71,7 @@ Available environments:
 library(rRofex)
 
 # Once you have cretencials, you'll be able to get a token when you login
-conn <- trading_login(username = XXX, password = XXX, base_url ='http://api.remarkets.primary.com.ar')
+conn <- trading_login(username = XXX, password = XXX, base_url ='https://api.remarkets.primary.com.ar')
 
 # You can get a complete Reference Data list with details
 trading_instruments(connection = conn, request = "securities", sec_detailed = T)
