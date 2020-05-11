@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Account Report — trading_account_report • rRofex</title>
+<title>Show summary of rRofexConnection — show,rRofexConnection-method • rRofex</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Account Report — trading_account_report" />
-<meta property="og:description" content="Access report about your trading account." />
+<meta property="og:title" content="Show summary of rRofexConnection — show,rRofexConnection-method" />
+<meta property="og:description" content="Shows a summary about the rRofexConnection object created with trading_login" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:creator" content="@augustohassel" />
 <meta name="twitter:site" content="@matba_rofex" />
@@ -114,45 +114,31 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Account Report</h1>
-    <small class="dont-index">Source: <a href='https://github.com/matbarofex/rRofex/blob/master/R/functions.R'><code>R/functions.R</code></a></small>
-    <div class="hidden name"><code>trading_account_report.Rd</code></div>
+    <h1>Show summary of rRofexConnection</h1>
+    <small class="dont-index">Source: <a href='https://github.com/matbarofex/rRofex/blob/master/R/s4_object.R'><code>R/s4_object.R</code></a></small>
+    <div class="hidden name"><code>show-rRofexConnection-method.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Access report about your trading account.</p>
+    <p>Shows a summary about the rRofexConnection object created with <code><a href='trading_login.html'>trading_login</a></code></p>
     </div>
 
-    <pre class="usage"><span class='fu'>trading_account_report</span>(<span class='no'>connection</span>, <span class='no'>account</span>)</pre>
+    <pre class="usage"><span class='co'># S4 method for rRofexConnection</span>
+<span class='fu'>show</span>(<span class='no'>object</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>connection</th>
-      <td><p>S4. <strong>Mandatory</strong> Formal rRofexConnection class object</p></td>
-    </tr>
-    <tr>
-      <th>account</th>
-      <td><p>String. <strong>Mandatory</strong> Account Number</p></td>
+      <th>object</th>
+      <td><p>S4 Class. rRofexConnection object</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>If correct, it will load a tibble.</p>
-    <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
+    <p>Summary text with User, Environment and Timestamp</p>
 
-    <p>To access nested data is strongly recommended the use of `pluck`.</p>
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
-
-    <div class='dont-index'><p>Other account functions: 
-<code><a href='trading_account.html'>trading_account</a>()</code></p></div>
-
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='no'>data</span> <span class='kw'>%&gt;%</span> <span class='fu'>pluck</span>(<span class='st'>"detailedAccountReports"</span>, <span class='fl'>1</span>, <span class='st'>"availableToOperate"</span>, <span class='fl'>1</span>, <span class='st'>"cash"</span>)
-}</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

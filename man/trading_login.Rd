@@ -2,7 +2,7 @@
 % Please edit documentation in R/functions.R
 \name{trading_login}
 \alias{trading_login}
-\title{Primary API Log-In}
+\title{API Log-in}
 \usage{
 trading_login(username, password, base_url)
 }
@@ -22,7 +22,7 @@ trading_login(username, password, base_url)
 S4 rRofexConnection object.
 }
 \description{
-\code{trading_login} log in the user into Primary API
+Function that it is use to log-in into Primary trading API
 }
 \note{
 \itemize{

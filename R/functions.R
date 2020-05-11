@@ -17,11 +17,11 @@ NULL
 #' @include s4_object.R
 #' NULL
 
-# Primary API Login ---------------------------
+# Log-in ---------------------------
 
-#' @title Primary API Log-In
+#' @title API Log-in
 #'
-#' @description \code{trading_login} log in the user into Primary API
+#' @description Function that it is use to log-in into Primary trading API
 #'
 #' @param username String. User Name
 #' @param password String. Password
@@ -92,7 +92,7 @@ trading_login <- function(username, password, base_url) {
   }
 }
 
-# Primary Instruments ---------------------------
+# Instruments ---------------------------
 
 #' @title List of Instruments
 #'
@@ -1037,7 +1037,8 @@ trading_account_report <- function(connection, account) {
         t() %>%
         as_tibble() %>%
         mutate_at(.tbl = ., .vars = vars(matches("detailedAccountReports")), .funs = ~ modify_depth(., .depth = 3, ~ replace_na(., replace = NA))) %>%
-        mutate_if(.tbl = ., .predicate = ~ length(unlist(.)) == 1, .funs =  ~ unlist(x = ., recursive = F))
+        mutate_if(.tbl = ., .predicate = ~ length(unlist(.)) == 1, .funs =  ~ unlist(x = ., recursive = F)) %>%
+        mutate_at(.tbl = ., .vars = vars(matches("lastCalculation")), .funs = ~ as.POSIXct(./1000, origin = "1970-01-01", tz = "America/Buenos_Aires"))
 
       data <- if (length(data$detailedAccountReports[[1]])) {
         data %>%

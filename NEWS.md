@@ -1,3 +1,13 @@
+## rRofex 1.6.8
+
+### Changes
+
+* Added COPYRIGHT HOLDER in the Authors@R field.
+* Package names, software names and API names in single quotes in title and description.
+* I improved the description to make it more descriptive.
+* Added web reference for the API to the description.
+* I improved S4 documentation class, generics and methods.
+
 ## rRofex 1.6.7
 
 ### Changes

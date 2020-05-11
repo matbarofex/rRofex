@@ -5,24 +5,20 @@
 #' @export user_name
 NULL
 
-#' @title rRofexConnection-method
-#' @name rRofexConnection-method
-#' @rdname rRofexConnection-method
-#' @param x S4 Class. rRofexConnection object
-#' @param object S4 Class. rRofexConnection object
-NULL
-
 # class definition -----
 
 #' @title Connection Class: rRofexConnection
 #'
-#' @description Creates a rRofex connection object
+#' @description Creates an rRofex connection object that contains a summary from the \code{\link{trading_login}} function.
 #'
 #' @slot token character. Obtained from login method
 #' @slot base_url character. Connected environment
-#' @slot login_date_time character. Log-in date time. Valid for a day.
+#' @slot login_date_time character. Log-in date time. The connection object is only valid for a day.
 #' @slot agent character. User Agent to pass to the API. Format: 'rRofex-<environment>-user_name'
 #' @slot user_name character. User Name.
+#'
+#' @return S4 rRofexConnection object.
+#' @rdname rRofexConnection
 setClass("rRofexConnection",
          slots = c(
            token = "character",
@@ -54,41 +50,64 @@ setValidity("rRofexConnection", function(object){
   }
 })
 
- # generics -----
+# generics -----
 
-#' @rdname rRofexConnection-method
+#' @title See Token
+#' @description Shows information about the token thas has been generated with \code{\link{trading_login}}
+#' @param x S4 Class. rRofexConnection object
+#' @rdname token
+#' @return Scalar with token
 setGeneric("token", function(x) standardGeneric("token"))
 
-#' @rdname rRofexConnection-method
+#' @title See Base URL
+#' @description Shows information about the 'base url' where the user has been connected with \code{\link{trading_login}}
+#' @param x S4 Class. rRofexConnection object
+#' @rdname base_url
+#' @return Scalar with the 'base url'
 setGeneric("base_url", function(x) standardGeneric("base_url"))
 
-#' @rdname rRofexConnection-method
+#' @title See Log-in Timestamp
+#' @description Shows information about the connection timestamp when calling \code{\link{trading_login}}
+#' @param x S4 Class. rRofexConnection object
+#' @rdname login_date_time
+#' @return Scalar with the 'log-in timestamp'
 setGeneric("login_date_time", function(x) standardGeneric("login_date_time"))
 
-#' @rdname rRofexConnection-method
+#' @title See Agent
+#' @description Shows information about the agent set with \code{\link{trading_login}}
+#' @param x S4 Class. rRofexConnection object
+#' @rdname agent
+#' @return Scalar with the 'agent'
 setGeneric("agent", function(x) standardGeneric("agent"))
 
-#' @rdname rRofexConnection-method
+#' @title See User Name
+#' @description Shows information about the user name connected using \code{\link{trading_login}}
+#' @param x S4 Class. rRofexConnection object
+#' @rdname user_name
+#' @return Scalar with the 'user_name'
 setGeneric("user_name", function(x) standardGeneric("user_name"))
 
 # methods -----
 
-#' @rdname rRofexConnection-method
+#' @rdname token
 setMethod("token", "rRofexConnection", function(x) x@token)
 
-#' @rdname rRofexConnection-method
+#' @rdname base_url
 setMethod("base_url", "rRofexConnection", function(x) x@base_url)
 
-#' @rdname rRofexConnection-method
+#' @rdname login_date_time
 setMethod("login_date_time", "rRofexConnection", function(x) x@login_date_time)
 
-#' @rdname rRofexConnection-method
+#' @rdname agent
 setMethod("agent", "rRofexConnection", function(x) x@agent)
 
-#' @rdname rRofexConnection-method
+#' @rdname user_name
 setMethod("user_name", "rRofexConnection", function(x) x@user_name)
 
-#' @rdname rRofexConnection-method
+#' @title Show summary of rRofexConnection
+#' @description Shows a summary about the rRofexConnection object created with \code{\link{trading_login}}
+#' @param object S4 Class. rRofexConnection object
+#' @return Summary text with User, Environment and Timestamp
 setMethod("show", "rRofexConnection", function(object){
   cat(is(object)[[1]], " Object\n",
       "   User:  ", object@user_name, "\n",
@@ -115,6 +134,8 @@ setMethod("show", "rRofexConnection", function(object){
 #' \item \code{agent(conn)}
 #' \item \code{user_name(conn)}
 #' }
+#'
+#' @return A valid rRofexConecciont object.
 rRofex_connection <- function(token, base_url, user_name) {
   new(Class = "rRofexConnection",
       token = token,

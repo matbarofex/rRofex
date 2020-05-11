@@ -13,7 +13,7 @@ template:
 
 reference:
 - title: Authentication
-  desc: Methods to obtain a valid token and/or generate a valid rRofexConnection object.
+  desc: Methods to log-in.
 - contents:
   - trading_login
 - title: Reference Data

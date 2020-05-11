@@ -4,8 +4,11 @@
 \name{rRofexConnection-class}
 \alias{rRofexConnection-class}
 \title{Connection Class: rRofexConnection}
+\value{
+S4 rRofexConnection object.
+}
 \description{
-Creates a rRofex connection object
+Creates an rRofex connection object that contains a summary from the \code{\link{trading_login}} function.
 }
 \section{Slots}{
 
@@ -14,7 +17,7 @@ Creates a rRofex connection object
 
 \item{\code{base_url}}{character. Connected environment}
 
-\item{\code{login_date_time}}{character. Log-in date time. Valid for a day.}
+\item{\code{login_date_time}}{character. Log-in date time. The connection object is only valid for a day.}
 
 \item{\code{agent}}{character. User Agent to pass to the API. Format: 'rRofex-<environment>-user_name'}
 

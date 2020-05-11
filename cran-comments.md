@@ -19,4 +19,8 @@ There are currently no downstream dependencies for this package
 ## Resubmission
 This is a resubmission. In this version I have:
 
-* Corrected the NOTE that stated 'Undefined global functions or variables'. 
+* Added COPYRIGHT HOLDER in the Authors@R field.
+* Package names, software names and API names in single quotes in title and description.
+* I improved the description to make it more descriptive.
+* Added web reference for the API to the description.
+* I improved S4 documentation class, generics and methods.

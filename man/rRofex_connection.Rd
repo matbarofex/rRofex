@@ -15,6 +15,8 @@ rRofex_connection(token, base_url, user_name)
 }
 \value{
 S4 rRofexConnection object.
+
+A valid rRofexConecciont object.
 }
 \description{
 \code{rRofex_connection} creates a New Connection Object.
