@@ -23,12 +23,14 @@ Imports:
     rlang,
     purrr,
     glue,
-    methods
+    methods,
+    websocket
 RoxygenNote: 7.1.0
 Collate: 
     'attach.R'
     's4_object.R'
     'functions.R'
+    'functions_websocket.R'
     'functions_helpers.R'
     'globals.R'
     'rRofex.R'

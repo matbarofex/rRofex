@@ -2,6 +2,7 @@
 #' @import httr
 #' @import jsonlite
 #' @import methods
+#' @import websocket
 #' @importFrom tibble enframe as_tibble
 #' @importFrom tidyr separate replace_na pivot_wider
 #' @importFrom magrittr %>%
