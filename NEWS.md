@@ -1,3 +1,9 @@
+## rRofex 1.6.9
+
+### Changes
+
+* Fix. Please do not single quote API but the name of the API: 'Matba Rofex'
+
 ## rRofex 1.6.8
 
 ### Changes
