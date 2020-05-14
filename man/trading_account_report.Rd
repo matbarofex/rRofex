@@ -27,6 +27,7 @@ data \%>\% pluck("detailedAccountReports", 1, "availableToOperate", 1, "cash")
 }
 \seealso{
 Other account functions: 
-\code{\link{trading_account}()}
+\code{\link{trading_account}()},
+\code{\link{trading_ws_md}()}
 }
 \concept{account functions}

@@ -1,7 +1,7 @@
 Package: rRofex
 Type: Package
 Title: Interface to Matba Rofex Trading 'API'
-Version: 1.6.8
+Version: 2.0.0.9000
 Authors@R: c(
             person("Augusto", "Hassel", role = c("aut", "cre"), email = "ahassel@primary.com.ar"),
             person("Juan Francisco", "Gomez", role = c("ctb")),
@@ -24,7 +24,8 @@ Imports:
     purrr,
     glue,
     methods,
-    websocket
+    websocket,
+    later
 RoxygenNote: 7.1.0
 Collate: 
     'attach.R'

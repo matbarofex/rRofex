@@ -338,7 +338,6 @@ trading_instruments_fronts <- function(connection) {
 #' \item \strong{EV} - Trading Effective Volume
 #' \item \strong{NV} - Nominal Volume
 #' \item \strong{TC} - Trade Count
-#'
 #' }
 #' @param depth Integer. Depth of the book.
 #' @param tidy Logical. Data arranged on a tidy format.

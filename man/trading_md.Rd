@@ -40,7 +40,6 @@ trading_md(
 \item \strong{EV} - Trading Effective Volume
 \item \strong{NV} - Nominal Volume
 \item \strong{TC} - Trade Count
-
 }}
 
 \item{depth}{Integer. Depth of the book.}
