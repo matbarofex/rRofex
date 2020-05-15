@@ -261,11 +261,12 @@ trading_instruments <- function(connection, request, sec_detailed = FALSE, marke
                              ProductType %in% c('Options') & MarketSegmentId == 'MERV' ~ trimws(gsub(pattern = "(.{3})(.+)", replacement = "\\1", x = Ticker, ignore.case = T), which = "both"),
                              ProductType %in% c('Options') & MarketSegmentId != 'MERV'~ trimws(gsub(pattern = "(.)?([[:alpha:]]{3})?([0-9]{2})?(/)?([0-9]{2})?( )([0-9]+)([p|c])$", replacement = "\\1", x = Symbol, ignore.case = T), which = "both"),
                              ProductType %in% c('Futures') & grepl(pattern = "(Dispo)$", x = Ticker) == TRUE ~ trimws(gsub(pattern = "(.+)(Dispo)$", replacement = "\\1", x = Symbol, ignore.case = T), which = "both"),
+                             ProductType %in% c('Futures') & grepl(pattern = "(.)( )([0-9]{2})(/)([0-9]{2})( )([0-9]{2})(A)$", x = Ticker) == TRUE ~ trimws(gsub(pattern = "(.)( )([0-9]{2})(/)([0-9]{2})( )([0-9]{2})(A)$", replacement = "\\1", x = Symbol, ignore.case = T), which = "both"),
                              ProductType %in% c('Futures') ~ trimws(gsub(pattern = "(.)?([[:alpha:]]{3})?([0-9]{2})?(/)?([0-9]{2})?( )?((A|M)||([0-9]){2})$", replacement = "\\1", x = Symbol, ignore.case = T), which = "both"),
                              TRUE ~ NA_character_
                              ),
                            StrikePrice = case_when(
-                             ProductType %in% c('Options') & MarketSegmentId == 'MERV' ~ as.double(gsub(pattern = "(.{4})([0-9]+?\\.[0-9]*)([[:alpha:]]+)", replacement = "\\2", x = Ticker, ignore.case = T)),
+                             ProductType %in% c('Options') & MarketSegmentId == 'MERV' ~ as.double(gsub(pattern = "(.{4})([0-9]+?\\.?[0-9]*)([[:alpha:]]+)", replacement = "\\2", x = Ticker, ignore.case = T)),
                              ProductType %in% c('Options') & MarketSegmentId != 'MERV'~ as.double(gsub(pattern = "(.+)( )([0-9]+)([p|c])$", replacement = "\\3", x = Symbol, ignore.case = T)),
                              TRUE ~ NA_real_
                              )

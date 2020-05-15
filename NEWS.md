@@ -1,3 +1,9 @@
+## rRofex 1.6.10
+
+### Changes
+
+* Fix Underlying and Strike Price. It wasn't parsing correctly DOP and strike prices for BYMA options.
+
 ## rRofex 1.6.9
 
 ### Changes
