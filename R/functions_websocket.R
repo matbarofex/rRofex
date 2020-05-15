@@ -59,8 +59,6 @@ trading_ws_md <- function(connection, websocket_name, destination, symbol, entri
                       errorLogChannels = "none",
                       autoConnect = TRUE)
 
-  toJSON(list(type = "smd", level = 1, entries = entries, products = list(list(symbol = symbol, marketId = market_id))), auto_unbox = T)
-
   ws$onOpen(function(event){
     message(glue("Client connected with rRofex using websockets to {connection@base_url}..."))
     ws$send(toJSON(list(type = "smd", level = 1, entries = entries, products = list(list(symbol = symbol, marketId = market_id))), auto_unbox = T))
@@ -72,7 +70,7 @@ trading_ws_md <- function(connection, websocket_name, destination, symbol, entri
                  code = event$code,
                  reason = event$reason))
     if (event$code == 1006) {
-      trading_md_ws(connection = connection, websocket_name = websocket_name, destination = destination)
+      trading_ws_md(connection = connection, websocket_name = websocket_name, destination = destination, symbol = symbol, entries = entries, market_id = market_id)
     }
   })
 
@@ -86,6 +84,7 @@ trading_ws_md <- function(connection, websocket_name, destination, symbol, entri
       unlist(x = ., recursive = T, use.names = T) %>%
       as_tibble_row() %>%
       mutate(timestamp = as.POSIXct(timestamp/1000, origin = "1970-01-01", tz = "America/Buenos_Aires")) %>%
+      mutate_at(.tbl = ., .vars = vars(matches(".date")), .funs = list(~ as.POSIXct(x = unlist(.)/1000, origin = "1970-01-01", tz = "America/Buenos_Aires"))) %>%
       rename_all(.tbl = ., .funs = list(~ gsub(pattern = "marketData\\.", replacement = "", x = .))) %>%
       rename_all(.tbl = ., .funs = list(~ gsub(pattern = "\\.", replacement = "_", x = .))) %>%
       bind_rows(get(x = destination, envir = .GlobalEnv), .) %>%
