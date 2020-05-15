@@ -99,15 +99,6 @@ trading_ws_md <- function(connection, websocket_name, destination, symbol, entri
 #'
 #' @param websocket_connections web socket that is going to be closed.
 trading_ws_close <- function(websocket_connection) {
-  websocket_connection$close()
+  get(x = websocket_connection)$close()
 }
-
-
-
-
-
-
-
-
-
 
