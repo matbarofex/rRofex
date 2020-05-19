@@ -408,7 +408,8 @@ trading_md <- function(connection, symbol, entries=c('BI', 'OF', 'LA', 'OP', 'CL
           as_tibble_row() %>%
           rename_all(.tbl = ., .funs = list(~ gsub(pattern = "\\.", replacement = "_", x = .))) %>%
           mutate_at(.tbl = ., .vars = vars(matches("_date")), .funs = list(~ as.POSIXct(x = unlist(.)/1000, origin = "1970-01-01", tz = "America/Buenos_Aires"))) %>%
-          mutate_at(.tbl = ., .vars = vars(matches("_size|_price", perl = TRUE)), .funs = list(~as.double(.)))
+          mutate_at(.tbl = ., .vars = vars(matches("_size|_price", perl = TRUE)), .funs = list(~as.double(.))) %>%
+          mutate(Symbol = symbol)
       } else {
         data$marketData %>%
           enframe() %>%
@@ -418,7 +419,8 @@ trading_md <- function(connection, symbol, entries=c('BI', 'OF', 'LA', 'OP', 'CL
           mutate_if(., .predicate = ~ length(unlist(.)) == 1, .funs =  ~ unlist(x = ., recursive = F)) %>%
           mutate_if(., .predicate = ~ class(.) == 'list', .funs = ~ modify_depth(.x = ., .depth = 1, ~ as_tibble(.))) %>%
           mutate_if(., .predicate = ~ class(.) == 'list', .funs = ~ modify_depth(.x = ., .depth = 1, ~ mutate_at(.tbl = ., .vars = vars(matches("date")), .funs = ~ as.POSIXct(./1000, origin = "1970-01-01", tz = "America/Buenos_Aires")))) %>%
-          mutate_if(., .predicate = ~ class(.) == 'list', .funs = ~ modify_depth(.x = ., .depth = 1, ~ mutate_at(.tbl = ., .vars = vars(matches("size|price", perl = TRUE)), .funs = ~ as.double(.))))
+          mutate_if(., .predicate = ~ class(.) == 'list', .funs = ~ modify_depth(.x = ., .depth = 1, ~ mutate_at(.tbl = ., .vars = vars(matches("size|price", perl = TRUE)), .funs = ~ as.double(.)))) %>%
+          mutate(Symbol = symbol)
       }
 
     } else {
