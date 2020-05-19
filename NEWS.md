@@ -1,3 +1,9 @@
+## rRofex 1.6.11
+
+### Changes
+
+* Changes made to `trading_md()`. Now the result gets flattened when **depth=1L**. This solves the issue #17.
+
 ## rRofex 1.6.10
 
 ### Changes

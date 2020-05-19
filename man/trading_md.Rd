@@ -6,25 +6,20 @@
 \usage{
 trading_md(
   connection,
-  market_id = "ROFX",
   symbol,
   entries = c("BI", "OF", "LA", "OP", "CL", "SE", "OI", "HI", "LO", "TV", "IV", "EV",
     "NV", "TC"),
   depth = 1L,
+  market_id = "ROFX",
   tidy = TRUE
 )
 }
 \arguments{
 \item{connection}{S4. \strong{Mandatory}. Formal rRofexConnection class object}
 
-\item{market_id}{String. Market to which you are going to connect.
-\itemize{
-\item \strong{ROFX} - Matba Rofex
-}}
-
 \item{symbol}{String. \strong{Mandatory}. Use \code{\link{trading_instruments}} to see which symbols are available.}
 
-\item{entries}{Vector of Strings. It contains the information to be queried:
+\item{entries}{Vector of Strings. When nothing is set, then \strong{all entries are the default}. It contains the information to be queried:
 \itemize{
 \item \strong{BI} - Bid.
 \item \strong{OF} - Offer.
@@ -43,9 +38,14 @@ trading_md(
 
 }}
 
-\item{depth}{Integer. Depth of the book.}
+\item{depth}{Integer. Depth of the book. Default is \strong{1L}.}
 
-\item{tidy}{Logical. Data arranged on a tidy format.}
+\item{market_id}{String. Market to which you are going to connect. Default is \strong{ROFX}.
+\itemize{
+\item \strong{ROFX} - Matba Rofex
+}}
+
+\item{tidy}{Logical. Data arranged on a tidy format. Default is \strong{TRUE}.}
 }
 \value{
 If correct, it will load a tibble data frame
