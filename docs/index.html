@@ -6,6 +6,12 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Interface to Matba Rofex Trading API • rRofex</title>
+<!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="apple-touch-icon.png">
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="apple-touch-icon-76x76.png">
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="apple-touch-icon-60x60.png">
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="bootstrap-toc.css">
 <script src="bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
@@ -13,6 +19,7 @@
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
 <script src="pkgdown.js"></script><meta property="og:title" content="Interface to Matba Rofex Trading API">
 <meta property="og:description" content="Execute API calls to the Matba Rofex &lt;https://apihub.primary.com.ar&gt; trading platform. Functionality includes accessing account data and current holdings, retrieving investment quotes, placing and canceling orders, and getting reference data for instruments.">
+<meta property="og:image" content="/logo.png">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:creator" content="@augustohassel">
 <meta name="twitter:site" content="@matba_rofex">
@@ -74,51 +81,62 @@
   <div class="contents col-md-9">
 <div id="rrofex-" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
-<a href="#rrofex-" class="anchor"></a>rRofex <img src="reference/figures/r-rofex.png" align="right" height="139">
+<a href="#rrofex-" class="anchor"></a>rRofex <img src="reference/figures/logo.png" align="right" height="139">
 </h1></div>
 <!-- badges: start -->
 
-<p>This package lets you access Matba Rofex API for trading using R. This will enable you to integrate Matba Rofex’ data easily into R workflows.</p>
+<p>With this package, you will be able to execute API calls to the ‘Matba Rofex’ trading platform.</p>
+<p>The main functionalites include:accessing account data and current holdings, retrieving investment quotes, placing and canceling orders, and getting reference data for instruments.</p>
 <p>You can find the complete documentation under <a href="https://apihub.primary.com.ar/" class="uri">https://apihub.primary.com.ar/</a></p>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
-<p>At the moment <code>rRofex</code> is only available through GitHub using <code>devtools</code>.</p>
-<div id="installing-with-devtools" class="section level4">
+<div class="sourceCode" id="cb1"><pre class="r"><span class="co"># To install the package you just need to use the command:</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"rRofex"</span>)
+
+<span class="co"># Then load it with</span>
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">rRofex</span>)</pre></div>
+<div id="development-version" class="section level4">
 <h4 class="hasAnchor">
-<a href="#installing-with-devtools" class="anchor"></a>Installing with <code>devtools</code>
-</h4>
-<div class="sourceCode" id="cb1"><pre class="r"><span class="co"># 1. In R install the package `devtools`.</span>
+<a href="#development-version" class="anchor"></a>Development version</h4>
+<p>You can use the development version to try new features or bug fixes directly from GitHub.</p>
+<div class="sourceCode" id="cb2"><pre class="r"><span class="co"># 1. In R install the package `devtools`.</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"devtools"</span>)
 
 <span class="co"># 2. Once `devtools` is installed, install `rRofex`</span>
 <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">devtools</span>)
-<span class="kw pkg">devtools</span><span class="kw ns">::</span><span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span>(<span class="st">"gruporofex/rRofex"</span>)</pre></div>
+<span class="kw pkg">devtools</span><span class="kw ns">::</span><span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span>(<span class="st">"matbarofex/rRofex"</span>)
+
+<span class="co"># 3. Then load it with</span>
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">rRofex</span>)</pre></div>
 </div>
 </div>
 <div id="references" class="section level2">
 <h2 class="hasAnchor">
 <a href="#references" class="anchor"></a>References</h2>
-<p>We provide two libraries for ingesting data from Matba Rofex:</p>
+<p>At the present we provide two libraries for ingesting data from Matba Rofex:</p>
 <ul>
 <li>
 <strong>rRofex</strong>: methods for trading.</li>
 <li>
-<a href="https://github.com/matbarofex/acyrsa">acyRsa</a>: methods to accessing Back Office data from ACyRSA</li>
+<a href="https://github.com/matbarofex/acyrsa">acyRsa</a>: methods for accessing Back Office data from ACyRSA</li>
 </ul>
-<div id="methods-for-trading" class="section level3">
+<div id="summary-of-actions-for-trading" class="section level3">
 <h3 class="hasAnchor">
-<a href="#methods-for-trading" class="anchor"></a>Methods for trading</h3>
-<p>These are the currently available methods:</p>
+<a href="#summary-of-actions-for-trading" class="anchor"></a>Summary of actions for trading</h3>
+<p>These are the currently available actions within the library:</p>
 <ul>
 <li>Authentication</li>
-<li>Methods to obtain information about products</li>
-<li>Real-time and historical market data</li>
-<li>Orders Placement</li>
-<li>Orders Management</li>
-<li>Account Information</li>
+<li>Reference data request</li>
+<li>Real-time and historical market data request</li>
+<li>Orders placement</li>
+<li>Orders management</li>
+<li>Account information request</li>
 </ul>
-<p>Available environments:</p>
+</div>
+<div id="environments" class="section level3">
+<h3 class="hasAnchor">
+<a href="#environments" class="anchor"></a>Environments:</h3>
 <ul>
 <li>
 <em>Demo Environment</em>: go to <a href="https://remarkets.primary.ventures/">reMarkets</a> to get free credentials.</li>
@@ -128,23 +146,99 @@
 <em>Production - xOMS</em>: please contact your broker for credentials.</li>
 </ul>
 </div>
+<div id="connection-protocols" class="section level3">
+<h3 class="hasAnchor">
+<a href="#connection-protocols" class="anchor"></a>Connection Protocols</h3>
+<p>There are currently three standard protocols that are being used to connecting to the market::</p>
+<ol>
+<li>
+<strong>REST</strong>. Inside this library most methods use this protocol internaly.</li>
+<li>
+<strong>Websocket</strong>. It is under development on branch ‘websocket’ on GitHub. The methods have the suffix ‘ws’ inside it’s name.</li>
+<li>
+<em>FIX</em>. We don’t have any short term plans to develop this wrapper.</li>
+</ol>
+</div>
 </div>
 <div id="examples" class="section level2">
 <h2 class="hasAnchor">
 <a href="#examples" class="anchor"></a>Examples</h2>
-<div class="sourceCode" id="cb2"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">rRofex</span>)
+<div id="1-log-in" class="section level3">
+<h3 class="hasAnchor">
+<a href="#1-log-in" class="anchor"></a>1. Log in</h3>
+<p>There are different environment on which one can connect to.</p>
+<p>For <strong>paper trading</strong> exists <a href="https://remarkets.primary.ventures/">reMarkets</a>. If you go there, you will be able to get free credentials to start trading with a demo account.</p>
+<p>If you already have a <strong>live trading</strong> account with a broker, you should ask them what kind of <em>order management system</em> (OMS) do they use. If they have the suite of <strong>Primary</strong>, then you will have to ask them for the <em>user</em>, <em>password</em> and <em>base_url</em>.</p>
+<div class="sourceCode" id="cb3"><pre class="r"><span class="co"># Using `trading_login()` you will be able to connect. </span>
+<span class="co"># You will need to use this object in each request made. You can have multiple connections simultaneously.</span>
+<span class="no">conn</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/trading_login.html">trading_login</a></span>(<span class="kw">username</span> <span class="kw">=</span> <span class="no">XXX</span>,
+                      <span class="kw">password</span> <span class="kw">=</span> <span class="no">XXX</span>,
+                      <span class="kw">base_url</span> <span class="kw">=</span><span class="st">'https://api.remarkets.primary.com.ar'</span>)
 
-<span class="co"># Once you have cretencials, you'll be able to get a token when you login</span>
-<span class="no">conn</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/trading_login.html">trading_login</a></span>(<span class="kw">username</span> <span class="kw">=</span> <span class="no">XXX</span>, <span class="kw">password</span> <span class="kw">=</span> <span class="no">XXX</span>, <span class="kw">base_url</span> <span class="kw">=</span><span class="st">'https://api.remarkets.primary.com.ar'</span>)
+<span class="co"># The connection is valid only for the day, you can get your log in information with `login_date_time()`</span>
+<span class="fu"><a href="reference/login_date_time.html">login_date_time</a></span>(<span class="no">conn</span>)</pre></div>
+</div>
+<div id="2-reference-data" class="section level3">
+<h3 class="hasAnchor">
+<a href="#2-reference-data" class="anchor"></a>2. Reference Data</h3>
+<p>There are many types of request that you can make in order to get reference data. The basic one is to ask for a detailed list of every listed instrument.</p>
+<div class="sourceCode" id="cb4"><pre class="r"><span class="co"># You can get a complete Reference Data list with details</span>
+<span class="fu"><a href="reference/trading_instruments.html">trading_instruments</a></span>(<span class="kw">connection</span> <span class="kw">=</span> <span class="no">conn</span>,
+                    <span class="kw">request</span> <span class="kw">=</span> <span class="st">"securities"</span>,
+                    <span class="kw">sec_detailed</span> <span class="kw">=</span> <span class="no">T</span>)
 
-<span class="co"># You can get a complete Reference Data list with details</span>
-<span class="fu"><a href="reference/trading_instruments.html">trading_instruments</a></span>(<span class="kw">connection</span> <span class="kw">=</span> <span class="no">conn</span>, <span class="kw">request</span> <span class="kw">=</span> <span class="st">"securities"</span>, <span class="kw">sec_detailed</span> <span class="kw">=</span> <span class="no">T</span>)
+<span class="co"># If you are interested only in the front month of each contract of features, you can try</span>
+<span class="fu"><a href="reference/trading_instruments_fronts.html">trading_instruments_fronts</a></span>(<span class="kw">connection</span> <span class="kw">=</span> <span class="no">conn</span>)
 
-<span class="co"># Real Time Prices using the REST APP</span>
-<span class="fu"><a href="reference/trading_md.html">trading_md</a></span>(<span class="kw">connection</span> <span class="kw">=</span> <span class="no">conn</span>, <span class="kw">symbol</span> <span class="kw">=</span> <span class="st">"DODic20"</span>)
+<span class="co"># If you only want equities</span>
+<span class="fu"><a href="reference/trading_instruments.html">trading_instruments</a></span>(<span class="kw">connection</span> <span class="kw">=</span> <span class="no">conn</span>,
+                    <span class="kw">request</span> <span class="kw">=</span> <span class="st">"by_type"</span>,
+                    <span class="kw">sec_type</span> <span class="kw">=</span> <span class="st">"E"</span>)</pre></div>
+</div>
+<div id="3-market-data" class="section level3">
+<h3 class="hasAnchor">
+<a href="#3-market-data" class="anchor"></a>3. Market Data</h3>
+<p>You can access real time market data and historical market data. There is a version with Websocket being developed.</p>
+<div class="sourceCode" id="cb5"><pre class="r"><span class="co"># Real Time Prices using the REST protocol</span>
+<span class="fu"><a href="reference/trading_md.html">trading_md</a></span>(<span class="kw">connection</span> <span class="kw">=</span> <span class="no">conn</span>,
+           <span class="kw">symbol</span> <span class="kw">=</span> <span class="st">"DODic20"</span>)
 
 <span class="co"># Historical Trades</span>
-<span class="fu"><a href="reference/trading_mdh.html">trading_mdh</a></span>(<span class="kw">connection</span> <span class="kw">=</span> <span class="no">conn</span>, <span class="kw">symbol</span> <span class="kw">=</span> <span class="st">"DOJul20"</span>, <span class="kw">date</span> <span class="kw">=</span> <span class="st">"2020-02-06"</span>)</pre></div>
+<span class="fu"><a href="reference/trading_mdh.html">trading_mdh</a></span>(<span class="kw">connection</span> <span class="kw">=</span> <span class="no">conn</span>,
+            <span class="kw">symbol</span> <span class="kw">=</span> <span class="st">"DOJul20"</span>,
+            <span class="kw">date_from</span> <span class="kw">=</span> <span class="st">"2020-02-06"</span>,
+            <span class="kw">date_to</span> <span class="kw">=</span> <span class="st">"2020-03-06"</span>)</pre></div>
+</div>
+<div id="4-order-placement" class="section level3">
+<h3 class="hasAnchor">
+<a href="#4-order-placement" class="anchor"></a>4. Order Placement</h3>
+<p>With the method <code><a href="reference/trading_new_order.html">trading_new_order()</a></code> you will be able to trade on the market. The basic order type is as follows:</p>
+<div class="sourceCode" id="cb6"><pre class="r"><span class="fu"><a href="reference/trading_new_order.html">trading_new_order</a></span>(<span class="kw">connection</span> <span class="kw">=</span> <span class="no">conn</span>,
+                  <span class="kw">account</span> <span class="kw">=</span> <span class="st">"XXX"</span>,
+                  <span class="kw">symbol</span> <span class="kw">=</span> <span class="st">"DOEne21"</span>,
+                  <span class="kw">side</span> <span class="kw">=</span> <span class="st">"Buy"</span>,
+                  <span class="kw">quantity</span> <span class="kw">=</span> <span class="fl">10</span>,
+                  <span class="kw">price</span> <span class="kw">=</span> <span class="fl">92.14</span>)</pre></div>
+</div>
+<div id="5-order-management" class="section level3">
+<h3 class="hasAnchor">
+<a href="#5-order-management" class="anchor"></a>5. Order Management</h3>
+<p>If you want to know the status of your arder, you will need ths method:</p>
+<div class="sourceCode" id="cb7"><pre class="r"><span class="fu"><a href="reference/trading_orders.html">trading_orders</a></span>(<span class="kw">connection</span> <span class="kw">=</span> <span class="no">conn</span>,
+               <span class="kw">account</span> <span class="kw">=</span> <span class="st">"XXX"</span>)</pre></div>
+</div>
+<div id="6-account-information" class="section level3">
+<h3 class="hasAnchor">
+<a href="#6-account-information" class="anchor"></a>6. Account Information</h3>
+<p>With <code><a href="reference/trading_account.html">trading_account()</a></code> and <code><a href="reference/trading_account_report.html">trading_account_report()</a></code> you will be able to obtain information about your current position in terms of instruments and in terms of cash and settlement dates.</p>
+<div class="sourceCode" id="cb8"><pre class="r"><span class="co"># With trading account you can get the information about your basket</span>
+<span class="fu"><a href="reference/trading_account.html">trading_account</a></span>(<span class="kw">connection</span> <span class="kw">=</span> <span class="no">conn</span>,
+                <span class="kw">account</span> <span class="kw">=</span> <span class="st">"REM731"</span>)
+
+<span class="co"># With trading account report you can have your cash, margins, etc.</span>
+<span class="fu"><a href="reference/trading_account_report.html">trading_account_report</a></span>(<span class="kw">connection</span> <span class="kw">=</span> <span class="no">conn</span>,
+                       <span class="kw">account</span> <span class="kw">=</span> <span class="st">"REM731"</span>)</pre></div>
+</div>
 </div>
 <div id="acknowledgments" class="section level2">
 <h2 class="hasAnchor">
@@ -172,6 +266,8 @@
     <div class="links">
 <h2>Links</h2>
 <ul class="list-unstyled">
+<li>Download from CRAN at <br><a href="https://cloud.r-project.org/package=rRofex">https://​cloud.r-project.org/​package=rRofex</a>
+</li>
 <li>Browse source code at <br><a href="https://github.com/matbarofex/rRofex/">https://​github.com/​matbarofex/​rRofex/​</a>
 </li>
 <li>Report a bug at <br><a href="https://github.com/matbarofex/rRofex/issues">https://​github.com/​matbarofex/​rRofex/​issues</a>
@@ -194,8 +290,7 @@
 <div class="developers">
 <h2>Developers</h2>
 <ul class="list-unstyled">
-<li>
-<a href="http://www.hasselpunk.com">Augusto Hassel</a> <br><small class="roles"> Author, maintainer </small>  </li>
+<li>Augusto Hassel <br><small class="roles"> Author, maintainer </small>  </li>
 <li><a href="authors.html">All authors...</a></li>
 </ul>
 </div>
@@ -205,6 +300,8 @@
 <ul class="list-unstyled">
 <li><a href="https://www.tidyverse.org/lifecycle/#maturing"><img src="https://img.shields.io/badge/lifecycle-maturing-blue.svg" alt="Lifecycle: maturing"></a></li>
 <li><a href="https://travis-ci.com/matbarofex/rRofex"><img src="https://travis-ci.com/matbarofex/rRofex.svg?branch=master" alt="Travis build status"></a></li>
+<li><a href="https://CRAN.R-project.org/package=rRofex"><img src="https://www.r-pkg.org/badges/version/rRofex" alt="CRAN status"></a></li>
+<li><a href="https://cran.r-project.org/package=rRofex"><img src="https://cranlogs.r-pkg.org/badges/grand-total/rRofex?color=orange" alt="CRAN RStudio mirror downloads"></a></li>
 </ul>
 </div>
 </div>
@@ -212,7 +309,7 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by <a href="http://www.hasselpunk.com">Augusto Hassel</a>.</p>
+  <p>Developed by Augusto Hassel.</p>
 </div>
 
 <div class="pkgdown">

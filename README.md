@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# rRofex <img src='man/figures/r-rofex.png' align="right" height="139"/>
+# rRofex <img src='man/figures/logo.png' align="right" height="139"/>
 
 <!-- badges: start -->
 
@@ -11,6 +11,8 @@ maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www
 status](https://travis-ci.com/matbarofex/rRofex.svg?branch=master)](https://travis-ci.com/matbarofex/rRofex)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/rRofex)](https://CRAN.R-project.org/package=rRofex)
+[![CRAN RStudio mirror
+downloads](https://cranlogs.r-pkg.org/badges/grand-total/rRofex?color=orange)](https://cran.r-project.org/package=rRofex)
 <!-- badges: end -->
 
 With this package, you will be able to execute API calls to the ‘Matba

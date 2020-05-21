@@ -8,6 +8,13 @@
 
 <title>Changelog • rRofex</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
@@ -40,6 +47,7 @@
 
 
 <meta property="og:title" content="Changelog" />
+<meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:creator" content="@augustohassel" />
 <meta name="twitter:site" content="@matba_rofex" />
@@ -125,6 +133,8 @@
 <a href="#changes" class="anchor"></a>Changes</h3>
 <ul>
 <li>Changes made to <code><a href="../reference/trading_md.html">trading_md()</a></code>. Now the result gets flattened when <strong>depth=1L</strong>. This solves the issue <a href='https://github.com/matbarofex/rRofex/issues/17'>#17</a>.</li>
+<li>Testing travis-ci with new update</li>
+<li>Added <strong>Symbol</strong> column generated tibble with <code><a href="../reference/trading_md.html">trading_md()</a></code>.</li>
 </ul>
 </div>
 </div>
@@ -375,7 +385,7 @@
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='http://www.hasselpunk.com'>Augusto Hassel</a>.</p>
+  <p>Developed by Augusto Hassel.</p>
 </div>
 
 <div class="pkgdown">
