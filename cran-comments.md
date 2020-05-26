@@ -15,8 +15,3 @@ There was 1 NOTE:
 
 ## Downstream dependencies
 There are currently no downstream dependencies for this package
-
-## Resubmission
-This is a resubmission. In this version I have:
-
-* Fix. Please do not single quote API but the name of the API: 'Matba Rofex'

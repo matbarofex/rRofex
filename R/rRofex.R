@@ -2,7 +2,7 @@
 #' @import httr
 #' @import jsonlite
 #' @import methods
-#' @importFrom tibble enframe as_tibble
+#' @importFrom tibble enframe as_tibble as_tibble_row
 #' @importFrom tidyr separate replace_na pivot_wider
 #' @importFrom magrittr %>%
 #' @importFrom glue glue glue_collapse
