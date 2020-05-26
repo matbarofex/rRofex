@@ -88,6 +88,8 @@ trading_ws_md <- function(connection, websocket_name, destination, symbol, entri
       rename_all(.tbl = ., .funs = list(~ gsub(pattern = "marketData\\.", replacement = "", x = .))) %>%
       rename_all(.tbl = ., .funs = list(~ gsub(pattern = "\\.", replacement = "_", x = .))) %>%
       bind_rows(get(x = destination, envir = .GlobalEnv), .) %>%
+      distinct() %>%
+      mutate(Symbol = symbol) %>%
       assign(x = destination, value = ., envir = .GlobalEnv)
   })
 
