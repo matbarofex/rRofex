@@ -114,7 +114,7 @@ trading_ws_md <- function(connection, websocket_name, destination, symbol, entri
                                  )], sep = ","),
                                glue_collapse(colnames(select(., -c("timestamp", "Changes"))), sep = ","))
                 ) %>%
-      filter(if(any(!is.na(listen_to))) {map_lgl(Changes, .f = ~ any(strsplit(.x, ",") %>% pluck(1) %in% as.list(listen_to)))} else {!is.na(Changes)}) %>%
+      filter(if(any(!is.na(listen_to))) {map_lgl(Changes, .f = ~ any(strsplit(.x, ",") %>% pluck(1) %in% listen_to))} else {!is.na(Changes)}) %>%
       distinct_at(.tbl = ., .vars = vars(-timestamp), .keep_all = TRUE) %>%
       assign(x = destination, value = ., envir = .GlobalEnv)
   })

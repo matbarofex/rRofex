@@ -1,7 +1,7 @@
 Package: rRofex
 Type: Package
 Title: Interface to Matba Rofex Trading 'API'
-Version: 2.0.0.9002
+Version: 2.0.0.9003
 Authors@R: c(
             person("Augusto", "Hassel", role = c("aut", "cre"), email = "ahassel@primary.com.ar"),
             person("Juan Francisco", "Gomez", role = c("ctb")),

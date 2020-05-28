@@ -21,7 +21,6 @@ Access information about the trading account.
 }
 \seealso{
 Other account functions: 
-\code{\link{trading_account_report}()},
-\code{\link{trading_ws_md}()}
+\code{\link{trading_account_report}()}
 }
 \concept{account functions}

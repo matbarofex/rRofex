@@ -12,3 +12,11 @@ trading_ws_close(websocket_connection)
 \description{
 WS: Close connection
 }
+\examples{
+
+To close many connections at once
+
+\dontrun{
+purrr::walk(.x = as.list(tickers), .f = ~ trading_ws_close(websocket_connection = stringr::str_c("ws_", .x)))
+}
+}

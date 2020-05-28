@@ -9,8 +9,9 @@ trading_ws_md(
   websocket_name,
   destination,
   symbol,
-  entries = c("BI", "OF", "LA", "OP", "CL", "SE", "OI", "HI", "LO", "TV", "IV", "EV",
-    "NV", "TC"),
+  entries = list("BI", "OF", "LA", "OP", "CL", "SE", "OI", "HI", "LO", "TV", "IV",
+    "EV", "NV", "TC"),
+  listen_to = NA,
   market_id = "ROFX"
 )
 }
@@ -23,7 +24,7 @@ trading_ws_md(
 
 \item{symbol}{String. \strong{Mandatory}. Use \code{\link{trading_instruments}} to see which symbols are available.}
 
-\item{entries}{Vector of Strings. It contains the information to be queried:
+\item{entries}{List of Strings. It contains the information to be queried:
 \itemize{
 \item \strong{BI} - Bid.
 \item \strong{OF} - Offer.
@@ -41,6 +42,8 @@ trading_ws_md(
 \item \strong{TC} - Trade Count
 }}
 
+\item{listen_to}{List. Column names to by listen to.}
+
 \item{market_id}{String. Market to which you are going to connect.}
 }
 \value{
@@ -49,9 +52,16 @@ If correct, it will load a tibble.
 \description{
 This method brings Market Data in Real Time using web socket protocol.
 }
-\seealso{
-Other account functions: 
-\code{\link{trading_account_report}()},
-\code{\link{trading_account}()}
+\examples{
+
+To create simultaneously many connections
+
+\dontrun{
+purrr::walk2(
+.x = symbols,
+.y = tickers,
+.f = ~ trading_ws_md(connection = conn, websocket_name = stringr::str_c("ws_", .y), destination = .y, symbol = .x)
+)
 }
-\concept{account functions}
+}
+\concept{websocket functions}
