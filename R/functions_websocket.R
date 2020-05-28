@@ -14,7 +14,7 @@
 #' @param websocket_name String. Name chosen for the connection. It is use to locate the connection.
 #' @param destination String. Name of the tibble where the data is going to be stored.
 #' @param symbol String. \strong{Mandatory}. Use \code{\link{trading_instruments}} to see which symbols are available.
-#' @param entries Vector of Strings. It contains the information to be queried:
+#' @param entries List of Strings. It contains the information to be queried:
 #' \itemize{
 #' \item \strong{BI} - Bid.
 #' \item \strong{OF} - Offer.
@@ -32,11 +32,24 @@
 #' \item \strong{TC} - Trade Count
 #' }
 #' @param market_id String. Market to which you are going to connect.
+#' @param listen_to List. Column names to by listen to.
 #'
 #' @return If correct, it will load a tibble.
 #'
-#' @family account functions
-trading_ws_md <- function(connection, websocket_name, destination, symbol, entries=c('BI', 'OF', 'LA', 'OP', 'CL', 'SE', 'OI', 'HI', 'LO', 'TV', 'IV', 'EV', 'NV', 'TC'), market_id='ROFX') {
+#' @family websocket functions
+#'
+#' @examples
+#'
+#' To create simultaneously many connections
+#'
+#' \dontrun{
+#' purrr::walk2(
+#' .x = symbols,
+#' .y = tickers,
+#' .f = ~ trading_ws_md(connection = conn, websocket_name = stringr::str_c("ws_", .y), destination = .y, symbol = .x)
+#' )
+#' }
+trading_ws_md <- function(connection, websocket_name, destination, symbol, entries=list('BI', 'OF', 'LA', 'OP', 'CL', 'SE', 'OI', 'HI', 'LO', 'TV', 'IV', 'EV', 'NV', 'TC'), listen_to = NA, market_id='ROFX') {
 
   if (missing(connection)) stop("Connection cannot be empty.")
   if (!isS4(connection) || rev(class(connection)) != "rRofexConnection" || !validObject(connection)) stop("The 'connection' must be a valid 'rRofexConnection'.")
@@ -47,7 +60,10 @@ trading_ws_md <- function(connection, websocket_name, destination, symbol, entri
   if (missing(symbol)) stop("You should pick a 'symbol' to move forward.")
   if (length(symbol) > 1) stop("'symbol' parameter can not be more than one.")
 
+  if(class(entries)!="list") stop("'entries' must be a list")
   if (some(entries, ~ !.x %in% c('BI', 'OF', 'LA', 'OP', 'CL', 'SE', 'OI', 'HI', 'LO', 'TV', 'IV', 'EV', 'NV', 'TC'))) stop("'entries' parameter is invalid. See documentation.")
+
+  if(!missing(listen_to) && class(listen_to)!="list") stop("'listen_to' must be either a list or NA.")
 
   if (!exists(destination, envir = .GlobalEnv, inherits = FALSE)) {
     assign(x = destination, value = NULL, envir = .GlobalEnv)
@@ -81,15 +97,25 @@ trading_ws_md <- function(connection, websocket_name, destination, symbol, entri
 
   ws$onMessage(function(event) {
     fromJSON(event$data)[c("timestamp", "marketData")] %>%
+      modify_depth(.x = ., .depth = 2, .f = function(x) if (is_null(x)) NA else x) %>%
+      modify_depth(.x = ., .depth = 2, .f = function(x) if (class(x) == "list" && is_null(unlist(x))) NA else x) %>%
       unlist(x = ., recursive = T, use.names = T) %>%
       as_tibble_row() %>%
       mutate(timestamp = as.POSIXct(timestamp/1000, origin = "1970-01-01", tz = "America/Buenos_Aires")) %>%
       mutate_at(.tbl = ., .vars = vars(matches(".date")), .funs = list(~ as.POSIXct(x = unlist(.)/1000, origin = "1970-01-01", tz = "America/Buenos_Aires"))) %>%
       rename_all(.tbl = ., .funs = list(~ gsub(pattern = "marketData\\.", replacement = "", x = .))) %>%
       rename_all(.tbl = ., .funs = list(~ gsub(pattern = "\\.", replacement = "_", x = .))) %>%
+      mutate(Symbol = symbol, Changes = "") %>%
       bind_rows(get(x = destination, envir = .GlobalEnv), .) %>%
-      distinct() %>%
-      mutate(Symbol = symbol) %>%
+      assign_in(where = list("Changes", nrow(.)),
+                value = ifelse(nrow(.) > 1,
+                               glue_collapse(colnames(select(., -c("timestamp", "Changes")))[which(
+                                 replace_na(slice(., nrow(.)) %>% select(-c("timestamp", "Changes")) != slice(., nrow(.)-1) %>% select(-c("timestamp", "Changes")), replace = TRUE)
+                                 )], sep = ","),
+                               glue_collapse(colnames(select(., -c("timestamp", "Changes"))), sep = ","))
+                ) %>%
+      filter(if(any(!is.na(listen_to))) {map_lgl(Changes, .f = ~ any(strsplit(.x, ",") %>% pluck(1) %in% as.list(listen_to)))} else {!is.na(Changes)}) %>%
+      distinct_at(.tbl = ., .vars = vars(-timestamp), .keep_all = TRUE) %>%
       assign(x = destination, value = ., envir = .GlobalEnv)
   })
 
@@ -100,6 +126,14 @@ trading_ws_md <- function(connection, websocket_name, destination, symbol, entri
 #' WS: Close connection
 #'
 #' @param websocket_connections web socket that is going to be closed.
+#'
+#' @examples
+#'
+#' To close many connections at once
+#'
+#' \dontrun{
+#' purrr::walk(.x = as.list(tickers), .f = ~ trading_ws_close(websocket_connection = stringr::str_c("ws_", .x)))
+#' }
 trading_ws_close <- function(websocket_connection) {
   get(x = websocket_connection)$close()
 }
