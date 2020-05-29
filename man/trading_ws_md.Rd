@@ -6,7 +6,6 @@
 \usage{
 trading_ws_md(
   connection,
-  websocket_name,
   destination,
   symbol,
   entries = list("BI", "OF", "LA", "OP", "CL", "SE", "OI", "HI", "LO", "TV", "IV",
@@ -17,8 +16,6 @@ trading_ws_md(
 }
 \arguments{
 \item{connection}{S4. \strong{Mandatory} Formal rRofexConnection class object}
-
-\item{websocket_name}{String. Name chosen for the connection. It is use to locate the connection.}
 
 \item{destination}{String. Name of the tibble where the data is going to be stored.}
 
@@ -54,14 +51,18 @@ This method brings Market Data in Real Time using web socket protocol.
 }
 \examples{
 
-To create simultaneously many connections
+# To create simultaneously many connections
 
 \dontrun{
 purrr::walk2(
 .x = symbols,
 .y = tickers,
-.f = ~ trading_ws_md(connection = conn, websocket_name = stringr::str_c("ws_", .y), destination = .y, symbol = .x)
+.f = ~ trading_ws_md(connection = conn, destination = .y, symbol = .x)
 )
 }
+}
+\seealso{
+Other websocket functions: 
+\code{\link{trading_ws_close}()}
 }
 \concept{websocket functions}

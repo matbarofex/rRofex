@@ -82,7 +82,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rRofex</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.6.11</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.0.9004</span>
       </span>
     </div>
 
@@ -125,12 +125,27 @@
       <small>Source: <a href='https://github.com/matbarofex/rRofex/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
-    <div id="rrofex-1611" class="section level2">
+    <div id="rrofex-2009004" class="section level2">
 <h2 class="hasAnchor">
-<a href="#rrofex-1611" class="anchor"></a>rRofex 1.6.11</h2>
+<a href="#rrofex-2009004" class="anchor"></a>rRofex 2.0.0.9004</h2>
 <div id="changes" class="section level3">
 <h3 class="hasAnchor">
 <a href="#changes" class="anchor"></a>Changes</h3>
+<ul>
+<li>This is a major release in development with new Websocket features to consume market data.</li>
+<li>The function <code><a href="../reference/trading_ws_md.html">trading_ws_md()</a></code> has been added. This will update your desire data frame when any new data is generated. You can also listen to specific columns and only receive those changes.</li>
+<li>The function <code><a href="../reference/trading_ws_close.html">trading_ws_close()</a></code> has been added. Tkanhs to <a href='https://github.com/soberto'>@soberto</a> to the idea of saving every Websocket on an environment for a more clean way to handle them. You can close every connection at once if needed.</li>
+<li>There is still room to be improved and there are some design definitions that could be reviewed according to the feedback obtained.</li>
+<li>This version solves recommendations 2 and 3 from <a href='https://github.com/matbarofex/rRofex/issues/16'>#16</a></li>
+</ul>
+</div>
+</div>
+    <div id="rrofex-1611" class="section level2">
+<h2 class="hasAnchor">
+<a href="#rrofex-1611" class="anchor"></a>rRofex 1.6.11</h2>
+<div id="changes-1" class="section level3">
+<h3 class="hasAnchor">
+<a href="#changes-1" class="anchor"></a>Changes</h3>
 <ul>
 <li>Changes made to <code><a href="../reference/trading_md.html">trading_md()</a></code>. Now the result gets flattened when <strong>depth=1L</strong>. This solves the issue <a href='https://github.com/matbarofex/rRofex/issues/17'>#17</a>.</li>
 <li>Testing travis-ci with new update</li>
@@ -141,9 +156,9 @@
     <div id="rrofex-1610" class="section level2">
 <h2 class="hasAnchor">
 <a href="#rrofex-1610" class="anchor"></a>rRofex 1.6.10</h2>
-<div id="changes-1" class="section level3">
+<div id="changes-2" class="section level3">
 <h3 class="hasAnchor">
-<a href="#changes-1" class="anchor"></a>Changes</h3>
+<a href="#changes-2" class="anchor"></a>Changes</h3>
 <ul>
 <li>Fix Underlying and Strike Price. It wasn’t parsing correctly DOP and strike prices for BYMA options.</li>
 </ul>
@@ -152,9 +167,9 @@
     <div id="rrofex-169" class="section level2">
 <h2 class="hasAnchor">
 <a href="#rrofex-169" class="anchor"></a>rRofex 1.6.9</h2>
-<div id="changes-2" class="section level3">
+<div id="changes-3" class="section level3">
 <h3 class="hasAnchor">
-<a href="#changes-2" class="anchor"></a>Changes</h3>
+<a href="#changes-3" class="anchor"></a>Changes</h3>
 <ul>
 <li>Fix. Please do not single quote API but the name of the API: ‘Matba Rofex’</li>
 </ul>
@@ -163,9 +178,9 @@
     <div id="rrofex-168" class="section level2">
 <h2 class="hasAnchor">
 <a href="#rrofex-168" class="anchor"></a>rRofex 1.6.8</h2>
-<div id="changes-3" class="section level3">
+<div id="changes-4" class="section level3">
 <h3 class="hasAnchor">
-<a href="#changes-3" class="anchor"></a>Changes</h3>
+<a href="#changes-4" class="anchor"></a>Changes</h3>
 <ul>
 <li>Added COPYRIGHT HOLDER in the <a href="mailto:Authors@R" class="email">Authors@R</a> field.</li>
 <li>Package names, software names and API names in single quotes in title and description.</li>
@@ -178,9 +193,9 @@
     <div id="rrofex-167" class="section level2">
 <h2 class="hasAnchor">
 <a href="#rrofex-167" class="anchor"></a>rRofex 1.6.7</h2>
-<div id="changes-4" class="section level3">
+<div id="changes-5" class="section level3">
 <h3 class="hasAnchor">
-<a href="#changes-4" class="anchor"></a>Changes</h3>
+<a href="#changes-5" class="anchor"></a>Changes</h3>
 <ul>
 <li>reMarkets now is served on https instead of http.</li>
 </ul>
@@ -189,9 +204,9 @@
     <div id="rrofex-166" class="section level2">
 <h2 class="hasAnchor">
 <a href="#rrofex-166" class="anchor"></a>rRofex 1.6.6</h2>
-<div id="changes-5" class="section level3">
+<div id="changes-6" class="section level3">
 <h3 class="hasAnchor">
-<a href="#changes-5" class="anchor"></a>Changes</h3>
+<a href="#changes-6" class="anchor"></a>Changes</h3>
 <ul>
 <li>I’ve improved log-in method by storing more information into it.</li>
 <li>Now sending ‘user-agent’ in each API request.</li>
@@ -204,9 +219,9 @@
     <div id="rrofex-165" class="section level2">
 <h2 class="hasAnchor">
 <a href="#rrofex-165" class="anchor"></a>rRofex 1.6.5</h2>
-<div id="changes-6" class="section level3">
+<div id="changes-7" class="section level3">
 <h3 class="hasAnchor">
-<a href="#changes-6" class="anchor"></a>Changes</h3>
+<a href="#changes-7" class="anchor"></a>Changes</h3>
 <ul>
 <li>Preparing repo to apply to CRAN.</li>
 <li>Added ‘Trade Count’ entry type to <code><a href="../reference/trading_md.html">trading_md()</a></code>.</li>
@@ -216,9 +231,9 @@
     <div id="rrofex-160" class="section level2">
 <h2 class="hasAnchor">
 <a href="#rrofex-160" class="anchor"></a>rRofex 1.6.0</h2>
-<div id="changes-7" class="section level3">
+<div id="changes-8" class="section level3">
 <h3 class="hasAnchor">
-<a href="#changes-7" class="anchor"></a>Changes</h3>
+<a href="#changes-8" class="anchor"></a>Changes</h3>
 <ul>
 <li>New method <code><a href="../reference/trading_account_report.html">trading_account_report()</a></code> to request information about your trading account.</li>
 </ul>
@@ -227,9 +242,9 @@
     <div id="rrofex-150" class="section level2">
 <h2 class="hasAnchor">
 <a href="#rrofex-150" class="anchor"></a>rRofex 1.5.0</h2>
-<div id="changes-8" class="section level3">
+<div id="changes-9" class="section level3">
 <h3 class="hasAnchor">
-<a href="#changes-8" class="anchor"></a>Changes</h3>
+<a href="#changes-9" class="anchor"></a>Changes</h3>
 <ul>
 <li>New method <code><a href="../reference/trading_currencies.html">trading_currencies()</a></code> to request currencies prices.</li>
 <li>New method <code><a href="../reference/trading_account.html">trading_account()</a></code> to request information about your trading account.</li>
@@ -242,9 +257,9 @@
     <div id="rrofex-140" class="section level2">
 <h2 class="hasAnchor">
 <a href="#rrofex-140" class="anchor"></a>rRofex 1.4.0</h2>
-<div id="changes-9" class="section level3">
+<div id="changes-10" class="section level3">
 <h3 class="hasAnchor">
-<a href="#changes-9" class="anchor"></a>Changes</h3>
+<a href="#changes-10" class="anchor"></a>Changes</h3>
 <ul>
 <li>Corrected package version according to standards from <a href="http://r-pkgs.had.co.nz/">R Packages</a>
 </li>
@@ -256,9 +271,9 @@
     <div id="rrofex-130" class="section level2">
 <h2 class="hasAnchor">
 <a href="#rrofex-130" class="anchor"></a>rRofex 1.3.0</h2>
-<div id="changes-10" class="section level3">
+<div id="changes-11" class="section level3">
 <h3 class="hasAnchor">
-<a href="#changes-10" class="anchor"></a>Changes</h3>
+<a href="#changes-11" class="anchor"></a>Changes</h3>
 <ul>
 <li>Improved metadata on <code><a href="../reference/trading_instruments.html">trading_instruments()</a></code> method. It has been added: Product Type, Ticker, Option Type, Strike Price, Underlying, Settlement.</li>
 </ul>
@@ -267,9 +282,9 @@
     <div id="rrofex-120" class="section level2">
 <h2 class="hasAnchor">
 <a href="#rrofex-120" class="anchor"></a>rRofex 1.2.0</h2>
-<div id="changes-11" class="section level3">
+<div id="changes-12" class="section level3">
 <h3 class="hasAnchor">
-<a href="#changes-11" class="anchor"></a>Changes</h3>
+<a href="#changes-12" class="anchor"></a>Changes</h3>
 <ul>
 <li>Added new parameters to <code><a href="../reference/trading_instruments.html">trading_instruments()</a></code>. Now you can search instruments by Segment, Type and CFI Code.</li>
 <li>Added new method <code><a href="../reference/trading_instruments_fronts.html">trading_instruments_fronts()</a></code> to list only front month future contracts. Thanks <a href='https://github.com/jfgomezok'>@jfgomezok</a> for the request and clarification on how to show the data.</li>
@@ -279,9 +294,9 @@
     <div id="rrofex-110" class="section level2">
 <h2 class="hasAnchor">
 <a href="#rrofex-110" class="anchor"></a>rRofex 1.1.0</h2>
-<div id="changes-12" class="section level3">
+<div id="changes-13" class="section level3">
 <h3 class="hasAnchor">
-<a href="#changes-12" class="anchor"></a>Changes</h3>
+<a href="#changes-13" class="anchor"></a>Changes</h3>
 <ul>
 <li>Added a <code>NEWS.md</code> file to track changes to the package.</li>
 <li>Using <code>pkgdown</code> to build the documentation.</li>
@@ -300,9 +315,9 @@
 <li>Use of S4 objects to save connections. This means that you can have different connections on the same R session.</li>
 </ul>
 </div>
-<div id="changes-13" class="section level3">
+<div id="changes-14" class="section level3">
 <h3 class="hasAnchor">
-<a href="#changes-13" class="anchor"></a>Changes</h3>
+<a href="#changes-14" class="anchor"></a>Changes</h3>
 <ul>
 <li>Close issue <a href='https://github.com/matbarofex/rRofex/issues/12'>#12</a> now that the connection parameters can be access with <code><a href="../reference/token.html">token()</a></code>, <code><a href="../reference/base_url.html">base_url()</a></code> and <code><a href="../reference/login_date_time.html">login_date_time()</a></code>
 </li>
@@ -325,9 +340,9 @@
 <li>New Iceberg order.</li>
 </ul>
 </div>
-<div id="changes-14" class="section level3">
+<div id="changes-15" class="section level3">
 <h3 class="hasAnchor">
-<a href="#changes-14" class="anchor"></a>Changes</h3>
+<a href="#changes-15" class="anchor"></a>Changes</h3>
 <ul>
 <li>Solved issue <a href='https://github.com/matbarofex/rRofex/issues/8'>#8</a></li>
 </ul>
@@ -350,9 +365,9 @@
 <li>New <em>time_in_force</em> available. Now supports IOC and FOK.</li>
 </ul>
 </div>
-<div id="changes-15" class="section level3">
+<div id="changes-16" class="section level3">
 <h3 class="hasAnchor">
-<a href="#changes-15" class="anchor"></a>Changes</h3>
+<a href="#changes-16" class="anchor"></a>Changes</h3>
 <ul>
 <li><a href='https://github.com/matbarofex/rRofex/issues/6'>#6</a> Corrected mistakes on the documentation.</li>
 </ul>

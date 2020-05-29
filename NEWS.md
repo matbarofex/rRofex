@@ -1,3 +1,13 @@
+## rRofex 2.0.0.9004
+
+### Changes
+
+* This is a major release in development with new Websocket features to consume market data.
+* The function `trading_ws_md()` has been added. This will update your desire data frame when any new data is generated. You can also listen to specific columns and only receive those changes.
+* The function `trading_ws_close()` has been added. Tkanhs to @soberto to the idea of saving every Websocket on an environment for a more clean way to handle them. You can close every connection at once if needed.
+* There is still room to be improved and there are some design definitions that could be reviewed according to the feedback obtained. 
+* This version solves recommendations 2 and 3 from #16
+
 ## rRofex 1.6.11
 
 ### Changes

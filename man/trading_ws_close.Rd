@@ -2,21 +2,31 @@
 % Please edit documentation in R/functions_websocket.R
 \name{trading_ws_close}
 \alias{trading_ws_close}
-\title{WS: Close connection}
+\title{Web Sockets: Close connection}
 \usage{
-trading_ws_close(websocket_connection)
+trading_ws_close(close_all = FALSE, selection)
 }
 \arguments{
-\item{websocket_connections}{web socket that is going to be closed.}
+\item{close_all}{Logical. Should all connections be closed or only the selected ones.}
+
+\item{selection}{List. Is the same name that you have chosen for destination in \code{\link{trading_ws_md}}}
+}
+\value{
+If correct, it will show a message saying that the connection has been closed.
 }
 \description{
-WS: Close connection
+This method it is use to close open Websocket connections.
 }
 \examples{
 
-To close many connections at once
+# To close all connections at once
 
 \dontrun{
-purrr::walk(.x = as.list(tickers), .f = ~ trading_ws_close(websocket_connection = stringr::str_c("ws_", .x)))
+trading_ws_close(close_all = TRUE)
 }
 }
+\seealso{
+Other websocket functions: 
+\code{\link{trading_ws_md}()}
+}
+\concept{websocket functions}

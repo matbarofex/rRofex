@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Helper: Date validation — .validate_fecha • rRofex</title>
+<title>Web Sockets: Market Data Real Time — trading_ws_md • rRofex</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,8 +46,8 @@
 
 
 
-<meta property="og:title" content="Helper: Date validation — .validate_fecha" />
-<meta property="og:description" content="Validate date" />
+<meta property="og:title" content="Web Sockets: Market Data Real Time — trading_ws_md" />
+<meta property="og:description" content="This method brings Market Data in Real Time using web socket protocol." />
 <meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:creator" content="@augustohassel" />
@@ -122,30 +122,88 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Helper: Date validation</h1>
-    <small class="dont-index">Source: <a href='https://github.com/matbarofex/rRofex/blob/master/R/functions_helpers.R'><code>R/functions_helpers.R</code></a></small>
-    <div class="hidden name"><code>dot-validate_fecha.Rd</code></div>
+    <h1>Web Sockets: Market Data Real Time</h1>
+    <small class="dont-index">Source: <a href='https://github.com/matbarofex/rRofex/blob/master/R/functions_websocket.R'><code>R/functions_websocket.R</code></a></small>
+    <div class="hidden name"><code>trading_ws_md.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Validate date</p>
+    <p>This method brings Market Data in Real Time using web socket protocol.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>.validate_fecha</span>(<span class='no'>date</span>)</pre>
+    <pre class="usage"><span class='fu'>trading_ws_md</span>(
+  <span class='no'>connection</span>,
+  <span class='no'>destination</span>,
+  <span class='no'>symbol</span>,
+  <span class='kw'>entries</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='st'>"BI"</span>, <span class='st'>"OF"</span>, <span class='st'>"LA"</span>, <span class='st'>"OP"</span>, <span class='st'>"CL"</span>, <span class='st'>"SE"</span>, <span class='st'>"OI"</span>, <span class='st'>"HI"</span>, <span class='st'>"LO"</span>, <span class='st'>"TV"</span>, <span class='st'>"IV"</span>,
+    <span class='st'>"EV"</span>, <span class='st'>"NV"</span>, <span class='st'>"TC"</span>),
+  <span class='kw'>listen_to</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
+  <span class='kw'>market_id</span> <span class='kw'>=</span> <span class='st'>"ROFX"</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>date</th>
-      <td><p>Date</p></td>
+      <th>connection</th>
+      <td><p>S4. <strong>Mandatory</strong> Formal rRofexConnection class object</p></td>
+    </tr>
+    <tr>
+      <th>destination</th>
+      <td><p>String. Name of the tibble where the data is going to be stored.</p></td>
+    </tr>
+    <tr>
+      <th>symbol</th>
+      <td><p>String. <strong>Mandatory</strong>. Use <code><a href='trading_instruments.html'>trading_instruments</a></code> to see which symbols are available.</p></td>
+    </tr>
+    <tr>
+      <th>entries</th>
+      <td><p>List of Strings. It contains the information to be queried:</p><ul>
+<li><p><strong>BI</strong> - Bid.</p></li>
+<li><p><strong>OF</strong> - Offer.</p></li>
+<li><p><strong>LA</strong> - Last Available Price.</p></li>
+<li><p><strong>OP</strong> - Open Price.</p></li>
+<li><p><strong>CL</strong> - Close Price.</p></li>
+<li><p><strong>SE</strong> - Settlement Price.</p></li>
+<li><p><strong>OI</strong> - Open Interest.</p></li>
+<li><p><strong>HI</strong> - Trading Session High Price</p></li>
+<li><p><strong>LO</strong> - Trading Session Low Price</p></li>
+<li><p><strong>TV</strong> - Trading Volume</p></li>
+<li><p><strong>IV</strong> - Index Value</p></li>
+<li><p><strong>EV</strong> - Trading Effective Volume</p></li>
+<li><p><strong>NV</strong> - Nominal Volume</p></li>
+<li><p><strong>TC</strong> - Trade Count</p></li>
+</ul></td>
+    </tr>
+    <tr>
+      <th>listen_to</th>
+      <td><p>List. Column names to by listen to.</p></td>
+    </tr>
+    <tr>
+      <th>market_id</th>
+      <td><p>String. Market to which you are going to connect.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>TRUE if date has a correct format.</p>
+    <p>If correct, it will load a tibble.</p>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
+    <div class='dont-index'><p>Other websocket functions: 
+<code><a href='trading_ws_close.html'>trading_ws_close</a>()</code></p></div>
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'>
+<span class='co'># To create simultaneously many connections</span>
+
+<span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+<span class='kw pkg'>purrr</span><span class='kw ns'>::</span><span class='fu'><a href='https://purrr.tidyverse.org/reference/map2.html'>walk2</a></span>(
+<span class='kw'>.x</span> <span class='kw'>=</span> <span class='no'>symbols</span>,
+<span class='kw'>.y</span> <span class='kw'>=</span> <span class='no'>tickers</span>,
+<span class='kw'>.f</span> <span class='kw'>=</span> ~ <span class='fu'>trading_ws_md</span>(<span class='kw'>connection</span> <span class='kw'>=</span> <span class='no'>conn</span>, <span class='kw'>destination</span> <span class='kw'>=</span> <span class='no'>.y</span>, <span class='kw'>symbol</span> <span class='kw'>=</span> <span class='no'>.x</span>)
+)
+}</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
