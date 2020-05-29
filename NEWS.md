@@ -1,3 +1,23 @@
+## rRofex 1.6.11
+
+### Changes
+
+* Changes made to `trading_md()`. Now the result gets flattened when **depth=1L**. This solves the issue #17.
+* Testing travis-ci with new update
+* Added **Symbol** column generated tibble with `trading_md()`.
+
+## rRofex 1.6.10
+
+### Changes
+
+* Fix Underlying and Strike Price. It wasn't parsing correctly DOP and strike prices for BYMA options.
+
+## rRofex 1.6.9
+
+### Changes
+
+* Fix. Please do not single quote API but the name of the API: 'Matba Rofex'
+
 ## rRofex 1.6.8
 
 ### Changes

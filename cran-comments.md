@@ -15,12 +15,3 @@ There was 1 NOTE:
 
 ## Downstream dependencies
 There are currently no downstream dependencies for this package
-
-## Resubmission
-This is a resubmission. In this version I have:
-
-* Added COPYRIGHT HOLDER in the Authors@R field.
-* Package names, software names and API names in single quotes in title and description.
-* I improved the description to make it more descriptive.
-* Added web reference for the API to the description.
-* I improved S4 documentation class, generics and methods.

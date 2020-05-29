@@ -1,9 +1,5 @@
 destination: docs
 
-authors:
-  Augusto Hassel:
-    href: http://www.hasselpunk.com
-
 template:
  opengraph:
   twitter:

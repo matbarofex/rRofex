@@ -4,9 +4,11 @@
 \name{rRofex-package}
 \alias{rRofex}
 \alias{rRofex-package}
-\title{rRofex: Interface to Matba Rofex Trading 'API'}
+\title{rRofex: Interface to 'Matba Rofex' Trading API}
 \description{
-Execute 'API' calls to the Matba Rofex <https://apihub.primary.com.ar> trading platform. Functionality includes accessing account data and current holdings, retrieving investment quotes, placing and canceling orders, and getting reference data for instruments.
+\if{html}{\figure{logo.png}{options: align='right' alt='logo' width='120'}}
+
+Execute API calls to the 'Matba Rofex' <https://apihub.primary.com.ar> trading platform. Functionality includes accessing account data and current holdings, retrieving investment quotes, placing and canceling orders, and getting reference data for instruments.
 }
 \seealso{
 Useful links:

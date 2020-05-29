@@ -261,11 +261,12 @@ trading_instruments <- function(connection, request, sec_detailed = FALSE, marke
                              ProductType %in% c('Options') & MarketSegmentId == 'MERV' ~ trimws(gsub(pattern = "(.{3})(.+)", replacement = "\\1", x = Ticker, ignore.case = T), which = "both"),
                              ProductType %in% c('Options') & MarketSegmentId != 'MERV'~ trimws(gsub(pattern = "(.)?([[:alpha:]]{3})?([0-9]{2})?(/)?([0-9]{2})?( )([0-9]+)([p|c])$", replacement = "\\1", x = Symbol, ignore.case = T), which = "both"),
                              ProductType %in% c('Futures') & grepl(pattern = "(Dispo)$", x = Ticker) == TRUE ~ trimws(gsub(pattern = "(.+)(Dispo)$", replacement = "\\1", x = Symbol, ignore.case = T), which = "both"),
+                             ProductType %in% c('Futures') & grepl(pattern = "(.)( )([0-9]{2})(/)([0-9]{2})( )([0-9]{2})(A)$", x = Ticker) == TRUE ~ trimws(gsub(pattern = "(.)( )([0-9]{2})(/)([0-9]{2})( )([0-9]{2})(A)$", replacement = "\\1", x = Symbol, ignore.case = T), which = "both"),
                              ProductType %in% c('Futures') ~ trimws(gsub(pattern = "(.)?([[:alpha:]]{3})?([0-9]{2})?(/)?([0-9]{2})?( )?((A|M)||([0-9]){2})$", replacement = "\\1", x = Symbol, ignore.case = T), which = "both"),
                              TRUE ~ NA_character_
                              ),
                            StrikePrice = case_when(
-                             ProductType %in% c('Options') & MarketSegmentId == 'MERV' ~ as.double(gsub(pattern = "(.{4})([0-9]+?\\.[0-9]*)([[:alpha:]]+)", replacement = "\\2", x = Ticker, ignore.case = T)),
+                             ProductType %in% c('Options') & MarketSegmentId == 'MERV' ~ as.double(gsub(pattern = "(.{4})([0-9]+?\\.?[0-9]*)([[:alpha:]]+)", replacement = "\\2", x = Ticker, ignore.case = T)),
                              ProductType %in% c('Options') & MarketSegmentId != 'MERV'~ as.double(gsub(pattern = "(.+)( )([0-9]+)([p|c])$", replacement = "\\3", x = Symbol, ignore.case = T)),
                              TRUE ~ NA_real_
                              )
@@ -317,12 +318,8 @@ trading_instruments_fronts <- function(connection) {
 #' @description This method brings Market Data in Real Time.
 #'
 #' @param connection S4. \strong{Mandatory}. Formal rRofexConnection class object
-#' @param market_id String. Market to which you are going to connect.
-#' \itemize{
-#' \item \strong{ROFX} - Matba Rofex
-#' }
 #' @param symbol String. \strong{Mandatory}. Use \code{\link{trading_instruments}} to see which symbols are available.
-#' @param entries Vector of Strings. It contains the information to be queried:
+#' @param entries Vector of Strings. When nothing is set, then \strong{all entries are the default}. It contains the information to be queried:
 #' \itemize{
 #' \item \strong{BI} - Bid.
 #' \item \strong{OF} - Offer.
@@ -339,8 +336,12 @@ trading_instruments_fronts <- function(connection) {
 #' \item \strong{NV} - Nominal Volume
 #' \item \strong{TC} - Trade Count
 #' }
-#' @param depth Integer. Depth of the book.
-#' @param tidy Logical. Data arranged on a tidy format.
+#' @param depth Integer. Depth of the book. Default is \strong{1L}.
+#' @param market_id String. Market to which you are going to connect. Default is \strong{ROFX}.
+#' \itemize{
+#' \item \strong{ROFX} - Matba Rofex
+#' }
+#' @param tidy Logical. Data arranged on a tidy format. Default is \strong{TRUE}.
 #'
 #' @return If correct, it will load a tibble data frame
 #'
@@ -357,7 +358,7 @@ trading_instruments_fronts <- function(connection) {
 #' ~trading_md(connection = conn, symbol = .x, entries = c("LA","OP", "NV"), tidy = T)
 #' )
 #' }
-trading_md <- function(connection, market_id='ROFX', symbol, entries=c('BI', 'OF', 'LA', 'OP', 'CL', 'SE', 'OI', 'HI', 'LO', 'TV', 'IV', 'EV', 'NV', 'TC'), depth = 1L, tidy = TRUE) {
+trading_md <- function(connection, symbol, entries=c('BI', 'OF', 'LA', 'OP', 'CL', 'SE', 'OI', 'HI', 'LO', 'TV', 'IV', 'EV', 'NV', 'TC'), depth = 1L, market_id='ROFX', tidy = TRUE) {
 
   if (missing(connection)) stop("Connection cannot be empty.")
   if (!isS4(connection) || rev(class(connection)) != "rRofexConnection" || !validObject(connection)) stop("The 'connection' must be a valid 'rRofexConnection'.")
@@ -396,18 +397,30 @@ trading_md <- function(connection, market_id='ROFX', symbol, entries=c('BI', 'OF
 
     if (tidy == TRUE) {
 
-      data <- fromJSON(toJSON(content(query), auto_unbox = T, null = "null"))
+      data <- fromJSON(toJSON(content(query), auto_unbox = T, null = "null", digits = NA))
 
-      data <- data$marketData %>%
-        enframe() %>%
-        mutate(value = map(.x = value, function(x) if(is_null(x)) {NA_real_} else {x})) %>%
-        pivot_wider() %>%
-        mutate_if(., .predicate = ~ class(.[[1]]) == 'list', .funs = ~ modify_depth(.x = ., .depth = 1, ~ replace_na(data = ., replace = NA_real_))) %>%
-        mutate_if(., .predicate = ~ length(unlist(.)) == 1, .funs =  ~ unlist(x = ., recursive = F)) %>%
-        mutate_if(., .predicate = ~ class(.) == 'list', .funs = ~ modify_depth(.x = ., .depth = 1, ~ as_tibble(.))) %>%
-        mutate_if(., .predicate = ~ class(.) == 'list', .funs = ~ modify_depth(.x = ., .depth = 1, ~ mutate_at(.tbl = ., .vars = vars(matches("date")), .funs = ~ as.POSIXct(./1000, origin = "1970-01-01", tz = "America/Buenos_Aires")))) %>%
-        mutate_if(., .predicate = ~ class(.) == 'list', .funs = ~ modify_depth(.x = ., .depth = 1, ~ mutate_at(.tbl = ., .vars = vars(matches("price")), .funs = ~ as.double(.)))) %>%
-        mutate_if(., .predicate = ~ class(.) == 'list', .funs = ~ modify_depth(.x = ., .depth = 1, ~ mutate_at(.tbl = ., .vars = vars(matches("size")), .funs = ~ as.double(.))))
+      data <- if (depth == 1L) {
+        data$marketData %>%
+          replace_na(data = .,replace = NA) %>%
+          unlist(recursive = FALSE, use.names = TRUE) %>%
+          map(.x = ., .f = ~ ifelse(is_null(.x) && !is.list(.x), NA, .x)) %>%
+          as_tibble_row() %>%
+          rename_all(.tbl = ., .funs = list(~ gsub(pattern = "\\.", replacement = "_", x = .))) %>%
+          mutate_at(.tbl = ., .vars = vars(matches("_date")), .funs = list(~ as.POSIXct(x = unlist(.)/1000, origin = "1970-01-01", tz = "America/Buenos_Aires"))) %>%
+          mutate_at(.tbl = ., .vars = vars(matches("_size|_price", perl = TRUE)), .funs = list(~as.double(.))) %>%
+          mutate(Symbol = symbol)
+      } else {
+        data$marketData %>%
+          enframe() %>%
+          mutate(value = map(.x = value, function(x) if(is_null(x)) {NA_real_} else {x})) %>%
+          pivot_wider() %>%
+          mutate_if(., .predicate = ~ class(.[[1]]) == 'list', .funs = ~ modify_depth(.x = ., .depth = 1, ~ replace_na(data = ., replace = NA_real_))) %>%
+          mutate_if(., .predicate = ~ length(unlist(.)) == 1, .funs =  ~ unlist(x = ., recursive = F)) %>%
+          mutate_if(., .predicate = ~ class(.) == 'list', .funs = ~ modify_depth(.x = ., .depth = 1, ~ as_tibble(.))) %>%
+          mutate_if(., .predicate = ~ class(.) == 'list', .funs = ~ modify_depth(.x = ., .depth = 1, ~ mutate_at(.tbl = ., .vars = vars(matches("date")), .funs = ~ as.POSIXct(./1000, origin = "1970-01-01", tz = "America/Buenos_Aires")))) %>%
+          mutate_if(., .predicate = ~ class(.) == 'list', .funs = ~ modify_depth(.x = ., .depth = 1, ~ mutate_at(.tbl = ., .vars = vars(matches("size|price", perl = TRUE)), .funs = ~ as.double(.)))) %>%
+          mutate(Symbol = symbol)
+      }
 
     } else {
       result <- enframe(unlist(content(x = query)$marketData))

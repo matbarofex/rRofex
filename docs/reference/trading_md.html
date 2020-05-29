@@ -8,6 +8,13 @@
 
 <title>Market Data Real Time — trading_md • rRofex</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
@@ -41,6 +48,7 @@
 
 <meta property="og:title" content="Market Data Real Time — trading_md" />
 <meta property="og:description" content="This method brings Market Data in Real Time." />
+<meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:creator" content="@augustohassel" />
 <meta name="twitter:site" content="@matba_rofex" />
@@ -75,7 +83,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rRofex</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.6.8</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.6.11</span>
       </span>
     </div>
 
@@ -125,11 +133,11 @@
 
     <pre class="usage"><span class='fu'>trading_md</span>(
   <span class='no'>connection</span>,
-  <span class='kw'>market_id</span> <span class='kw'>=</span> <span class='st'>"ROFX"</span>,
   <span class='no'>symbol</span>,
   <span class='kw'>entries</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"BI"</span>, <span class='st'>"OF"</span>, <span class='st'>"LA"</span>, <span class='st'>"OP"</span>, <span class='st'>"CL"</span>, <span class='st'>"SE"</span>, <span class='st'>"OI"</span>, <span class='st'>"HI"</span>, <span class='st'>"LO"</span>, <span class='st'>"TV"</span>, <span class='st'>"IV"</span>, <span class='st'>"EV"</span>,
     <span class='st'>"NV"</span>, <span class='st'>"TC"</span>),
   <span class='kw'>depth</span> <span class='kw'>=</span> <span class='fl'>1L</span>,
+  <span class='kw'>market_id</span> <span class='kw'>=</span> <span class='st'>"ROFX"</span>,
   <span class='kw'>tidy</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
 )</pre>
 
@@ -141,18 +149,12 @@
       <td><p>S4. <strong>Mandatory</strong>. Formal rRofexConnection class object</p></td>
     </tr>
     <tr>
-      <th>market_id</th>
-      <td><p>String. Market to which you are going to connect.</p><ul>
-<li><p><strong>ROFX</strong> - Matba Rofex</p></li>
-</ul></td>
-    </tr>
-    <tr>
       <th>symbol</th>
       <td><p>String. <strong>Mandatory</strong>. Use <code><a href='trading_instruments.html'>trading_instruments</a></code> to see which symbols are available.</p></td>
     </tr>
     <tr>
       <th>entries</th>
-      <td><p>Vector of Strings. It contains the information to be queried:</p><ul>
+      <td><p>Vector of Strings. When nothing is set, then <strong>all entries are the default</strong>. It contains the information to be queried:</p><ul>
 <li><p><strong>BI</strong> - Bid.</p></li>
 <li><p><strong>OF</strong> - Offer.</p></li>
 <li><p><strong>LA</strong> - Last Available Price.</p></li>
@@ -171,11 +173,17 @@
     </tr>
     <tr>
       <th>depth</th>
-      <td><p>Integer. Depth of the book.</p></td>
+      <td><p>Integer. Depth of the book. Default is <strong>1L</strong>.</p></td>
+    </tr>
+    <tr>
+      <th>market_id</th>
+      <td><p>String. Market to which you are going to connect. Default is <strong>ROFX</strong>.</p><ul>
+<li><p><strong>ROFX</strong> - Matba Rofex</p></li>
+</ul></td>
     </tr>
     <tr>
       <th>tidy</th>
-      <td><p>Logical. Data arranged on a tidy format.</p></td>
+      <td><p>Logical. Data arranged on a tidy format. Default is <strong>TRUE</strong>.</p></td>
     </tr>
     </table>
 
@@ -210,7 +218,7 @@
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='http://www.hasselpunk.com'>Augusto Hassel</a>.</p>
+  <p>Developed by Augusto Hassel.</p>
 </div>
 
 <div class="pkgdown">
