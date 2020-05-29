@@ -335,7 +335,6 @@ trading_instruments_fronts <- function(connection) {
 #' \item \strong{EV} - Trading Effective Volume
 #' \item \strong{NV} - Nominal Volume
 #' \item \strong{TC} - Trade Count
-#'
 #' }
 #' @param depth Integer. Depth of the book. Default is \strong{1L}.
 #' @param market_id String. Market to which you are going to connect. Default is \strong{ROFX}.

@@ -35,3 +35,7 @@ reference:
 - contents:
   - trading_account
   - trading_account_report
+- title: Web Socket Methods
+- contents:
+  - trading_ws_md
+  - trading_ws_close
