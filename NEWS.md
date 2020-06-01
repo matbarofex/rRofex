@@ -1,3 +1,9 @@
+## rRofex 2.0.0.9005
+
+### Changes
+
+* Changed logo, adapted to the new image of the company. 
+
 ## rRofex 2.0.0.9004
 
 ### Changes

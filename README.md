@@ -71,6 +71,7 @@ These are the currently available actions within the library:
   - Orders placement
   - Orders management
   - Account information request
+  - Websocket methods
 
 ### Environments:
 
@@ -94,7 +95,7 @@ connecting to the market::
 
 ## Examples
 
-### 1\. Log in
+### 1\. Authentication
 
 There are different environment on which one can connect to.
 
@@ -189,12 +190,22 @@ instruments and in terms of cash and settlement dates.
 ``` r
 # With trading account you can get the information about your basket
 trading_account(connection = conn, 
-                account = "REM731")
+                account = "XXX")
 
 # With trading account report you can have your cash, margins, etc.
 trading_account_report(connection = conn, 
-                       account = "REM731")
+                       account = "XXX")
 ```
+
+### 7\. Websocket Methods
+
+Instead of requesting information using REST protocol, you could get it
+through Websocket. This means, that you can listen to an object and be
+notified every time that a change has been made.
+
+The methods available in Websocket protool are:
+
+  - Listen to Market Data with `trading_ws_md()`
 
 ## Acknowledgments
 

@@ -41,7 +41,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">rRofex</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.0.9004</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.0.9005</span>
       </span>
     </div>
 
@@ -132,6 +132,7 @@
 <li>Orders placement</li>
 <li>Orders management</li>
 <li>Account information request</li>
+<li>Websocket methods</li>
 </ul>
 </div>
 <div id="environments" class="section level3">
@@ -163,9 +164,9 @@
 <div id="examples" class="section level2">
 <h2 class="hasAnchor">
 <a href="#examples" class="anchor"></a>Examples</h2>
-<div id="1-log-in" class="section level3">
+<div id="1-authentication" class="section level3">
 <h3 class="hasAnchor">
-<a href="#1-log-in" class="anchor"></a>1. Log in</h3>
+<a href="#1-authentication" class="anchor"></a>1. Authentication</h3>
 <p>There are different environment on which one can connect to.</p>
 <p>For <strong>paper trading</strong> exists <a href="https://remarkets.primary.ventures/">reMarkets</a>. If you go there, you will be able to get free credentials to start trading with a demo account.</p>
 <p>If you already have a <strong>live trading</strong> account with a broker, you should ask them what kind of <em>order management system</em> (OMS) do they use. If they have the suite of <strong>Primary</strong>, then you will have to ask them for the <em>user</em>, <em>password</em> and <em>base_url</em>.</p>
@@ -233,11 +234,21 @@
 <p>With <code><a href="reference/trading_account.html">trading_account()</a></code> and <code><a href="reference/trading_account_report.html">trading_account_report()</a></code> you will be able to obtain information about your current position in terms of instruments and in terms of cash and settlement dates.</p>
 <div class="sourceCode" id="cb8"><pre class="r"><span class="co"># With trading account you can get the information about your basket</span>
 <span class="fu"><a href="reference/trading_account.html">trading_account</a></span>(<span class="kw">connection</span> <span class="kw">=</span> <span class="no">conn</span>,
-                <span class="kw">account</span> <span class="kw">=</span> <span class="st">"REM731"</span>)
+                <span class="kw">account</span> <span class="kw">=</span> <span class="st">"XXX"</span>)
 
 <span class="co"># With trading account report you can have your cash, margins, etc.</span>
 <span class="fu"><a href="reference/trading_account_report.html">trading_account_report</a></span>(<span class="kw">connection</span> <span class="kw">=</span> <span class="no">conn</span>,
-                       <span class="kw">account</span> <span class="kw">=</span> <span class="st">"REM731"</span>)</pre></div>
+                       <span class="kw">account</span> <span class="kw">=</span> <span class="st">"XXX"</span>)</pre></div>
+</div>
+<div id="7-websocket-methods" class="section level3">
+<h3 class="hasAnchor">
+<a href="#7-websocket-methods" class="anchor"></a>7. Websocket Methods</h3>
+<p>Instead of requesting information using REST protocol, you could get it through Websocket. This means, that you can listen to an object and be notified every time that a change has been made.</p>
+<p>The methods available in Websocket protool are:</p>
+<ul>
+<li>Listen to Market Data with <code><a href="reference/trading_ws_md.html">trading_ws_md()</a></code>
+</li>
+</ul>
 </div>
 </div>
 <div id="acknowledgments" class="section level2">
