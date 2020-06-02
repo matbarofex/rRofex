@@ -4,7 +4,7 @@
 \alias{trading_ws_close}
 \title{Web Sockets: Close connection}
 \usage{
-trading_ws_close(close_all = FALSE, selection)
+trading_ws_close(close_all = TRUE, selection)
 }
 \arguments{
 \item{close_all}{Logical. Should all connections be closed or only the selected ones.}
@@ -27,6 +27,7 @@ trading_ws_close(close_all = TRUE)
 }
 \seealso{
 Other websocket functions: 
-\code{\link{trading_ws_md}()}
+\code{\link{trading_ws_md}()},
+\code{\link{trading_ws_orders}()}
 }
 \concept{websocket functions}

@@ -63,6 +63,7 @@ purrr::walk2(
 }
 \seealso{
 Other websocket functions: 
-\code{\link{trading_ws_close}()}
+\code{\link{trading_ws_close}()},
+\code{\link{trading_ws_orders}()}
 }
 \concept{websocket functions}
