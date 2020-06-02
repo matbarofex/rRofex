@@ -19,6 +19,7 @@ S4 rRofexConnection object.
 A valid rRofexConecciont object.
 }
 \description{
+\Sexpr[results=rd, stage=render]{lifecycle::badge("stable")}
 \code{rRofex_connection} creates a New Connection Object.
 }
 \note{

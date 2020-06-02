@@ -37,6 +37,7 @@ trading_mdh(
 If correct, it will load a data frame.
 }
 \description{
+\Sexpr[results=rd, stage=render]{lifecycle::badge("stable")}
 Access Historical Trades for a given instrument.
 }
 \seealso{

@@ -20,6 +20,7 @@ trading_cancel_order(connection, id, proprietary)
 If correct, it will load a tibble.
 }
 \description{
+\Sexpr[results=rd, stage=render]{lifecycle::badge("maturing")}
 The method \code{trading_cancel_order} should be use to cancel orders that are open on the market.
 }
 \seealso{

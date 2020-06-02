@@ -21,7 +21,9 @@ NULL
 
 #' @title API Log-in
 #'
-#' @description Function that it is use to log-in into Primary trading API
+#' @description
+#' \Sexpr[results=rd, stage=render]{lifecycle::badge("stable")}
+#' Function that it is use to log-in into Primary trading API
 #'
 #' @param username String. User Name
 #' @param password String. Password
@@ -96,7 +98,9 @@ trading_login <- function(username, password, base_url) {
 
 #' @title List of Instruments
 #'
-#' @description Method to list segments and instruments currently available through the Trading API.
+#' @description
+#' \Sexpr[results=rd, stage=render]{lifecycle::badge("stable")}
+#' Method to list segments and instruments currently available through the Trading API.
 #'
 #' @param connection S4. \strong{Mandatory} Formal rRofexConnection class object
 #' @param request String. \strong{Mandatory} The type of request that you are making:
@@ -283,7 +287,9 @@ trading_instruments <- function(connection, request, sec_detailed = FALSE, marke
 
 #' @title Front Month of Futures
 #'
-#' @description List all front month contracts for futures.
+#' @description
+#' \Sexpr[results=rd, stage=render]{lifecycle::badge("stable")}
+#' List all front month contracts for futures.
 #'
 #' @param connection S4. \strong{Mandatory} Formal rRofexConnection class object
 #'
@@ -315,7 +321,9 @@ trading_instruments_fronts <- function(connection) {
 
 #' @title  Market Data Real Time
 #'
-#' @description This method brings Market Data in Real Time.
+#' @description
+#' \Sexpr[results=rd, stage=render]{lifecycle::badge("stable")}
+#' This method brings Market Data in Real Time.
 #'
 #' @param connection S4. \strong{Mandatory}. Formal rRofexConnection class object
 #' @param symbol String. \strong{Mandatory}. Use \code{\link{trading_instruments}} to see which symbols are available.
@@ -440,7 +448,9 @@ trading_md <- function(connection, symbol, entries=c('BI', 'OF', 'LA', 'OP', 'CL
 
 #' @title Historical Market Data
 #'
-#' @description Access Historical Trades for a given instrument.
+#' @description
+#' \Sexpr[results=rd, stage=render]{lifecycle::badge("stable")}
+#' Access Historical Trades for a given instrument.
 #'
 #' @param connection S4. \strong{Mandatory} Formal rRofexConnection class object
 #' @param market_id String. Market to which we are going to connect.
@@ -539,7 +549,9 @@ trading_mdh <- function(connection, market_id='ROFX', symbol, date, date_from, d
 
 #' @title Currencies
 #'
-#' @description Access currencies prices.
+#' @description
+#' \Sexpr[results=rd, stage=render]{lifecycle::badge("stable")}
+#' Access currencies prices.
 #'
 #' @param connection S4. \strong{Mandatory} Formal rRofexConnection class object
 #'
@@ -580,7 +592,9 @@ trading_currencies <- function(connection) {
 
 #' @title Send Order to the Market
 #'
-#' @description The method \code{trading_new_order} is use to send orders.
+#' @description
+#' \Sexpr[results=rd, stage=render]{lifecycle::badge("maturing")}
+#' The method \code{trading_new_order} is use to send orders.
 #'
 #' @param connection S4. \strong{Mandatory} Formal rRofexConnection class object
 #' @param account String. \strong{Mandatory} Account Number
@@ -693,7 +707,9 @@ trading_new_order <- function(connection, account, symbol, side, quantity, price
 
 #' @title Cancel Order Sent to the Market
 #'
-#' @description The method \code{trading_cancel_order} should be use to cancel orders that are open on the market.
+#' @description
+#' \Sexpr[results=rd, stage=render]{lifecycle::badge("maturing")}
+#' The method \code{trading_cancel_order} should be use to cancel orders that are open on the market.
 #'
 #' @param connection S4. \strong{Mandatory} Formal rRofexConnection class object
 #' @param id String. \strong{Mandatory} clOrdId given by the \code{trading_orders} method.
@@ -758,7 +774,9 @@ trading_cancel_order <- function(connection, id, proprietary) {
 
 #' @title Lookup Order Status
 #'
-#' @description The method \code{trading_lookup} is used to check the status of an order.
+#' @description
+#' \Sexpr[results=rd, stage=render]{lifecycle::badge("stable")}
+#' The method \code{trading_lookup} is used to check the status of an order.
 #'
 #' @param connection S4. \strong{Mandatory} Formal rRofexConnection class object
 #' @param lookup_type String. \strong{Mandatory}. Look-up by:
@@ -847,7 +865,9 @@ trading_lookup <- function(connection, lookup_type, id, proprietary) {
 
 #' @title View Orders
 #'
-#' @description The method \code{trading_orders} is used to see each order sent by Account.
+#' @description
+#' \Sexpr[results=rd, stage=render]{lifecycle::badge("stable")}
+#' The method \code{trading_orders} is used to see each order sent by Account.
 #'
 #' @param connection S4. \strong{Mandatory} Formal rRofexConnection class object
 #' @param account String. \strong{Mandatory} Account Number
@@ -915,7 +935,9 @@ trading_orders <- function(connection, account) {
 
 #' @title Account Information
 #'
-#' @description Access information about the trading account.
+#' @description
+#' \Sexpr[results=rd, stage=render]{lifecycle::badge("maturing")}
+#' Access information about the trading account.
 #'
 #' @param connection S4. \strong{Mandatory} Formal rRofexConnection class object
 #' @param account String. \strong{Mandatory} Account Number
@@ -1003,7 +1025,9 @@ trading_account <- function(connection, account, detailed = FALSE) {
 
 #' @title Account Report
 #'
-#' @description Access report about your trading account.
+#' @description
+#' \Sexpr[results=rd, stage=render]{lifecycle::badge("maturing")}
+#' Access report about your trading account.
 #'
 #' @param connection S4. \strong{Mandatory} Formal rRofexConnection class object
 #' @param account String. \strong{Mandatory} Account Number

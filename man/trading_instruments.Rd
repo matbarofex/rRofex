@@ -59,6 +59,7 @@ trading_instruments(
 If correct, it will load a tibble data frame
 }
 \description{
+\Sexpr[results=rd, stage=render]{lifecycle::badge("stable")}
 Method to list segments and instruments currently available through the Trading API.
 }
 \seealso{

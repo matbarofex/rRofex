@@ -58,6 +58,7 @@ trading_new_order(
 If correct, it will load a tibble.
 }
 \description{
+\Sexpr[results=rd, stage=render]{lifecycle::badge("maturing")}
 The method \code{trading_new_order} is use to send orders.
 }
 \seealso{

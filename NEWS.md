@@ -1,3 +1,10 @@
+## rRofex 2.0.0.9006
+
+### Changes
+
+* The function `trading_ws_orders()` has been added. This will update your desire data frame with information about your order status when any new data is generated. See function documentation for more information.
+* Started using Lifecyle badges to show the state of every function inside the package.
+
 ## rRofex 2.0.0.9005
 
 ### Changes

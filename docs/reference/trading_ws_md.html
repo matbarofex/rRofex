@@ -47,7 +47,9 @@
 
 
 <meta property="og:title" content="Web Sockets: Market Data Real Time — trading_ws_md" />
-<meta property="og:description" content="This method brings Market Data in Real Time using web socket protocol." />
+<meta property="og:description" content="
+
+This method brings Market Data in Real Time using web socket protocol." />
 <meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:creator" content="@augustohassel" />
@@ -83,7 +85,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rRofex</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.0.9005</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.0.9006</span>
       </span>
     </div>
 
@@ -128,7 +130,9 @@
     </div>
 
     <div class="ref-description">
-    <p>This method brings Market Data in Real Time using web socket protocol.</p>
+    <p><a href='https://www.tidyverse.org/lifecycle/#experimental'><img src='figures/lifecycle-experimental.svg' alt='Experimental lifecycle'></a>
+
+This method brings Market Data in Real Time using web socket protocol.</p>
     </div>
 
     <pre class="usage"><span class='fu'>trading_ws_md</span>(
@@ -138,7 +142,8 @@
   <span class='kw'>entries</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='st'>"BI"</span>, <span class='st'>"OF"</span>, <span class='st'>"LA"</span>, <span class='st'>"OP"</span>, <span class='st'>"CL"</span>, <span class='st'>"SE"</span>, <span class='st'>"OI"</span>, <span class='st'>"HI"</span>, <span class='st'>"LO"</span>, <span class='st'>"TV"</span>, <span class='st'>"IV"</span>,
     <span class='st'>"EV"</span>, <span class='st'>"NV"</span>, <span class='st'>"TC"</span>),
   <span class='kw'>listen_to</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>market_id</span> <span class='kw'>=</span> <span class='st'>"ROFX"</span>
+  <span class='kw'>market_id</span> <span class='kw'>=</span> <span class='st'>"ROFX"</span>,
+  <span class='kw'>where_is_env</span> <span class='kw'>=</span> <span class='no'>.GlobalEnv</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -183,6 +188,10 @@
       <th>market_id</th>
       <td><p>String. Market to which you are going to connect.</p></td>
     </tr>
+    <tr>
+      <th>where_is_env</th>
+      <td><p>Environment. <strong>Only for advance users</strong>.</p></td>
+    </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
@@ -191,7 +200,8 @@
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other websocket functions: 
-<code><a href='trading_ws_close.html'>trading_ws_close</a>()</code></p></div>
+<code><a href='trading_ws_close.html'>trading_ws_close</a>()</code>,
+<code><a href='trading_ws_orders.html'>trading_ws_orders</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>

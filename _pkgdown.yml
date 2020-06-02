@@ -38,4 +38,5 @@ reference:
 - title: Websocket Methods
 - contents:
   - trading_ws_md
+  - trading_ws_orders
   - trading_ws_close

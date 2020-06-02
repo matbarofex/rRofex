@@ -17,7 +17,7 @@ options(tibble.print_min = 5, tibble.print_max = 5)
 # rRofex <img src='man/figures/logo.png' align="right" height="139"/>
 
 <!-- badges: start -->
-[![Lifecycle: maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
+[![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://www.tidyverse.org/lifecycle/#stable)
 [![Travis build status](https://travis-ci.com/matbarofex/rRofex.svg?branch=master)](https://travis-ci.com/matbarofex/rRofex)
 [![CRAN status](https://www.r-pkg.org/badges/version/rRofex)](https://CRAN.R-project.org/package=rRofex)
 [![CRAN RStudio mirror downloads](https://cranlogs.r-pkg.org/badges/grand-total/rRofex?color=orange)](https://cran.r-project.org/package=rRofex)
@@ -187,6 +187,8 @@ Instead of requesting information using REST protocol, you could get it through 
 The methods available in Websocket protool are:
 
 - Listen to Market Data with `trading_ws_md()`
+- Listen to Order status with `trading_ws_orders()`
+- Close Websocket connections with `trading_ws_close()`
 
 
 ## Acknowledgments

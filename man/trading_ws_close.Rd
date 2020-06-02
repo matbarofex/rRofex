@@ -15,6 +15,7 @@ trading_ws_close(close_all = TRUE, selection)
 If correct, it will show a message saying that the connection has been closed.
 }
 \description{
+\Sexpr[results=rd, stage=render]{lifecycle::badge("maturing")}
 This method it is use to close open Websocket connections.
 }
 \examples{

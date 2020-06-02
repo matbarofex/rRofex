@@ -8,6 +8,7 @@
 S4 rRofexConnection object.
 }
 \description{
+\Sexpr[results=rd, stage=render]{lifecycle::badge("stable")}
 Creates an rRofex connection object that contains a summary from the \code{\link{trading_login}} function.
 }
 \section{Slots}{

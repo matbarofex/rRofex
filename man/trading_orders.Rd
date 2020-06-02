@@ -15,6 +15,7 @@ trading_orders(connection, account)
 If correct, it will load a tibble.
 }
 \description{
+\Sexpr[results=rd, stage=render]{lifecycle::badge("stable")}
 The method \code{trading_orders} is used to see each order sent by Account.
 }
 \seealso{

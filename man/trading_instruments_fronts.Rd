@@ -13,6 +13,7 @@ trading_instruments_fronts(connection)
 If correct, it will load a tibble data frame
 }
 \description{
+\Sexpr[results=rd, stage=render]{lifecycle::badge("stable")}
 List all front month contracts for futures.
 }
 \seealso{

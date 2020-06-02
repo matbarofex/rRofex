@@ -22,6 +22,7 @@ trading_login(username, password, base_url)
 S4 rRofexConnection object.
 }
 \description{
+\Sexpr[results=rd, stage=render]{lifecycle::badge("stable")}
 Function that it is use to log-in into Primary trading API
 }
 \note{

@@ -15,6 +15,7 @@ trading_account_report(connection, account)
 If correct, it will load a tibble.
 }
 \description{
+\Sexpr[results=rd, stage=render]{lifecycle::badge("maturing")}
 Access report about your trading account.
 }
 \note{

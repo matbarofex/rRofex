@@ -26,6 +26,7 @@ trading_lookup(connection, lookup_type, id, proprietary)
 If correct, it will load a tibble.
 }
 \description{
+\Sexpr[results=rd, stage=render]{lifecycle::badge("stable")}
 The method \code{trading_lookup} is used to check the status of an order.
 }
 \seealso{

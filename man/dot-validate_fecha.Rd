@@ -13,5 +13,6 @@
 TRUE if date has a correct format.
 }
 \description{
+\Sexpr[results=rd, stage=render]{lifecycle::badge("questioning")}
 Validate date
 }

@@ -13,6 +13,7 @@ trading_currencies(connection)
 If correct, it will load a data frame.
 }
 \description{
+\Sexpr[results=rd, stage=render]{lifecycle::badge("stable")}
 Access currencies prices.
 }
 \seealso{

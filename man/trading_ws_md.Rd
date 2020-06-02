@@ -11,7 +11,8 @@ trading_ws_md(
   entries = list("BI", "OF", "LA", "OP", "CL", "SE", "OI", "HI", "LO", "TV", "IV",
     "EV", "NV", "TC"),
   listen_to = NA,
-  market_id = "ROFX"
+  market_id = "ROFX",
+  where_is_env = .GlobalEnv
 )
 }
 \arguments{
@@ -42,11 +43,14 @@ trading_ws_md(
 \item{listen_to}{List. Column names to by listen to.}
 
 \item{market_id}{String. Market to which you are going to connect.}
+
+\item{where_is_env}{Environment. \strong{Only for advance users}.}
 }
 \value{
 If correct, it will load a tibble.
 }
 \description{
+\Sexpr[results=rd, stage=render]{lifecycle::badge("experimental")}
 This method brings Market Data in Real Time using web socket protocol.
 }
 \examples{

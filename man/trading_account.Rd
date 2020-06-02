@@ -17,6 +17,7 @@ trading_account(connection, account, detailed = FALSE)
 If correct, it will load a tibble.
 }
 \description{
+\Sexpr[results=rd, stage=render]{lifecycle::badge("maturing")}
 Access information about the trading account.
 }
 \seealso{

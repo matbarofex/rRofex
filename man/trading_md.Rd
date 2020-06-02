@@ -50,6 +50,7 @@ trading_md(
 If correct, it will load a tibble data frame
 }
 \description{
+\Sexpr[results=rd, stage=render]{lifecycle::badge("stable")}
 This method brings Market Data in Real Time.
 }
 \examples{

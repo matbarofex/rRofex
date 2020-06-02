@@ -6,7 +6,7 @@
 <!-- badges: start -->
 
 [![Lifecycle:
-maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
+stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://www.tidyverse.org/lifecycle/#stable)
 [![Travis build
 status](https://travis-ci.com/matbarofex/rRofex.svg?branch=master)](https://travis-ci.com/matbarofex/rRofex)
 [![CRAN
@@ -206,6 +206,8 @@ notified every time that a change has been made.
 The methods available in Websocket protool are:
 
   - Listen to Market Data with `trading_ws_md()`
+  - Listen to Order status with `trading_ws_orders()`
+  - Close Websocket connections with `trading_ws_close()`
 
 ## Acknowledgments
 

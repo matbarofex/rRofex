@@ -2,7 +2,9 @@
 
 #' @title Helper: Date validation
 #'
-#' @description Validate date
+#' @description
+#' \Sexpr[results=rd, stage=render]{lifecycle::badge("questioning")}
+#' Validate date
 #'
 #' @param date Date
 #' @return TRUE if date has a correct format.

@@ -9,7 +9,9 @@ NULL
 
 #' @title Connection Class: rRofexConnection
 #'
-#' @description Creates an rRofex connection object that contains a summary from the \code{\link{trading_login}} function.
+#' @description
+#' \Sexpr[results=rd, stage=render]{lifecycle::badge("stable")}
+#' Creates an rRofex connection object that contains a summary from the \code{\link{trading_login}} function.
 #'
 #' @slot token character. Obtained from login method
 #' @slot base_url character. Connected environment
@@ -118,7 +120,9 @@ setMethod("show", "rRofexConnection", function(object){
 
 #' @title Create rRofex Connection Object
 #'
-#' @description \code{rRofex_connection} creates a New Connection Object.
+#' @description
+#' \Sexpr[results=rd, stage=render]{lifecycle::badge("stable")}
+#' \code{rRofex_connection} creates a New Connection Object.
 #'
 #' @param token String. \strong{Mandatory} Obtained with \code{\link{trading_login}}
 #' @param base_url String. \strong{Mandatory} URL given by  \code{\link{trading_login}} or known by the client.
