@@ -145,7 +145,7 @@ trading_ws_md <- function(connection, destination, symbol, entries=list('BI', 'O
 #' \dontrun{
 #' trading_ws_close(close_all = TRUE)
 #' }
-trading_ws_close <- function(close_all=FALSE, selection) {
+trading_ws_close <- function(close_all = FALSE, selection) {
   if (!exists("rRofexWebsockets", mode = "environment")) stop("There is no rRofexWebsockets environment created.")
   if (is_empty(ls(rRofexWebsockets))) stop("rRofexWebsockets is empty.")
 
@@ -166,4 +166,71 @@ trading_ws_close <- function(close_all=FALSE, selection) {
       })
     }
 }
+
+
+# trading_ws_orders <- function(connection, destination, account = NA, only_active = FALSE) {
+#   if (missing(connection)) stop("Connection cannot be empty.")
+#   if (!isS4(connection) || rev(class(connection)) != "rRofexConnection" || !validObject(connection)) stop("The 'connection' must be a valid 'rRofexConnection'.")
+#   if (as.Date(connection@login_date_time) != Sys.Date()) stop("The 'acyRsaConnection' is no longer valid. Please log-in again.")
+#
+#   if (!missing(account) && class(account) != "list") stop("'account' must be either a list or NA.")
+#
+#   if (!exists(destination, envir = parent.frame(), inherits = FALSE)) {
+#     assign(x = destination, value = NULL, envir = parent.frame())
+#   }
+#
+#   if (!exists("rRofexWebsockets", mode = "environment", where = parent.frame(), inherits = FALSE)) {
+#     assign(x = "rRofexWebsockets", value = new.env(parent = emptyenv()), envir = parent.frame())
+#   }
+#
+#   ws <- WebSocket$new(url = gsub(pattern = "(.+)(:.+)", replacement = "wss\\2/", x = connection@base_url),
+#                       headers = list("X-Auth-Token" = connection@token),
+#                       accessLogChannels = "none",
+#                       errorLogChannels = "none",
+#                       autoConnect = TRUE)
+#
+#   ws$onOpen(function(event){
+#     message(glue("Client connected with rRofex using websockets to {connection@base_url}..."))
+#
+#     if (is.na(account)) {
+#       ws$send(toJSON(list(type = "os", snapshotOnlyActive = only_active), auto_unbox = T))
+#     } else {
+#       ws$send(toJSON(list(type = "os", snapshotOnlyActive = only_active, accounts = map(account, ~ list("id" = .x))), auto_unbox = T))
+#     }
+#   })
+#
+#   ws$onClose(function(event) {
+#     message(glue("Websocket '{destination}' disconnected from {url} with code {code} and reason '{reason}'",
+#                  url = connection@base_url,
+#                  code = event$code,
+#                  reason = event$reason,
+#                  destination = destination))
+#     if (event$code == 1006) {
+#       trading_ws_md(connection = connection, destination = destination, account = account, only_active = only_active)
+#     }
+#   })
+#
+#   ws$onError(function(event) {
+#     message(glue("Something went wrong, here's the error:
+#                  {event$message}"))
+#   })
+#
+#   ws$onMessage(function(event) {
+#     print(event$data)
+#     # if (!is_null(event$data)) {
+#     #   fromJSON(event$data)[c("timestamp", "orderReport")] %>%
+#     #     unlist(x = ., recursive = T, use.names = T) %>%
+#     #     as_tibble_row() %>%
+#     #     mutate(timestamp = as.POSIXct(as.numeric(timestamp)/1000, origin = "1970-01-01", tz = "America/Buenos_Aires")) %>%
+#     #     mutate_at(.tbl = ., .vars = vars(matches("transactTim")), .funs = list(~ as.POSIXct(., format = "%Y%m%d-%H:%M:%OS", tz = "America/Buenos_Aires"))) %>%
+#     #     rename_all(.tbl = ., .funs = list(~ gsub(pattern = "?(.+)?\\.?(.+)?\\.(.+)$", replacement = "\\3", x = .))) %>%
+#     #     mutate_at(.tbl = ., .vars = vars(matches("price|Qty|Px")), .funs = list(~ as.numeric(.)))
+#     #   bind_rows(get(x = destination, envir = parent.frame()), .) %>%
+#     #     distinct_at(.tbl = ., .vars = vars(-timestamp), .keep_all = TRUE) %>%
+#     #     assign(x = destination, value = ., envir = parent.frame())
+#     # }
+#   })
+#
+#   assign(x = destination, value = ws, envir = rRofexWebsockets)
+# }
 
