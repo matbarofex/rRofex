@@ -40,7 +40,7 @@ trading_ws_md(
 \item \strong{TC} - Trade Count
 }}
 
-\item{listen_to}{List. Column names to by listen to.}
+\item{listen_to}{List. Column names from the tibble that you are going to listen to. This is not the same as entries names.}
 
 \item{market_id}{String. Market to which you are going to connect.}
 

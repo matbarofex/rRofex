@@ -1,3 +1,7 @@
+## rRofex 2.0.0
+
+This is an update into CRAN. With this release we have completed all API methods, including Websocket connections.
+
 ## rRofex 2.0.0.9006
 
 ### Changes

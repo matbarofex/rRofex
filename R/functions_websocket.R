@@ -76,7 +76,7 @@ trading_ws_close <- function(close_all = TRUE, selection) {
 #' \item \strong{TC} - Trade Count
 #' }
 #' @param market_id String. Market to which you are going to connect.
-#' @param listen_to List. Column names to by listen to.
+#' @param listen_to List. Column names from the tibble that you are going to listen to. This is not the same as entries names.
 #' @param where_is_env Environment. \strong{Only for advance users}.
 #'
 #' @return If correct, it will load a tibble.
