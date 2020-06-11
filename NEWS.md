@@ -1,3 +1,7 @@
+## rRofex 2.0.1
+
+* Added **cancel_previous** parameter to `trading_new_order()`. It is only valid for Matba Rofex instruments.
+
 ## rRofex 2.0.0
 
 This is an update into CRAN. With this release we have completed all API methods, including Websocket connections.

@@ -620,11 +620,12 @@ trading_currencies <- function(connection) {
 #' @param iceberg Logical. If TRUE, then the order is 'iceberg'. FALSE as default.
 #' @param expire_date String. \strong{Only for GDT orders}. Maturity date of the order, With format '\%Y-\%m-\%d'.
 #' @param display_quantity Numeric. \strong{Only for Iceberg orders}. Indicate the disclosed quantity for the 'iceberg' order.
+#' @param cancel_previous Logigal. Optional parameter only valid for Matba Rofex instruments. By default it's FALSE.
 #'
 #' @return If correct, it will load a tibble.
 #'
 #' @family order placements functions
-trading_new_order <- function(connection, account, symbol, side, quantity, price, order_type='Limit', time_in_force='Day', iceberg=FALSE, expire_date=NULL, display_quantity=NULL) {
+trading_new_order <- function(connection, account, symbol, side, quantity, price, order_type='Limit', time_in_force='Day', iceberg=FALSE, expire_date=NULL, display_quantity=NULL, cancel_previous=FALSE) {
 
   if (missing(connection)) stop("Connection cannot be empty.")
   if (!isS4(connection) || rev(class(connection)) != "rRofexConnection" || !validObject(connection)) stop("The 'connection' must be a valid 'rRofexConnection'.")
@@ -659,17 +660,18 @@ trading_new_order <- function(connection, account, symbol, side, quantity, price
   # Query
   query <- GET(url = glue(connection@base_url, "/rest/order/newSingleOrder"),
                query = list(
-                 marketId    = market_id,
-                 symbol      = symbol,
-                 side        = side,
-                 orderQty    = quantity,
-                 price       = price,
-                 ordType     = order_type,
-                 timeInForce = time_in_force,
-                 iceberg     = iceberg,
-                 expireDate  = expire_date,
-                 displayQty  = if (iceberg == F) {NULL} else {display_quantity},
-                 account     = account
+                 marketId       = market_id,
+                 symbol         = symbol,
+                 side           = side,
+                 orderQty       = quantity,
+                 price          = price,
+                 ordType        = order_type,
+                 timeInForce    = time_in_force,
+                 iceberg        = iceberg,
+                 expireDate     = expire_date,
+                 displayQty     = if (iceberg == F) {NULL} else {display_quantity},
+                 cancelPrevious = cancel_previous,
+                 account        = account
                ),
                add_headers(.headers = c("X-Auth-Token" = connection@token)),
                user_agent(connection@agent))

@@ -15,7 +15,8 @@ trading_new_order(
   time_in_force = "Day",
   iceberg = FALSE,
   expire_date = NULL,
-  display_quantity = NULL
+  display_quantity = NULL,
+  cancel_previous = FALSE
 )
 }
 \arguments{
@@ -53,6 +54,8 @@ trading_new_order(
 \item{expire_date}{String. \strong{Only for GDT orders}. Maturity date of the order, With format '\%Y-\%m-\%d'.}
 
 \item{display_quantity}{Numeric. \strong{Only for Iceberg orders}. Indicate the disclosed quantity for the 'iceberg' order.}
+
+\item{cancel_previous}{Logigal. Optional parameter only valid for Matba Rofex instruments. By default it's FALSE.}
 }
 \value{
 If correct, it will load a tibble.

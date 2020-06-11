@@ -85,7 +85,7 @@ The method trading_new_order is use to send orders." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rRofex</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.1</span>
       </span>
     </div>
 
@@ -146,7 +146,8 @@ The method <code>trading_new_order</code> is use to send orders.</p>
   <span class='kw'>time_in_force</span> <span class='kw'>=</span> <span class='st'>"Day"</span>,
   <span class='kw'>iceberg</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>expire_date</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>display_quantity</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
+  <span class='kw'>display_quantity</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>cancel_previous</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -205,6 +206,10 @@ The method <code>trading_new_order</code> is use to send orders.</p>
     <tr>
       <th>display_quantity</th>
       <td><p>Numeric. <strong>Only for Iceberg orders</strong>. Indicate the disclosed quantity for the 'iceberg' order.</p></td>
+    </tr>
+    <tr>
+      <th>cancel_previous</th>
+      <td><p>Logigal. Optional parameter only valid for Matba Rofex instruments. By default it's FALSE.</p></td>
     </tr>
     </table>
 
