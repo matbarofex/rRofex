@@ -1,3 +1,9 @@
+## rRofex 2.0.2
+
+* Added dependencies on libraries and R itself. This resolves issue #20
+* Solved issue on websocket methods where it was not referencing properly the data when selecting different environment that wasn't .GlobalEnv. This was issue #19
+* Every logical function now uses && instead of &.
+
 ## rRofex 2.0.1
 
 * Added **cancel_previous** parameter to `trading_new_order()`. It is only valid for Matba Rofex instruments.

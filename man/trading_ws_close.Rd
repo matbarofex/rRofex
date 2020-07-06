@@ -4,12 +4,14 @@
 \alias{trading_ws_close}
 \title{Web Sockets: Close connection}
 \usage{
-trading_ws_close(close_all = TRUE, selection)
+trading_ws_close(close_all = TRUE, selection, where_is_env = .GlobalEnv)
 }
 \arguments{
 \item{close_all}{Logical. Should all connections be closed or only the selected ones.}
 
 \item{selection}{List. Is the same name that you have chosen for destination in \code{\link{trading_ws_md}}}
+
+\item{where_is_env}{Environment. \strong{Only for advance users}.}
 }
 \value{
 If correct, it will show a message saying that the connection has been closed.

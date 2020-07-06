@@ -15,6 +15,7 @@
 #'
 #' @param close_all Logical. Should all connections be closed or only the selected ones.
 #' @param selection List. Is the same name that you have chosen for destination in \code{\link{trading_ws_md}}
+#' @param where_is_env Environment. \strong{Only for advance users}.
 #'
 #' @return If correct, it will show a message saying that the connection has been closed.
 #'
@@ -27,21 +28,21 @@
 #' \dontrun{
 #' trading_ws_close(close_all = TRUE)
 #' }
-trading_ws_close <- function(close_all = TRUE, selection) {
-  if (!exists("rRofexWebsockets", mode = "environment")) stop("There is no rRofexWebsockets environment created.")
-  if (is_empty(ls(rRofexWebsockets))) stop("rRofexWebsockets is empty.")
+trading_ws_close <- function(close_all = TRUE, selection, where_is_env = .GlobalEnv) {
+  if (!exists("rRofexWebsockets", mode = "environment", envir = where_is_env)) stop("There is no rRofexWebsockets environment created.")
+  if (is_empty(ls(where_is_env$rRofexWebsockets))) stop("rRofexWebsockets is empty.")
 
   if (close_all == TRUE) {
-    walk(.x = ls(rRofexWebsockets), .f = function(x) {
-      get(x = x, envir = rRofexWebsockets)$close()
-      rm(list = x, envir = rRofexWebsockets)
+    walk(.x = ls(where_is_env$rRofexWebsockets), .f = function(x) {
+      get(x = x, envir = where_is_env$rRofexWebsockets)$close()
+      rm(list = x, envir = where_is_env$rRofexWebsockets)
     })
   } else {
     if (missing(selection) || (!missing(selection) && class(selection) != "list")) stop("'selection' must be a not empty list.")
     walk(.x = selection, .f = function(x) {
-      if (x %in% ls(rRofexWebsockets)) {
-        get(x = x, envir = rRofexWebsockets)$close()
-        rm(list = x, envir = rRofexWebsockets)
+      if (x %in% ls(where_is_env$rRofexWebsockets)) {
+        get(x = x, envir = where_is_env$rRofexWebsockets)$close()
+        rm(list = x, envir = where_is_env$rRofexWebsockets)
       } else {
         message(glue("'", x, "' it isn't present on the environment."))
       }
@@ -115,7 +116,7 @@ trading_ws_md <- function(connection, destination, symbol, entries=list('BI', 'O
   }
 
   if (!exists("rRofexWebsockets", mode = "environment", where = where_is_env, inherits = FALSE)) {
-    assign(x = "rRofexWebsockets", value = new.env(parent = emptyenv()), envir = where_is_env)
+    assign(x = "rRofexWebsockets", value = rlang::env(), envir = where_is_env)
   }
 
   ws <- WebSocket$new(url = gsub(pattern = "(.+)(:.+)", replacement = "wss\\2/", x = connection@base_url),
@@ -136,7 +137,7 @@ trading_ws_md <- function(connection, destination, symbol, entries=list('BI', 'O
                  reason = event$reason,
                  destination = destination))
     if (event$code == 1006) {
-      trading_ws_md(connection = connection, destination = destination, symbol = symbol, entries = entries, market_id = market_id)
+      trading_ws_md(connection = connection, destination = destination, symbol = symbol, entries = entries, market_id = market_id, where_is_env = where_is_env)
     }
   })
 
@@ -169,7 +170,7 @@ trading_ws_md <- function(connection, destination, symbol, entries=list('BI', 'O
       assign(x = destination, value = ., envir = where_is_env)
   })
 
-  assign(x = destination, value = ws, envir = rRofexWebsockets)
+  assign(x = destination, value = ws, envir = where_is_env$rRofexWebsockets)
 
 }
 
@@ -200,7 +201,7 @@ trading_ws_orders <- function(connection, destination, account = NA, only_active
   }
 
   if (!exists("rRofexWebsockets", mode = "environment", where = where_is_env, inherits = FALSE)) {
-    assign(x = "rRofexWebsockets", value = new.env(parent = emptyenv()), envir = where_is_env)
+    assign(x = "rRofexWebsockets", value = rlang::env(), envir = where_is_env)
   }
 
   ws <- WebSocket$new(url = gsub(pattern = "(.+)(:.+)", replacement = "wss\\2/", x = connection@base_url),
@@ -255,6 +256,6 @@ trading_ws_orders <- function(connection, destination, account = NA, only_active
     }
   })
 
-  assign(x = destination, value = ws, envir = rRofexWebsockets)
+  assign(x = destination, value = ws, envir = where_is_env$rRofexWebsockets)
 }
 

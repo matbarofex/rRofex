@@ -9,6 +9,6 @@
 #' @importFrom magrittr %>%
 #' @importFrom glue glue glue_collapse
 #' @importFrom purrr some modify_depth map_df pluck map simplify_all map_int walk assign_in map_lgl
-#' @importFrom rlang is_null is_empty expr
+#' @importFrom rlang is_null is_empty expr env
 #' @importFrom lifecycle badge
 "_PACKAGE"

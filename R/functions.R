@@ -166,12 +166,12 @@ trading_instruments <- function(connection, request, sec_detailed = FALSE, marke
         add_headers(.headers = c("X-Auth-Token" = connection@token)),
         user_agent(connection@agent)
         )
-  } else if (request %in% c('securities', 'by_type') & sec_detailed == F) {
+  } else if (request %in% c('securities', 'by_type') && sec_detailed == F) {
     GET(url = glue(connection@base_url, "/rest/instruments/all"),
         add_headers(.headers = c("X-Auth-Token" = connection@token)),
         user_agent(connection@agent)
     )
-  } else if (request %in% c('securities', 'by_type') & sec_detailed == T) {
+  } else if (request %in% c('securities', 'by_type') && sec_detailed == T) {
     GET(url = glue(connection@base_url, "/rest/instruments/details"),
         add_headers(.headers = c("X-Auth-Token" = connection@token)),
         user_agent(connection@agent)
@@ -208,14 +208,14 @@ trading_instruments <- function(connection, request, sec_detailed = FALSE, marke
       data <- data$segments %>%
         mutate_all(., unlist)
 
-    } else if (request %in% c('securities', 'by_type') & sec_detailed == F) {
+    } else if (request %in% c('securities', 'by_type') && sec_detailed == F) {
 
       data <- data$instruments %>%
         jsonlite::flatten(recursive = F) %>%
         mutate_all(., unlist) %>%
         rename_all(., .funs = list(~gsub(pattern = ".+\\.", replacement = "", x = .)))
 
-    } else if (request %in% c('securities', 'by_type') & sec_detailed == T) {
+    } else if (request %in% c('securities', 'by_type') && sec_detailed == T) {
 
       data <- data$instruments %>%
         jsonlite::flatten(x = ., recursive = F) %>%
@@ -246,7 +246,7 @@ trading_instruments <- function(connection, request, sec_detailed = FALSE, marke
       rename_all(., .funs = list(~gsub(pattern = "(^.)", replacement = "\\U\\1", x = ., perl = TRUE))) %>%
       as_tibble()
 
-    if (request %in% c('securities', 'by_type') & sec_detailed != F) {
+    if (request %in% c('securities', 'by_type') && sec_detailed != F) {
       suppressWarnings(data <- data %>%
                          mutate(
                            ProductType = factor(gsub(pattern = "(^.)(.+)", replacement = "\\1", x = Cficode), levels = c("E", "D", "C", "R", "O", "F", "T", "M"), labels = c("Equities", "Debt", "Collective Investment Vehicles", "Entitlements", "Options", "Futures", "Referencial Instruments", "Others")),
@@ -262,16 +262,16 @@ trading_instruments <- function(connection, request, sec_detailed = FALSE, marke
                              TRUE ~ Symbol
                              ),
                            Underlying = case_when(
-                             ProductType %in% c('Options') & MarketSegmentId == 'MERV' ~ trimws(gsub(pattern = "(.{3})(.+)", replacement = "\\1", x = Ticker, ignore.case = T), which = "both"),
-                             ProductType %in% c('Options') & MarketSegmentId != 'MERV'~ trimws(gsub(pattern = "(.)?([[:alpha:]]{3})?([0-9]{2})?(/)?([0-9]{2})?( )([0-9]+)([p|c])$", replacement = "\\1", x = Symbol, ignore.case = T), which = "both"),
-                             ProductType %in% c('Futures') & grepl(pattern = "(Dispo)$", x = Ticker) == TRUE ~ trimws(gsub(pattern = "(.+)(Dispo)$", replacement = "\\1", x = Symbol, ignore.case = T), which = "both"),
-                             ProductType %in% c('Futures') & grepl(pattern = "(.)( )([0-9]{2})(/)([0-9]{2})( )([0-9]{2})(A)$", x = Ticker) == TRUE ~ trimws(gsub(pattern = "(.)( )([0-9]{2})(/)([0-9]{2})( )([0-9]{2})(A)$", replacement = "\\1", x = Symbol, ignore.case = T), which = "both"),
+                             ProductType %in% c('Options') && MarketSegmentId == 'MERV' ~ trimws(gsub(pattern = "(.{3})(.+)", replacement = "\\1", x = Ticker, ignore.case = T), which = "both"),
+                             ProductType %in% c('Options') && MarketSegmentId != 'MERV'~ trimws(gsub(pattern = "(.)?([[:alpha:]]{3})?([0-9]{2})?(/)?([0-9]{2})?( )([0-9]+)([p|c])$", replacement = "\\1", x = Symbol, ignore.case = T), which = "both"),
+                             ProductType %in% c('Futures') && grepl(pattern = "(Dispo)$", x = Ticker) == TRUE ~ trimws(gsub(pattern = "(.+)(Dispo)$", replacement = "\\1", x = Symbol, ignore.case = T), which = "both"),
+                             ProductType %in% c('Futures') && grepl(pattern = "(.)( )([0-9]{2})(/)([0-9]{2})( )([0-9]{2})(A)$", x = Ticker) == TRUE ~ trimws(gsub(pattern = "(.)( )([0-9]{2})(/)([0-9]{2})( )([0-9]{2})(A)$", replacement = "\\1", x = Symbol, ignore.case = T), which = "both"),
                              ProductType %in% c('Futures') ~ trimws(gsub(pattern = "(.)?([[:alpha:]]{3})?([0-9]{2})?(/)?([0-9]{2})?( )?((A|M)||([0-9]){2})$", replacement = "\\1", x = Symbol, ignore.case = T), which = "both"),
                              TRUE ~ NA_character_
                              ),
                            StrikePrice = case_when(
-                             ProductType %in% c('Options') & MarketSegmentId == 'MERV' ~ as.double(gsub(pattern = "(.{4})([0-9]+?\\.?[0-9]*)([[:alpha:]]+)", replacement = "\\2", x = Ticker, ignore.case = T)),
-                             ProductType %in% c('Options') & MarketSegmentId != 'MERV'~ as.double(gsub(pattern = "(.+)( )([0-9]+)([p|c])$", replacement = "\\3", x = Symbol, ignore.case = T)),
+                             ProductType %in% c('Options') && MarketSegmentId == 'MERV' ~ as.double(gsub(pattern = "(.{4})([0-9]+?\\.?[0-9]*)([[:alpha:]]+)", replacement = "\\2", x = Ticker, ignore.case = T)),
+                             ProductType %in% c('Options') && MarketSegmentId != 'MERV'~ as.double(gsub(pattern = "(.+)( )([0-9]+)([p|c])$", replacement = "\\3", x = Symbol, ignore.case = T)),
                              TRUE ~ NA_real_
                              )
                            ) %>%
@@ -475,13 +475,13 @@ trading_mdh <- function(connection, market_id='ROFX', symbol, date, date_from, d
 
   if (!market_id %in% c("ROFX", "MERV")) stop("Invalid 'market_id' parameter")
   if (missing(symbol)) stop("You should pick a 'symbol' to move forward.")
-  if (missing(date) & (missing(date_from) | missing(date_to))) stop("Invalid date parameters")
+  if (missing(date) && (missing(date_from) | missing(date_to))) stop("Invalid date parameters")
 
   if (!missing(date)) {
     if (!.validate_fecha(date = date)) stop("The correct format for 'date' is %Y-%m-%d")
   } else {
-    if (!missing(date_from) & !.validate_fecha(date = date_from)) stop("The correct format for 'date_from' is %Y-%m-%d")
-    if (!missing(date_to) & !.validate_fecha(date = date_to)) stop("The correct format for 'date_to' is %Y-%m-%d")
+    if (!missing(date_from) && !.validate_fecha(date = date_from)) stop("The correct format for 'date_from' is %Y-%m-%d")
+    if (!missing(date_to) && !.validate_fecha(date = date_to)) stop("The correct format for 'date_to' is %Y-%m-%d")
   }
 
   # Query
@@ -495,7 +495,7 @@ trading_mdh <- function(connection, market_id='ROFX', symbol, date, date_from, d
         ),
         add_headers(.headers = c("X-Auth-Token" = connection@token)),
         user_agent(connection@agent))
-  } else if (!missing(date_from) & !missing(date_to)) {
+  } else if (!missing(date_from) && !missing(date_to)) {
     GET(url = glue(connection@base_url, "/rest/data/getTrades"),
         query = list(
           marketId   =   market_id,
@@ -642,18 +642,18 @@ trading_new_order <- function(connection, account, symbol, side, quantity, price
   if (missing(quantity)) stop("You should pick a 'quantity' to move forward.")
 
   if (!order_type %in% c("Limit")) stop("Invalid 'order_type' parameter")
-  if (order_type == "Limit" & missing(price)) stop("You should pick a 'price' to move forward.")
+  if (order_type == "Limit" && missing(price)) stop("You should pick a 'price' to move forward.")
 
   if (!time_in_force %in% c("Day", "IOC", "FOK", "GTD")) stop("Invalid 'time_in_force' parameter")
 
-  if (time_in_force %in% c("GTD") & missing(expire_date)) stop("You should provide an 'expire_date' to move forward.")
-  if (!missing(expire_date) & !.validate_fecha(date = expire_date)) {
+  if (time_in_force %in% c("GTD") && missing(expire_date)) stop("You should provide an 'expire_date' to move forward.")
+  if (!missing(expire_date) && !.validate_fecha(date = expire_date)) {
     stop("The correct format for 'expire_date' is %Y-%m-%d")
-  } else if(!missing(expire_date) & .validate_fecha(date = expire_date)) {
+  } else if (!missing(expire_date) && .validate_fecha(date = expire_date)) {
     expire_date <- gsub(pattern = "-", replacement = "", x = expire_date)
   }
 
-  if (iceberg == "TRUE" & missing(display_quantity)) stop("You should provide a disclosed quantity")
+  if (iceberg == "TRUE" && missing(display_quantity)) stop("You should provide a disclosed quantity")
 
   if (missing(account)) stop("'account' parameter cannot be empty.")
 
@@ -806,7 +806,7 @@ trading_lookup <- function(connection, lookup_type, id, proprietary) {
 
   if (missing(id)) stop("You should pick a 'id' to move forward.")
 
-  if (lookup_type == "COID" & missing(proprietary)) stop("You should pick a 'proprietary' to move forward.")
+  if (lookup_type == "COID" && missing(proprietary)) stop("You should pick a 'proprietary' to move forward.")
 
   # Query
   query <- if (lookup_type == "COID") {

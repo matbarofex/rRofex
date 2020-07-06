@@ -85,7 +85,7 @@ This method it is use to close open Websocket connections." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rRofex</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.2</span>
       </span>
     </div>
 
@@ -135,7 +135,7 @@ This method it is use to close open Websocket connections." />
 This method it is use to close open Websocket connections.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>trading_ws_close</span>(<span class='kw'>close_all</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>selection</span>)</pre>
+    <pre class="usage"><span class='fu'>trading_ws_close</span>(<span class='kw'>close_all</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>selection</span>, <span class='kw'>where_is_env</span> <span class='kw'>=</span> <span class='no'>.GlobalEnv</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -147,6 +147,10 @@ This method it is use to close open Websocket connections.</p>
     <tr>
       <th>selection</th>
       <td><p>List. Is the same name that you have chosen for destination in <code><a href='trading_ws_md.html'>trading_ws_md</a></code></p></td>
+    </tr>
+    <tr>
+      <th>where_is_env</th>
+      <td><p>Environment. <strong>Only for advance users</strong>.</p></td>
     </tr>
     </table>
 
