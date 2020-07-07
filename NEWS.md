@@ -3,6 +3,7 @@
 * Added dependencies on libraries and R itself. This resolves issue #20
 * Solved issue on websocket methods where it was not referencing properly the data when selecting different environment that wasn't .GlobalEnv. This was issue #19
 * Every logical function now uses && instead of &.
+* Added new article about Shiny and rRofex.
 
 ## rRofex 2.0.1
 

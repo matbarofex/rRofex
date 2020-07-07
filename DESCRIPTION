@@ -38,3 +38,5 @@ Collate:
     'globals.R'
     'rRofex.R'
 RdMacros: lifecycle
+Suggests: 
+    rmarkdown
