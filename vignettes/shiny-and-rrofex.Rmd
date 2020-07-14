@@ -1,7 +1,9 @@
 ---
 title: "Powering rRofex with Shiny"
+description: "A brief introduction of using Shiny with rRofex."
 author: "Augusto Hassel"
-date: "`r Sys.Date()`"
+date: "2020-07-07"
+VignetteBuilder: knitr
 ---
 
 ```{r, include = FALSE}

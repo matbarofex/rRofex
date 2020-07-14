@@ -89,8 +89,7 @@ connecting to the market::
 
 1.  **REST**. Inside this library most methods use this protocol
     internaly.
-2.  **Websocket**. It is under development on branch ‘websocket’ on
-    GitHub. The methods have the suffix ‘ws’ inside it’s name.
+2.  **Websocket**. The methods have the suffix ‘ws’ inside it’s name.
 3.  *FIX*. We don’t have any short term plans to develop this wrapper.
 
 ## Examples
