@@ -1,0 +1,213 @@
+---
+title: "Spread Analysis using rRofex"
+description: "Analyzing spread inside the book using rRofex."
+author: "Juan Francisco Gomez"
+date: "2020-07-15"
+VignetteBuilder: knitr
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+library(rRofex)
+library(tidyverse)
+library(DT)
+library(scales)
+library(glue)
+
+connection <- rRofex::trading_login(username = "", 
+                                    password = "", 
+                                    base_url = "")
+```
+
+We are going to show a simple use case for the rRofex library by build a function that can calculate the difference in the Bid and Ask from the order book. Afterwards we are going to plot it and see how spread has been evolving over  time.
+
+### Starting with a connection
+
+We start by log in with our credentials using the function `trading_login()`. For obvious reasons we are going to use data that has been already process on the back end. If you choose to use your own credentials and follow this article, you'll be able to recreate your own spread analysis.
+
+```{r eval=FALSE, include=TRUE}
+connection <- rRofex::trading_login(username = "XXX", 
+                                    password = "XXX", 
+                                    base_url = "XXX")
+```
+
+### Gaining some insights
+
+Once we are connected, we'll query the reference data and we'll focus our analysis on the following instruments: Rofex 20 Index, Dollar, Galicia, Gold and Oil futures. All this using two functions: `trading_instruments()` and `trading_instruments_fronts()`. The first is used to obtain the full reference data and the latter to determine the front months for each future contract.
+
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+instruments_to_follow <- rRofex::trading_instruments(connection = connection, 
+                                                     request = "securities", 
+                                                     sec_detailed = TRUE) %>%
+  select(Symbol, Underlying, LowLimitPrice, HighLimitPrice, MinPriceIncrement, ContractMultiplier) %>%
+  filter(Symbol %in% (rRofex::trading_instruments_fronts(connection = connection) %>% 
+                        filter(Underlying %in% c("RFX20", "DO", "GGAL", "ORO", "WTI")) %>% 
+                        pull(Symbol)))
+DT::datatable(instruments_to_follow)
+```
+
+### Calculating de spread
+
+Now that we have the products, we'll build a function to retrieve it's prices and calculate in real time the spread between the ask and bid:
+
+```{r eval=TRUE, include=TRUE}
+spread_real_time <- function(connection, symbol) {
+  
+  data <- rRofex::trading_md(
+    connection = connection,
+    symbol     = symbol,
+    entries    = c('BI', 'OF')
+    ) %>% 
+    rename(
+      Bid = BI_price, 
+      Offer = OF_price
+    ) %>%
+    mutate(
+      SpreadNominal = Offer - Bid,
+      Time = Sys.time()
+    ) %>%
+    select(Time, Bid, Offer, SpreadNominal)
+  
+  return(data)
+}
+```
+
+Having this, we could create a job that every days reads in market data and uses this function to record the spread into a data base. For example, this can be achieved with a function like this one, in conjunctionw with the `purrr::map` family:
+
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+data_to_save <- bind_cols(instruments_to_follow, 
+                          purrr::map_dfr(.x = instruments_to_follow$Symbol, 
+                                         .f = ~ spread_real_time(connection = connection, symbol = .x))) %>%
+  mutate(
+    SpreadTick = SpreadNominal / MinPriceIncrement
+    )
+
+DT::datatable(data_to_save %>% 
+                select(Time, Symbol, Bid, Offer, SpreadNominal, SpreadTick)) %>% 
+  DT::formatRound(c("SpreadNominal", "SpreadTick")) %>%
+  DT::formatCurrency(c("Bid", "Offer")) %>%
+  DT::formatDate("Time", method = "toTimeString")
+    
+```
+
+### Time to plot
+
+```{r echo=FALSE,include=FALSE, eval=TRUE}
+spread_historico <- readr::read_csv2("spread_historico.csv")
+```
+
+If we collect each observation showned before for a couple of days, we'll end up with a data frame like this one:
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+DT::datatable(head(spread_historico))
+```
+
+With the latter we can build a plot that analyses historical spreads for the already mentioned instruments.
+
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+plot_spreads <- spread_historico %>%
+  filter(!(instrument == "DO" & lubridate::hour(time) > 17)) %>% 
+  nest(data = c(bid, ask, tick, SpreadNominal, SpreadTick, time)) %>%
+  mutate(
+    mean = purrr::map_dbl(data, ~ mean(.$SpreadTick)),
+    median = purrr::map_dbl(data, ~ mean(.$SpreadTick))
+  ) %>% 
+  unnest(cols = c(data)) %>% 
+  ggplot() +
+  geom_line(
+    mapping     = aes(x = time, y = SpreadTick, color = Symbol),
+    alpha       = 0.5,
+    show.legend = FALSE) +
+  geom_line(
+    mapping     = aes(x = time, y = mean, color = Symbol),
+    linetype    = "dashed",
+    size        = 1,
+    show.legend = FALSE) +
+  geom_line(
+    mapping     = aes(x = time, y = median, color = Symbol),
+    linetype    = "dotted",
+    size        = 1,
+    show.legend = FALSE) +
+  facet_wrap(
+    facets = ~ Symbol,
+    scales = "free") +
+  scale_x_datetime(
+    labels = scales::date_format("%H %M", tz = Sys.timezone(location = TRUE)),
+    date_breaks = "1 hours") +
+  theme_minimal() +
+  theme(
+    legend.position = "top",
+    legend.title = element_blank(),
+    panel.grid.minor = element_blank()
+  ) +
+  labs(
+    x = "",
+    y = "",
+    title = "Spreads Bid-Ask de Productos Seleccionados",
+    subtitle = "Medido en Tick Mínimo",
+    caption = "Elaborado por I&D para el Webinar rRofex del 12/06/2020"
+  )
+
+aux_data <- spread_historico %>%
+  filter(!(instrument == "DO" & lubridate::hour(time) > 17)) %>%
+  group_by(Symbol) %>% 
+  summarise(
+    mean   = mean(SpreadTick),
+    median = median(SpreadTick),
+    max    = max(SpreadTick),
+    tick   = mean(tick), 
+    .groups = "drop"
+  )
+
+plot_spreads <- plot_spreads +
+  geom_text(
+    data = aux_data,
+    mapping = aes(
+      x = as.POSIXct("2020-06-11 12:10:00"),
+      y = max * 0.9,
+      label = glue("Tick: ${tick}")
+    ),
+    size = 3) +
+  geom_text(
+    data = aux_data,
+    mapping = aes(
+      x = as.POSIXct("2020-06-11 12:10:00"),
+      y = max * 0.8,
+      label = glue("Media: {round(mean,2)} ticks")
+    ),
+    size = 3) +
+  geom_text(
+    data = aux_data,
+    mapping = aes(
+      x = as.POSIXct("2020-06-11 12:10:00"),
+      y = max * 0.7,
+      label = glue("Mediana: {round(median,2)} ticks")
+    ),
+    size = 3)
+plotly::ggplotly(p = plot_spreads)
+```
+
+###  Bonus track
+
+Let's see how the trade volume has developed for a given day.
+
+```{r}
+historical_data <- purrr::map_dfr(.x = instruments_to_follow$Symbol, 
+                                  .f = ~ rRofex::trading_mdh(connection = connection, symbol = .x, date = "2020-07-07"))
+
+p <- historical_data %>%
+  ggplot(aes(x = lubridate::as_datetime(servertime), y = price, size = size)) +
+  geom_point(show.legend = FALSE, alpha = 0.3, color = "#454545") +
+  theme_minimal() +
+  scale_y_continuous(
+    position = "right",
+    label    = scales::dollar_format()) +
+  labs(x = "",y = "") +
+  facet_wrap(.~symbol, scales = "free")
+
+plotly::ggplotly(p = p)
+```
+

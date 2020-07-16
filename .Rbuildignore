@@ -14,3 +14,5 @@ CODE_OF_CONDUCT\.md
 vignettes/shiny-and-rrofex.Rmd
 vignettes/shiny-rrofex-1.png
 vignettes/shiny-rrofex-2.png
+vignettes/spread_historico.csv
+vignettes/spread-analysis.Rmd
