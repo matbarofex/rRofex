@@ -20,7 +20,7 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Augusto Hassel \email{ahassel@primary.com.ar}
+\strong{Maintainer}: Augusto Hassel \email{mpi-augusto@primary.com.ar}
 
 Other contributors:
 \itemize{

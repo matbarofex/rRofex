@@ -3,7 +3,7 @@ Type: Package
 Title: Interface to 'Matba Rofex' Trading API
 Version: 2.0.2
 Authors@R: c(
-            person("Augusto", "Hassel", role = c("aut", "cre"), email = "ahassel@primary.com.ar"),
+            person("Augusto", "Hassel", role = c("aut", "cre"), email = "mpi-augusto@primary.com.ar"),
             person("Juan Francisco", "Gomez", role = c("ctb")),
             person("Matba Rofex", role = c("cph"))
             )

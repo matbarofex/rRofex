@@ -9,3 +9,6 @@ There was 0 NOTES
 
 ## Downstream dependencies
 There are currently no downstream dependencies for this package
+
+## Important
+I'm changing my email, the new one is 'mpi-augusto@primary.com.ar'.
