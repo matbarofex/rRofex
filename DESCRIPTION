@@ -1,19 +1,18 @@
 Package: rRofex
 Type: Package
 Title: Interface to 'Matba Rofex' Trading API
-Version: 2.0.4
+Version: 2.0.5
 Authors@R: c(
             person("Augusto", "Hassel", role = c("aut", "cre"), email = "mpi-augusto@primary.com.ar"),
             person("Juan Francisco", "Gomez", role = c("ctb")),
             person("Matba Rofex", role = c("cph"))
             )
 Description: Execute API calls to the 'Matba Rofex' <https://apihub.primary.com.ar> trading platform. Functionality includes accessing account data and current holdings, retrieving investment quotes, placing and canceling orders, and getting reference data for instruments.
-Depends: R (>= 3.1.0)
+Depends: R (>= 4.0.0)
 License: MIT + file LICENSE
 URL: https://matbarofex.github.io/rRofex, https://github.com/matbarofex/rRofex
 BugReports: https://github.com/matbarofex/rRofex/issues
 Encoding: UTF-8
-LazyData: true
 Imports:
     dplyr (>= 1.0.0),
     httr,
