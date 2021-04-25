@@ -219,8 +219,23 @@ trading_instruments <- function(connection, request, sec_detailed = FALSE, marke
 
       data <- data$instruments %>%
         jsonlite::flatten(x = ., recursive = F) %>%
-        mutate_all(., ~ replace_na(., replace = NA)) %>%
-        mutate_all(., unlist) %>%
+        mutate(
+          across(
+            .cols = everything(),
+            .fns = ~ replace_na(., replace = NA)
+            )
+          ) %>%
+        mutate(
+          across(
+            .cols = everything(),
+            .fns = ~ map(
+              .x = .x,
+              .f = ~ unlist(.x) %>%
+                paste0(collapse = ",")
+              ) %>%
+              unlist
+            )
+          ) %>%
         select(-segment.marketId) %>%
         rename_all(., .funs = list(~gsub(pattern = ".+\\.", replacement = "", x = .))) %>%
         mutate(maturityDate = as.Date(maturityDate, format = "%Y%m%d"))
