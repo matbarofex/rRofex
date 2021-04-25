@@ -1,8 +1,8 @@
-pandoc: 2.7.3
-pkgdown: 1.5.1
+pandoc: 2.11.2
+pkgdown: 1.6.1
 pkgdown_sha: ~
 articles:
   shiny-and-rrofex: shiny-and-rrofex.html
   spread-analysis: spread-analysis.html
-last_built: 2020-07-31T21:07Z
+last_built: 2021-04-25T16:38Z
 

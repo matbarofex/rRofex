@@ -143,7 +143,7 @@ trading_instruments <- function(connection, request, sec_detailed = FALSE, marke
 
   if (missing(connection)) stop("Connection cannot be empty.")
   if (!isS4(connection) || rev(class(connection)) != "rRofexConnection" || !validObject(connection)) stop("The 'connection' must be a valid 'rRofexConnection'.")
-  if (as.Date(connection@login_date_time) != Sys.Date()) stop("The 'acyRsaConnection' is no longer valid. Please log-in again.")
+  if (as.Date(connection@login_date_time) != Sys.Date()) stop("The 'rRofexConnection' is no longer valid. Please log-in again.")
 
   if (missing(request)) stop("'request' parameter is required.")
   if (some(request, ~ !.x %in% c("segments", "securities", "by_segment", "by_cfi_code", "by_type"))) stop("'request' parameter is invalid. See documentation.")
@@ -219,8 +219,23 @@ trading_instruments <- function(connection, request, sec_detailed = FALSE, marke
 
       data <- data$instruments %>%
         jsonlite::flatten(x = ., recursive = F) %>%
-        mutate_all(., ~ replace_na(., replace = NA)) %>%
-        mutate_all(., unlist) %>%
+        mutate(
+          across(
+            .cols = everything(),
+            .fns = ~ replace_na(., replace = NA)
+            )
+          ) %>%
+        mutate(
+          across(
+            .cols = everything(),
+            .fns = ~ map(
+              .x = .x,
+              .f = ~ unlist(.x) %>%
+                paste0(collapse = ",")
+              ) %>%
+              unlist
+            )
+          ) %>%
         select(-segment.marketId) %>%
         rename_all(., .funs = list(~gsub(pattern = ".+\\.", replacement = "", x = .))) %>%
         mutate(maturityDate = as.Date(maturityDate, format = "%Y%m%d"))
@@ -300,7 +315,7 @@ trading_instruments_fronts <- function(connection) {
 
   if (missing(connection)) stop("Connection cannot be empty.")
   if (!isS4(connection) || rev(class(connection)) != "rRofexConnection" || !validObject(connection)) stop("The 'connection' must be a valid 'rRofexConnection'.")
-  if (as.Date(connection@login_date_time) != Sys.Date()) stop("The 'acyRsaConnection' is no longer valid. Please log-in again.")
+  if (as.Date(connection@login_date_time) != Sys.Date()) stop("The 'rRofexConnection' is no longer valid. Please log-in again.")
 
   data <- trading_instruments(connection = connection, request = "by_type", sec_type = "F", sec_detailed = T)
 
@@ -370,7 +385,7 @@ trading_md <- function(connection, symbol, entries=c('BI', 'OF', 'LA', 'OP', 'CL
 
   if (missing(connection)) stop("Connection cannot be empty.")
   if (!isS4(connection) || rev(class(connection)) != "rRofexConnection" || !validObject(connection)) stop("The 'connection' must be a valid 'rRofexConnection'.")
-  if (as.Date(connection@login_date_time) != Sys.Date()) stop("The 'acyRsaConnection' is no longer valid. Please log-in again.")
+  if (as.Date(connection@login_date_time) != Sys.Date()) stop("The 'rRofexConnection' is no longer valid. Please log-in again.")
 
   if (!market_id %in% c("ROFX")) stop("Invalid 'market_id' parameter.")
 
@@ -420,7 +435,7 @@ trading_md <- function(connection, symbol, entries=c('BI', 'OF', 'LA', 'OP', 'CL
       } else {
         data$marketData %>%
           enframe() %>%
-          mutate(value = map(.x = value, function(x) if(is_null(x)) {NA_real_} else {x})) %>%
+          mutate(value = map(.x = value, function(x) if (is_null(x)) {NA_real_} else {x})) %>%
           pivot_wider() %>%
           mutate_if(., .predicate = ~ class(.[[1]]) == 'list', .funs = ~ modify_depth(.x = ., .depth = 1, ~ replace_na(data = ., replace = NA_real_))) %>%
           mutate_if(., .predicate = ~ length(unlist(.)) == 1, .funs =  ~ unlist(x = ., recursive = F)) %>%
@@ -471,7 +486,7 @@ trading_mdh <- function(connection, market_id='ROFX', symbol, date, date_from, d
 
   if (missing(connection)) stop("Connection cannot be empty.")
   if (!isS4(connection) || rev(class(connection)) != "rRofexConnection" || !validObject(connection)) stop("The 'connection' must be a valid 'rRofexConnection'.")
-  if (as.Date(connection@login_date_time) != Sys.Date()) stop("The 'acyRsaConnection' is no longer valid. Please log-in again.")
+  if (as.Date(connection@login_date_time) != Sys.Date()) stop("The 'rRofexConnection' is no longer valid. Please log-in again.")
 
   if (!market_id %in% c("ROFX", "MERV")) stop("Invalid 'market_id' parameter")
   if (missing(symbol)) stop("You should pick a 'symbol' to move forward.")
@@ -562,7 +577,7 @@ trading_currencies <- function(connection) {
 
   if (missing(connection)) stop("Connection cannot be empty.")
   if (!isS4(connection) || rev(class(connection)) != "rRofexConnection" || !validObject(connection)) stop("The 'connection' must be a valid 'rRofexConnection'.")
-  if (as.Date(connection@login_date_time) != Sys.Date()) stop("The 'acyRsaConnection' is no longer valid. Please log-in again.")
+  if (as.Date(connection@login_date_time) != Sys.Date()) stop("The 'rRofexConnection' is no longer valid. Please log-in again.")
 
   # Query
   query <- GET(url = glue(connection@base_url, "/rest/risk/currency/getAll"),
@@ -629,7 +644,7 @@ trading_new_order <- function(connection, account, symbol, side, quantity, price
 
   if (missing(connection)) stop("Connection cannot be empty.")
   if (!isS4(connection) || rev(class(connection)) != "rRofexConnection" || !validObject(connection)) stop("The 'connection' must be a valid 'rRofexConnection'.")
-  if (as.Date(connection@login_date_time) != Sys.Date()) stop("The 'acyRsaConnection' is no longer valid. Please log-in again.")
+  if (as.Date(connection@login_date_time) != Sys.Date()) stop("The 'rRofexConnection' is no longer valid. Please log-in again.")
 
   market_id <- "ROFX"
   if (!market_id %in% c("ROFX")) stop("Invalid 'market_id' parameter")
@@ -727,7 +742,7 @@ trading_cancel_order <- function(connection, id, proprietary) {
 
   if (missing(connection)) stop("Connection cannot be empty.")
   if (!isS4(connection) || rev(class(connection)) != "rRofexConnection" || !validObject(connection)) stop("The 'connection' must be a valid 'rRofexConnection'.")
-  if (as.Date(connection@login_date_time) != Sys.Date()) stop("The 'acyRsaConnection' is no longer valid. Please log-in again.")
+  if (as.Date(connection@login_date_time) != Sys.Date()) stop("The 'rRofexConnection' is no longer valid. Please log-in again.")
 
   if (missing(id)) stop("You should pick a 'id' to move forward.")
   if (missing(proprietary)) stop("You should pick a 'proprietary' to move forward.")
@@ -799,7 +814,7 @@ trading_lookup <- function(connection, lookup_type, id, proprietary) {
 
   if (missing(connection)) stop("Connection cannot be empty.")
   if (!isS4(connection) || rev(class(connection)) != "rRofexConnection" || !validObject(connection)) stop("The 'connection' must be a valid 'rRofexConnection'.")
-  if (as.Date(connection@login_date_time) != Sys.Date()) stop("The 'acyRsaConnection' is no longer valid. Please log-in again.")
+  if (as.Date(connection@login_date_time) != Sys.Date()) stop("The 'rRofexConnection' is no longer valid. Please log-in again.")
 
   if (missing(lookup_type)) stop("You should pick a 'lookup_type' to move forward.")
   if (!lookup_type %in% c("COID", "OID")) stop("Invalid 'lookup_type' parameter")
@@ -881,7 +896,7 @@ trading_orders <- function(connection, account) {
 
   if (missing(connection)) stop("Connection cannot be empty.")
   if (!isS4(connection) || rev(class(connection)) != "rRofexConnection" || !validObject(connection)) stop("The 'connection' must be a valid 'rRofexConnection'.")
-  if (as.Date(connection@login_date_time) != Sys.Date()) stop("The 'acyRsaConnection' is no longer valid. Please log-in again.")
+  if (as.Date(connection@login_date_time) != Sys.Date()) stop("The 'rRofexConnection' is no longer valid. Please log-in again.")
 
   if (missing(account)) stop("'account' parameter cannot be empty.")
 
@@ -952,7 +967,7 @@ trading_account <- function(connection, account, detailed = FALSE) {
 
   if (missing(connection)) stop("Connection cannot be empty.")
   if (!isS4(connection) || rev(class(connection)) != "rRofexConnection" || !validObject(connection)) stop("The 'connection' must be a valid 'rRofexConnection'.")
-  if (as.Date(connection@login_date_time) != Sys.Date()) stop("The 'acyRsaConnection' is no longer valid. Please log-in again.")
+  if (as.Date(connection@login_date_time) != Sys.Date()) stop("The 'rRofexConnection' is no longer valid. Please log-in again.")
 
   if (missing(account)) stop("'account' parameter cannot be empty.")
 
@@ -1049,7 +1064,7 @@ trading_account_report <- function(connection, account) {
 
   if (missing(connection)) stop("Connection cannot be empty.")
   if (!isS4(connection) || rev(class(connection)) != "rRofexConnection" || !validObject(connection)) stop("The 'connection' must be a valid 'rRofexConnection'.")
-  if (as.Date(connection@login_date_time) != Sys.Date()) stop("The 'acyRsaConnection' is no longer valid. Please log-in again.")
+  if (as.Date(connection@login_date_time) != Sys.Date()) stop("The 'rRofexConnection' is no longer valid. Please log-in again.")
 
   if (missing(account)) stop("'account' parameter cannot be empty.")
 

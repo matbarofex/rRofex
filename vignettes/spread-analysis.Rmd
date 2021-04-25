@@ -17,9 +17,11 @@ library(DT)
 library(scales)
 library(glue)
 
-connection <- rRofex::trading_login(username = "", 
-                                    password = "", 
-                                    base_url = "")
+connection <- rRofex::trading_login(
+  username = "", 
+  password = "", 
+  base_url = ""
+  )
 ```
 
 We are going to show a simple use case for the rRofex library by build a function that can calculate the difference in the Bid and Ask from the order book. Afterwards we are going to plot it and see how spread has been evolving over  time.
