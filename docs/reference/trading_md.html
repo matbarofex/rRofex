@@ -85,7 +85,7 @@ This method brings Market Data in Real Time." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rRofex</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.4</span>
       </span>
     </div>
 
@@ -93,7 +93,7 @@ This method brings Market Data in Real Time." />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -122,7 +122,7 @@ This method brings Market Data in Real Time." />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/matbarofex/rRofex/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -145,20 +145,20 @@ This method brings Market Data in Real Time." />
     </div>
 
     <div class="ref-description">
-    <p><a href='https://www.tidyverse.org/lifecycle/#stable'><img src='figures/lifecycle-stable.svg' alt='Stable lifecycle'></a>
+    <p><a href='https://lifecycle.r-lib.org/articles/stages.html#stable'><img src='figures/lifecycle-stable.svg' alt='[Stable]' /></a>
 
 This method brings Market Data in Real Time.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>trading_md</span>(
-  <span class='no'>connection</span>,
-  <span class='no'>symbol</span>,
-  <span class='kw'>entries</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"BI"</span>, <span class='st'>"OF"</span>, <span class='st'>"LA"</span>, <span class='st'>"OP"</span>, <span class='st'>"CL"</span>, <span class='st'>"SE"</span>, <span class='st'>"OI"</span>, <span class='st'>"HI"</span>, <span class='st'>"LO"</span>, <span class='st'>"TV"</span>, <span class='st'>"IV"</span>, <span class='st'>"EV"</span>,
-    <span class='st'>"NV"</span>, <span class='st'>"TC"</span>),
-  <span class='kw'>depth</span> <span class='kw'>=</span> <span class='fl'>1L</span>,
-  <span class='kw'>market_id</span> <span class='kw'>=</span> <span class='st'>"ROFX"</span>,
-  <span class='kw'>tidy</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
-)</pre>
+    <pre class="usage"><span class='fu'>trading_md</span><span class='op'>(</span>
+  <span class='va'>connection</span>,
+  <span class='va'>symbol</span>,
+  entries <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"BI"</span>, <span class='st'>"OF"</span>, <span class='st'>"LA"</span>, <span class='st'>"OP"</span>, <span class='st'>"CL"</span>, <span class='st'>"SE"</span>, <span class='st'>"OI"</span>, <span class='st'>"HI"</span>, <span class='st'>"LO"</span>, <span class='st'>"TV"</span>, <span class='st'>"IV"</span>, <span class='st'>"EV"</span>,
+    <span class='st'>"NV"</span>, <span class='st'>"TC"</span><span class='op'>)</span>,
+  depth <span class='op'>=</span> <span class='fl'>1L</span>,
+  market_id <span class='op'>=</span> <span class='st'>"ROFX"</span>,
+  tidy <span class='op'>=</span> <span class='cn'>TRUE</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -220,12 +220,13 @@ This method brings Market Data in Real Time.</p>
 <span class='co'># If you want to query many products at once,</span>
 <span class='co'># I recommend you to use "purrr::map" family like this:</span>
 
-<span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='kw pkg'>purrr</span><span class='kw ns'>::</span><span class='fu'><a href='https://purrr.tidyverse.org/reference/map.html'>map_df</a></span>(
-<span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='st'>'MERV - XMEV - GGAL - 48hs'</span>,<span class='st'>'MERV - XMEV - BYMA - 48hs'</span>),
-~<span class='fu'>trading_md</span>(<span class='kw'>connection</span> <span class='kw'>=</span> <span class='no'>conn</span>, <span class='kw'>symbol</span> <span class='kw'>=</span> <span class='no'>.x</span>, <span class='kw'>entries</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"LA"</span>,<span class='st'>"OP"</span>, <span class='st'>"NV"</span>), <span class='kw'>tidy</span> <span class='kw'>=</span> <span class='no'>T</span>)
-)
-}</div></pre>
+<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
+<span class='fu'>purrr</span><span class='fu'>::</span><span class='fu'><a href='https://purrr.tidyverse.org/reference/map.html'>map_df</a></span><span class='op'>(</span>
+<span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='st'>'MERV - XMEV - GGAL - 48hs'</span>,<span class='st'>'MERV - XMEV - BYMA - 48hs'</span><span class='op'>)</span>,
+<span class='op'>~</span><span class='fu'>trading_md</span><span class='op'>(</span>connection <span class='op'>=</span> <span class='va'>conn</span>, symbol <span class='op'>=</span> <span class='va'>.x</span>, entries <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"LA"</span>,<span class='st'>"OP"</span>, <span class='st'>"NV"</span><span class='op'>)</span>, tidy <span class='op'>=</span> <span class='cn'>T</span><span class='op'>)</span>
+<span class='op'>)</span>
+<span class='op'>}</span>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -241,7 +242,7 @@ This method brings Market Data in Real Time.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

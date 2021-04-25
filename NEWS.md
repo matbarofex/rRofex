@@ -1,3 +1,7 @@
+## rRofex 2.0.4
+
+* Fix #23
+
 ## rRofex 2.0.2
 
 * Added dependencies on libraries and R itself. This resolves issue #20

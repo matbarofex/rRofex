@@ -99,7 +99,7 @@ trading_ws_md <- function(connection, destination, symbol, entries=list('BI', 'O
 
   if (missing(connection)) stop("Connection cannot be empty.")
   if (!isS4(connection) || rev(class(connection)) != "rRofexConnection" || !validObject(connection)) stop("The 'connection' must be a valid 'rRofexConnection'.")
-  if (as.Date(connection@login_date_time) != Sys.Date()) stop("The 'acyRsaConnection' is no longer valid. Please log-in again.")
+  if (as.Date(connection@login_date_time) != Sys.Date()) stop("The 'rRofexConnection' is no longer valid. Please log-in again.")
 
   if (!market_id %in% c("ROFX")) stop("Invalid 'market_id' parameter.")
 
@@ -192,7 +192,7 @@ trading_ws_md <- function(connection, destination, symbol, entries=list('BI', 'O
 trading_ws_orders <- function(connection, destination, account = NA, only_active = FALSE, where_is_env = .GlobalEnv) {
   if (missing(connection)) stop("Connection cannot be empty.")
   if (!isS4(connection) || rev(class(connection)) != "rRofexConnection" || !validObject(connection)) stop("The 'connection' must be a valid 'rRofexConnection'.")
-  if (as.Date(connection@login_date_time) != Sys.Date()) stop("The 'acyRsaConnection' is no longer valid. Please log-in again.")
+  if (as.Date(connection@login_date_time) != Sys.Date()) stop("The 'rRofexConnection' is no longer valid. Please log-in again.")
 
   if (!missing(account) && (class(account) != "list" && !is.na(account))) stop("'account' must be either a list or NA.")
 
