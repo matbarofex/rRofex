@@ -112,7 +112,7 @@ This is an update into CRAN. With this release we have completed all API methods
 
 ### Changes
 
-* Corrected package version according to standards from [R Packages](http://r-pkgs.had.co.nz/)
+* Corrected package version according to standards from [R Packages](https://r-pkgs.org/)
 * `trading_md()` and `trading_mdh()` gain a new parameter: **tidy**. If `tidy = TRUE` the information will be arrange in a tidy format.
 
 ## rRofex 1.3.0

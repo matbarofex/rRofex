@@ -13,9 +13,9 @@ Execute API calls to the 'Matba Rofex' <https://apihub.primary.com.ar> trading p
 \seealso{
 Useful links:
 \itemize{
-  \item \url{https://matbarofex.github.io/rRofex}
-  \item \url{https://github.com/matbarofex/rRofex}
-  \item Report bugs at \url{https://github.com/matbarofex/rRofex/issues}
+  \item \url{https://matbarofex.github.io/rRofex/}
+  \item \url{https://github.com/matbarofex/rRofex/}
+  \item Report bugs at \url{https://github.com/matbarofex/rRofex/issues/}
 }
 
 }
