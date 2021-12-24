@@ -1,5 +1,9 @@
 ## rRofex 2.0.*
 
+### rRofex 2.0.7
+
+* Fix #30
+
 ### rRofex 2.0.6
 
 * Fix #27

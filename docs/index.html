@@ -29,6 +29,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-home">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -41,18 +43,12 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">rRofex</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.0.7</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-<li>
-  <a href="index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
 <li>
   <a href="reference/index.html">Reference</a>
 </li>
@@ -77,7 +73,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/matbarofex/rRofex/">
+  <a href="https://github.com/matbarofex/rRofex/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -94,53 +90,52 @@
 
       </header><div class="row">
   <div class="contents col-md-9">
-<div id="rrofex-" class="section level1">
-<div class="page-header"><h1 class="hasAnchor">
-<a href="#rrofex-" class="anchor"></a>rRofex <img src="reference/figures/logo.png" align="right" height="139">
+<div class="section level1">
+<div class="page-header"><h1 id="rrofex-">rRofex <img src="reference/figures/logo.png" align="right" width="139px"><a class="anchor" aria-label="anchor" href="#rrofex-"></a>
 </h1></div>
 <!-- badges: start -->
 
 <p>With this package, you will be able to execute API calls to the ‘Matba Rofex’ trading platform.</p>
 <p>The main functionalites include:accessing account data and current holdings, retrieving investment quotes, placing and canceling orders, and getting reference data for instruments.</p>
-<p>You can find the complete documentation under <a href="https://apihub.primary.com.ar/" class="uri">https://apihub.primary.com.ar/</a></p>
-<div id="installation" class="section level2">
-<h2 class="hasAnchor">
-<a href="#installation" class="anchor"></a>Installation</h2>
+<p>You can find the complete documentation under <a href="https://apihub.primary.com.ar/" class="external-link uri">https://apihub.primary.com.ar/</a></p>
+<div class="section level2">
+<h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
+</h2>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># To install the package you just need to use the command:</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"rRofex"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"rRofex"</span><span class="op">)</span>
 
 <span class="co"># Then load it with</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://matbarofex.github.io/rRofex/">rRofex</a></span><span class="op">)</span></code></pre></div>
-<div id="development-version" class="section level4">
-<h4 class="hasAnchor">
-<a href="#development-version" class="anchor"></a>Development version</h4>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://matbarofex.github.io/rRofex/" class="external-link">rRofex</a></span><span class="op">)</span></code></pre></div>
+<div class="section level4">
+<h4 id="development-version">Development version<a class="anchor" aria-label="anchor" href="#development-version"></a>
+</h4>
 <p>You can use the development version to try new features or bug fixes directly from GitHub.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># 1. In R install the package `devtools`.</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"devtools"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"devtools"</span><span class="op">)</span>
 
 <span class="co"># 2. Once `devtools` is installed, install `rRofex`</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://devtools.r-lib.org/">devtools</a></span><span class="op">)</span>
-<span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span><span class="op">(</span><span class="st">"matbarofex/rRofex"</span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://devtools.r-lib.org/" class="external-link">devtools</a></span><span class="op">)</span>
+<span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org/reference/remote-reexports.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"matbarofex/rRofex"</span><span class="op">)</span>
 
 <span class="co"># 3. Then load it with</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://matbarofex.github.io/rRofex/">rRofex</a></span><span class="op">)</span></code></pre></div>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://matbarofex.github.io/rRofex/" class="external-link">rRofex</a></span><span class="op">)</span></code></pre></div>
 </div>
 </div>
-<div id="references" class="section level2">
-<h2 class="hasAnchor">
-<a href="#references" class="anchor"></a>References</h2>
+<div class="section level2">
+<h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
+</h2>
 <p>At the present we provide two libraries for ingesting data from Matba Rofex:</p>
 <ul>
 <li>
 <strong>rRofex</strong>: methods for trading.</li>
 <li>
-<a href="https://github.com/matbarofex/acyrsa">acyRsa</a>: methods for accessing Back Office data from ACyRSA</li>
+<a href="https://github.com/matbarofex/acyrsa" class="external-link">acyRsa</a>: methods for accessing Back Office data from ACyRSA</li>
 </ul>
-<div id="summary-of-actions-for-trading" class="section level3">
-<h3 class="hasAnchor">
-<a href="#summary-of-actions-for-trading" class="anchor"></a>Summary of actions for trading</h3>
+<div class="section level3">
+<h3 id="summary-of-actions-for-trading">Summary of actions for trading<a class="anchor" aria-label="anchor" href="#summary-of-actions-for-trading"></a>
+</h3>
 <p>These are the currently available actions within the library:</p>
 <ul>
 <li>Authentication</li>
@@ -152,23 +147,23 @@
 <li>Websocket methods</li>
 </ul>
 </div>
-<div id="environments" class="section level3">
-<h3 class="hasAnchor">
-<a href="#environments" class="anchor"></a>Environments:</h3>
+<div class="section level3">
+<h3 id="environments">Environments:<a class="anchor" aria-label="anchor" href="#environments"></a>
+</h3>
 <ul>
 <li>
-<em>Demo Environment</em>: go to <a href="https://remarkets.primary.ventures/">reMarkets</a> to get free credentials.</li>
+<em>Demo Environment</em>: go to <a href="https://remarkets.primary.ventures/" class="external-link">reMarkets</a> to get free credentials.</li>
 <li>
 <em>Production</em>: for credentials please contact: <a href="mailto:mpi@primary.com.ar" class="email">mpi@primary.com.ar</a> for more information.</li>
 <li>
 <em>Production - xOMS</em>: please contact your broker for credentials.</li>
 </ul>
 </div>
-<div id="connection-protocols" class="section level3">
-<h3 class="hasAnchor">
-<a href="#connection-protocols" class="anchor"></a>Connection Protocols</h3>
+<div class="section level3">
+<h3 id="connection-protocols">Connection Protocols<a class="anchor" aria-label="anchor" href="#connection-protocols"></a>
+</h3>
 <p>There are currently three standard protocols that are being used to connecting to the market::</p>
-<ol>
+<ol style="list-style-type: decimal">
 <li>
 <strong>REST</strong>. Inside this library most methods use this protocol internaly.</li>
 <li>
@@ -178,14 +173,14 @@
 </ol>
 </div>
 </div>
-<div id="examples" class="section level2">
-<h2 class="hasAnchor">
-<a href="#examples" class="anchor"></a>Examples</h2>
-<div id="1-authentication" class="section level3">
-<h3 class="hasAnchor">
-<a href="#1-authentication" class="anchor"></a>1. Authentication</h3>
+<div class="section level2">
+<h2 id="examples">Examples<a class="anchor" aria-label="anchor" href="#examples"></a>
+</h2>
+<div class="section level3">
+<h3 id="1-authentication">1. Authentication<a class="anchor" aria-label="anchor" href="#1-authentication"></a>
+</h3>
 <p>There are different environment on which one can connect to.</p>
-<p>For <strong>paper trading</strong> exists <a href="https://remarkets.primary.ventures/">reMarkets</a>. If you go there, you will be able to get free credentials to start trading with a demo account.</p>
+<p>For <strong>paper trading</strong> exists <a href="https://remarkets.primary.ventures/" class="external-link">reMarkets</a>. If you go there, you will be able to get free credentials to start trading with a demo account.</p>
 <p>If you already have a <strong>live trading</strong> account with a broker, you should ask them what kind of <em>order management system</em> (OMS) do they use. If they have the suite of <strong>Primary</strong>, then you will have to ask them for the <em>user</em>, <em>password</em> and <em>base_url</em>.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Using `trading_login()` you will be able to connect. </span>
@@ -199,9 +194,9 @@
 <span class="co"># The connection is valid only for the day, you can get your log in information with `login_date_time()`</span>
 <span class="fu"><a href="reference/login_date_time.html">login_date_time</a></span><span class="op">(</span><span class="va">conn</span><span class="op">)</span></code></pre></div>
 </div>
-<div id="2-reference-data" class="section level3">
-<h3 class="hasAnchor">
-<a href="#2-reference-data" class="anchor"></a>2. Reference Data</h3>
+<div class="section level3">
+<h3 id="2-reference-data">2. Reference Data<a class="anchor" aria-label="anchor" href="#2-reference-data"></a>
+</h3>
 <p>There are many types of request that you can make in order to get reference data. The basic one is to ask for a detailed list of every listed instrument.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># You can get a complete Reference Data list with details</span>
@@ -221,9 +216,9 @@
   sec_type <span class="op">=</span> <span class="st">"E"</span>
   <span class="op">)</span></code></pre></div>
 </div>
-<div id="3-market-data" class="section level3">
-<h3 class="hasAnchor">
-<a href="#3-market-data" class="anchor"></a>3. Market Data</h3>
+<div class="section level3">
+<h3 id="3-market-data">3. Market Data<a class="anchor" aria-label="anchor" href="#3-market-data"></a>
+</h3>
 <p>You can access real time market data and historical market data. There is a version with Websocket being developed.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Real Time Prices using the REST protocol</span>
@@ -240,9 +235,9 @@
   date_to <span class="op">=</span> <span class="st">"2020-03-06"</span>
   <span class="op">)</span></code></pre></div>
 </div>
-<div id="4-order-placement" class="section level3">
-<h3 class="hasAnchor">
-<a href="#4-order-placement" class="anchor"></a>4. Order Placement</h3>
+<div class="section level3">
+<h3 id="4-order-placement">4. Order Placement<a class="anchor" aria-label="anchor" href="#4-order-placement"></a>
+</h3>
 <p>With the method <code><a href="reference/trading_new_order.html">trading_new_order()</a></code> you will be able to trade on the market. The basic order type is as follows:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/trading_new_order.html">trading_new_order</a></span><span class="op">(</span>
@@ -254,9 +249,9 @@
   price <span class="op">=</span> <span class="fl">92.14</span>
   <span class="op">)</span></code></pre></div>
 </div>
-<div id="5-order-management" class="section level3">
-<h3 class="hasAnchor">
-<a href="#5-order-management" class="anchor"></a>5. Order Management</h3>
+<div class="section level3">
+<h3 id="5-order-management">5. Order Management<a class="anchor" aria-label="anchor" href="#5-order-management"></a>
+</h3>
 <p>If you want to know the status of your arder, you will need ths method:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/trading_orders.html">trading_orders</a></span><span class="op">(</span>
@@ -264,9 +259,9 @@
   account <span class="op">=</span> <span class="st">"XXX"</span>
   <span class="op">)</span></code></pre></div>
 </div>
-<div id="6-account-information" class="section level3">
-<h3 class="hasAnchor">
-<a href="#6-account-information" class="anchor"></a>6. Account Information</h3>
+<div class="section level3">
+<h3 id="6-account-information">6. Account Information<a class="anchor" aria-label="anchor" href="#6-account-information"></a>
+</h3>
 <p>With <code><a href="reference/trading_account.html">trading_account()</a></code> and <code><a href="reference/trading_account_report.html">trading_account_report()</a></code> you will be able to obtain information about your current position in terms of instruments and in terms of cash and settlement dates.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># With trading account you can get the information about your basket</span>
@@ -281,9 +276,9 @@
   account <span class="op">=</span> <span class="st">"XXX"</span>
   <span class="op">)</span></code></pre></div>
 </div>
-<div id="7-websocket-methods" class="section level3">
-<h3 class="hasAnchor">
-<a href="#7-websocket-methods" class="anchor"></a>7. Websocket Methods</h3>
+<div class="section level3">
+<h3 id="7-websocket-methods">7. Websocket Methods<a class="anchor" aria-label="anchor" href="#7-websocket-methods"></a>
+</h3>
 <p>Instead of requesting information using REST protocol, you could get it through Websocket. This means, that you can listen to an object and be notified every time that a change has been made.</p>
 <p>The methods available in Websocket protool are:</p>
 <ul>
@@ -296,22 +291,22 @@
 </ul>
 </div>
 </div>
-<div id="acknowledgments" class="section level2">
-<h2 class="hasAnchor">
-<a href="#acknowledgments" class="anchor"></a>Acknowledgments</h2>
-<p>Development of this software was driven by <a href="https://www.primary.com.ar/">Primary</a> as part of an Open Source initiative of <a href="https://matbarofex.com.ar/">Matba Rofex</a>.</p>
-<div id="authormaintainer" class="section level4">
-<h4 class="hasAnchor">
-<a href="#authormaintainer" class="anchor"></a>Author/Maintainer</h4>
+<div class="section level2">
+<h2 id="acknowledgments">Acknowledgments<a class="anchor" aria-label="anchor" href="#acknowledgments"></a>
+</h2>
+<p>Development of this software was driven by <a href="https://www.primary.com.ar/" class="external-link">Primary</a> as part of an Open Source initiative of <a href="https://matbarofex.com.ar/" class="external-link">Matba Rofex</a>.</p>
+<div class="section level4">
+<h4 id="authormaintainer">Author/Maintainer<a class="anchor" aria-label="anchor" href="#authormaintainer"></a>
+</h4>
 <ul>
-<li><a href="https://github.com/augustohassel">Augusto Hassel</a></li>
+<li><a href="https://github.com/augustohassel" class="external-link">Augusto Hassel</a></li>
 </ul>
 </div>
-<div id="internal-contributors" class="section level4">
-<h4 class="hasAnchor">
-<a href="#internal-contributors" class="anchor"></a>Internal Contributors</h4>
+<div class="section level4">
+<h4 id="internal-contributors">Internal Contributors<a class="anchor" aria-label="anchor" href="#internal-contributors"></a>
+</h4>
 <ul>
-<li><a href="https://github.com/jfgomezok">Juan Francisco Gomez</a></li>
+<li><a href="https://github.com/jfgomezok" class="external-link">Juan Francisco Gomez</a></li>
 </ul>
 </div>
 </div>
@@ -320,56 +315,66 @@
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <div class="links">
-<h2>Links</h2>
+<h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
-<li>Download from CRAN at <br><a href="https://cloud.r-project.org/package=rRofex">https://​cloud.r-project.org/​package=rRofex</a>
-</li>
-<li>Browse source code at <br><a href="https://github.com/matbarofex/rRofex/">https://​github.com/​matbarofex/​rRofex/​</a>
-</li>
-<li>Report a bug at <br><a href="https://github.com/matbarofex/rRofex/issues/">https://​github.com/​matbarofex/​rRofex/​issues/​</a>
-</li>
+<li><a href="https://cloud.r-project.org/package=rRofex" class="external-link">View on CRAN</a></li>
+<li><a href="https://github.com/matbarofex/rRofex/" class="external-link">Browse source code</a></li>
+<li><a href="https://github.com/matbarofex/rRofex/issues/" class="external-link">Report a bug</a></li>
 </ul>
 </div>
+
 <div class="license">
-<h2>License</h2>
+<h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">
 <li><a href="LICENSE.html">Full license</a></li>
-<li><small><a href="https://opensource.org/licenses/mit-license.php">MIT</a> + file <a href="LICENSE-text.html">LICENSE</a></small></li>
+<li><small><a href="https://opensource.org/licenses/mit-license.php" class="external-link">MIT</a> + file <a href="LICENSE-text.html">LICENSE</a></small></li>
 </ul>
 </div>
+
 <div class="community">
-<h2>Community</h2>
+<h2 data-toc-skip>Community</h2>
 <ul class="list-unstyled">
 <li><a href="CODE_OF_CONDUCT.html">Code of conduct</a></li>
 </ul>
 </div>
-<div class="developers">
-<h2>Developers</h2>
+
+<div class="citation">
+<h2 data-toc-skip>Citation</h2>
 <ul class="list-unstyled">
-<li>Augusto Hassel <br><small class="roles"> Author, maintainer </small>  </li>
-<li><a href="authors.html">All authors...</a></li>
+<li><a href="authors.html#citation">Citing rRofex</a></li>
 </ul>
 </div>
 
-  <div class="dev-status">
-<h2>Dev status</h2>
+<div class="developers">
+<h2 data-toc-skip>Developers</h2>
 <ul class="list-unstyled">
-<li><a href="https://lifecycle.r-lib.org/articles/stages.html"><img src="https://img.shields.io/badge/lifecycle-maturing-blue.svg" alt="Lifecycle: maturing"></a></li>
-<li><a href="https://travis-ci.com/matbarofex/rRofex"><img src="https://travis-ci.com/matbarofex/rRofex.svg?branch=master" alt="Travis build status"></a></li>
-<li><a href="https://CRAN.R-project.org/package=rRofex"><img src="https://www.r-pkg.org/badges/version/rRofex" alt="CRAN status"></a></li>
-<li><a href="https://cran.r-project.org/package=rRofex"><img src="https://cranlogs.r-pkg.org/badges/grand-total/rRofex?color=orange" alt="CRAN RStudio mirror downloads"></a></li>
+<li>Augusto Hassel <br><small class="roles"> Author, maintainer </small>  </li>
+<li><a href="authors.html">More about authors...</a></li>
 </ul>
 </div>
+
+<div class="dev-status">
+<h2 data-toc-skip>Dev status</h2>
+<ul class="list-unstyled">
+<li><a href="https://lifecycle.r-lib.org/articles/stages.html" class="external-link"><img src="https://img.shields.io/badge/lifecycle-maturing-blue.svg" alt="Lifecycle: maturing"></a></li>
+<li><a href="https://travis-ci.com/matbarofex/rRofex" class="external-link"><img src="https://travis-ci.com/matbarofex/rRofex.svg?branch=master" alt="Travis build status"></a></li>
+<li><a href="https://CRAN.R-project.org/package=rRofex" class="external-link"><img src="https://www.r-pkg.org/badges/version/rRofex" alt="CRAN status"></a></li>
+<li><a href="https://cran.r-project.org/package=rRofex" class="external-link"><img src="https://cranlogs.r-pkg.org/badges/grand-total/rRofex?color=orange" alt="CRAN RStudio mirror downloads"></a></li>
+</ul>
 </div>
+
+  </div>
 </div>
 
 
       <footer><div class="copyright">
-  <p>Developed by Augusto Hassel.</p>
+  <p></p>
+<p>Developed by Augusto Hassel.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
 </div>
 
       </footer>
@@ -377,6 +382,8 @@
 
   
 
+
+  
 
   </body>
 </html>

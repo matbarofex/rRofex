@@ -270,42 +270,39 @@ trading_instruments <- function(connection, request, sec_detailed = FALSE, marke
                 pattern = "(^.)(.+)",
                 replacement = "\\1",
                 x = Cficode
-                ),
+              ),
               levels = c("E", "D", "C", "R", "O", "F", "T", "M"),
               labels = c("Equities", "Debt", "Collective Investment Vehicles", "Entitlements", "Options", "Futures", "Referencial Instruments", "Others")
-              ),
+            ),
             Settlement = case_when(
               grepl(pattern = ".+ - (.+[hs|CI|D])$", x = Symbol) == TRUE ~ trimws(gsub(pattern = ".+ - (.+)$", replacement = "\\1", x = Symbol, ignore.case = T), which = "both"),
               TRUE ~ NA_character_
-              ),
+            ),
             OptionType = factor(
               gsub(
                 pattern = "(^.{2})(.+)",
                 replacement = "\\1",
                 x = Cficode
-                ),
+              ),
               levels = c("OC", "OP", "OM"),
               labels = c("Call", "Put", "Others")
-              ),
+            ),
             Ticker = case_when(
               ProductType %in% c('Equities', 'Debt', 'Options') ~ trimws(gsub(pattern = "(MERV - XMEV - )(.+)( - .+)", replacement = "\\2", x = Symbol, ignore.case = T), which = "both"),
               ProductType %in% c('Entitlements') ~ trimws(gsub(pattern = "(MERV - XMEV - )(.+)", replacement = "\\2", x = Symbol, ignore.case = T), which = "both"),
               ProductType %in% c('Others') ~ trimws(gsub(pattern = "(.+)( - )(.+)$", replacement = "\\3", x = Symbol, ignore.case = T), which = "both"),
               TRUE ~ Symbol
-              ),
+            ),
             Underlying = case_when(
-              ProductType %in% c('Options') && MarketSegmentId == 'MERV' ~ trimws(gsub(pattern = "(.{3})(.+)", replacement = "\\1", x = Ticker, ignore.case = T), which = "both"),
-              ProductType %in% c('Options') && MarketSegmentId != 'MERV'~ trimws(gsub(pattern = "(.)?([[:alpha:]]{3})?([0-9]{2})?(/)?([0-9]{2})?( )([0-9]+)([p|c])$", replacement = "\\1", x = Symbol, ignore.case = T), which = "both"),
-              ProductType %in% c('Futures') && grepl(pattern = "(Dispo)$", x = Ticker) == TRUE ~ trimws(gsub(pattern = "(.+)(Dispo)$", replacement = "\\1", x = Symbol, ignore.case = T), which = "both"),
-              ProductType %in% c('Futures') && grepl(pattern = "(.)( )([0-9]{2})(/)([0-9]{2})( )([0-9]{2})(A)$", x = Ticker) == TRUE ~ trimws(gsub(pattern = "(.)( )([0-9]{2})(/)([0-9]{2})( )([0-9]{2})(A)$", replacement = "\\1", x = Symbol, ignore.case = T), which = "both"),
-              ProductType %in% c('Futures') ~ trimws(gsub(pattern = "(.)?([[:alpha:]]{3})?([0-9]{2})?(/)?([0-9]{2})?( )?((A|M)||([0-9]){2})$", replacement = "\\1", x = Symbol, ignore.case = T), which = "both"),
+              ProductType %in% c('Options') & MarketSegmentId == 'MERV' ~ trimws(gsub(pattern = "(.{3})(.+)", replacement = "\\1", x = Ticker, ignore.case = TRUE), which = "both"),
+              ProductType %in% c('Options', 'Futures') & MarketSegmentId != 'MERV'~ trimws(gsub(pattern = "^([^/]+)(/)(.+)", replacement = "\\1", x = Symbol, ignore.case = T), which = "both"),
               TRUE ~ NA_character_
-              ),
+            ),
             StrikePrice = case_when(
-              ProductType %in% c('Options') && MarketSegmentId == 'MERV' ~ as.double(gsub(pattern = "(.{4})([0-9]+?\\.?[0-9]*)([[:alpha:]]+)", replacement = "\\2", x = Ticker, ignore.case = T)),
-              ProductType %in% c('Options') && MarketSegmentId != 'MERV'~ as.double(gsub(pattern = "(.+)( )([0-9]+)([p|c])$", replacement = "\\3", x = Symbol, ignore.case = T)),
+              ProductType %in% c('Options') & MarketSegmentId == 'MERV' ~ as.double(gsub(pattern = "(.{4})([0-9]+?\\.?[0-9]*)([[:alpha:]]+)", replacement = "\\2", x = Ticker, ignore.case = T)),
+              ProductType %in% c('Options') & MarketSegmentId != 'MERV'~ as.double(gsub(pattern = "(.+)( )([0-9]+)( )([P|C])$", replacement = "\\3", x = Symbol, ignore.case = T)),
               TRUE ~ NA_real_
-              )
+            )
             ) %>%
           select(Symbol, ProductType, MarketSegmentId, Ticker, OptionType, StrikePrice, Underlying, Settlement, MaturityDate, Cficode, everything())
         )
