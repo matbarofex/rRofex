@@ -29,6 +29,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -41,18 +43,12 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rRofex</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.0.7</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-<li>
-  <a href="../index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
@@ -77,7 +73,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/matbarofex/rRofex/">
+  <a href="https://github.com/matbarofex/rRofex/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -92,15 +88,15 @@
 
       
 
-      </header><script src="shiny-and-rrofex_files/header-attrs-2.7/header-attrs.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Powering rRofex with Shiny</h1>
-                        <h4 class="author">Augusto Hassel</h4>
+                        <h4 data-toc-skip class="author">Augusto Hassel</h4>
             
-            <h4 class="date">2020-07-07</h4>
+            <h4 data-toc-skip class="date">2020-07-07</h4>
       
-      <small class="dont-index">Source: <a href="https://github.com/matbarofex/rRofex/blob/master/vignettes/shiny-and-rrofex.Rmd"><code>vignettes/shiny-and-rrofex.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/matbarofex/rRofex/blob/HEAD/vignettes/shiny-and-rrofex.Rmd" class="external-link"><code>vignettes/shiny-and-rrofex.Rmd</code></a></small>
       <div class="hidden name"><code>shiny-and-rrofex.Rmd</code></div>
 
     </div>
@@ -109,27 +105,27 @@
     
 <p>This post is not an attempt to explain in detail how to build a Shiny application, rather it is to show a few interesting things that one can build using Shiny in conjuction with the rRofex library.</p>
 <p>I hope that this serves as a starting point and an insipiration for others to build their own solutions.</p>
-<div id="the-applicaction" class="section level3">
-<h3 class="hasAnchor">
-<a href="#the-applicaction" class="anchor"></a>The applicaction</h3>
+<div class="section level3">
+<h3 id="the-applicaction">The applicaction<a class="anchor" aria-label="anchor" href="#the-applicaction"></a>
+</h3>
 <p>The full application can be run either locally using a Gist from GitHub or one can access the online version:</p>
 <ul>
 <li>
 <strong>Locally</strong>. In your R console, you just have to run the following code:</li>
 </ul>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/runUrl.html">runGist</a></span><span class="op">(</span>gist <span class="op">=</span> <span class="st">"https://gist.github.com/augustohassel/4eea614f80a8bbc548b2b4c3c5edd7c3"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/runUrl.html" class="external-link">runGist</a></span><span class="op">(</span>gist <span class="op">=</span> <span class="st">"https://gist.github.com/augustohassel/4eea614f80a8bbc548b2b4c3c5edd7c3"</span><span class="op">)</span></code></pre></div>
 <ul>
 <li>
-<strong>Online</strong>. If you want to test the application without having to run it locally, you can use this <a href="https://demo.hasselpunk.com/rRofex/">link</a> or take a peek just right down here.</li>
+<strong>Online</strong>. If you want to test the application without having to run it locally, you can use this <a href="https://demo.hasselpunk.com/rRofex/" class="external-link">link</a> or take a peek just right down here.</li>
 </ul>
 <div style="height: 45vh;">
 <iframe src="https://demo.hasselpunk.com/rRofex/" class="shiny-app" style="overflow: hidden;width: 165%;height: 700px;-ms-zoom: 0.85;-moz-transform: scale(0.85);-moz-transform-origin: 0px 0;-o-transform: scale(0.85);-o-transform-origin: 0 0;-webkit-transform: scale(0.6);-webkit-transform-origin: 0 0;">
 </iframe>
 </div>
-<div id="features" class="section level4">
-<h4 class="hasAnchor">
-<a href="#features" class="anchor"></a>Features</h4>
+<div class="section level4">
+<h4 id="features">Features<a class="anchor" aria-label="anchor" href="#features"></a>
+</h4>
 <p>The main features of this application are:</p>
 <ol style="list-style-type: decimal">
 <li>Login into any endpoint allowed within the API</li>
@@ -138,16 +134,16 @@
 <li>A primer on algorithmic trading using R and websocket</li>
 </ol>
 <p><strong>I will describe briefly each feature pointing out some relevant code for a better understanding.</strong></p>
-<div id="login" class="section level5">
-<h5 class="hasAnchor">
-<a href="#login" class="anchor"></a><strong>1. Login</strong>
+<div class="section level5">
+<h5 id="login">
+<strong>1. Login</strong><a class="anchor" aria-label="anchor" href="#login"></a>
 </h5>
 <p>At the very begining of the server function one can found a reactive value called <code>global_connection</code>. Each session will have it’s own connection, so we don’t have to worry about mixing information across sessions.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">global_connection</span> <span class="op">&lt;-</span> <span class="fu">reactiveValues</span><span class="op">(</span>conn <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></code></pre></div>
-<p>Once we login using the <a href="https://matbarofex.github.io/rRofex/reference/trading_login.html" target="_blank">trading_login()</a> function, the created object will be stored inside <code>global_connection$conn</code>.</p>
+<p>Once we login using the <a href="https://matbarofex.github.io/rRofex/reference/trading_login.html" target="_blank" class="external-link">trading_login()</a> function, the created object will be stored inside <code>global_connection$conn</code>.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/conditions.html">withCallingHandlers</a></span><span class="op">(</span><span class="op">{</span>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/conditions.html" class="external-link">withCallingHandlers</a></span><span class="op">(</span><span class="op">{</span>
   <span class="va">global_connection</span><span class="op">$</span><span class="va">conn</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/trading_login.html">trading_login</a></span><span class="op">(</span>username <span class="op">=</span> <span class="va">input</span><span class="op">$</span><span class="va">username</span>, password <span class="op">=</span> <span class="va">input</span><span class="op">$</span><span class="va">password</span>, base_url <span class="op">=</span> <span class="va">input</span><span class="op">$</span><span class="va">base_url</span><span class="op">)</span>
   <span class="op">}</span>,
   message <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">m</span><span class="op">)</span> <span class="op">{</span><span class="va">output</span><span class="op">$</span><span class="va">console_login</span> <span class="op">&lt;-</span> <span class="fu">renderPrint</span><span class="op">(</span><span class="op">{</span><span class="va">m</span><span class="op">$</span><span class="va">message</span><span class="op">}</span><span class="op">)</span><span class="op">}</span>,
@@ -155,65 +151,65 @@
   <span class="op">)</span></code></pre></div>
 <p>Every connection object will be destroyed at the end of each session.</p>
 </div>
-<div id="plotting-data-using-a-websokcet-connection" class="section level5">
-<h5 class="hasAnchor">
-<a href="#plotting-data-using-a-websokcet-connection" class="anchor"></a><strong>2. Plotting data using a websokcet connection</strong>
+<div class="section level5">
+<h5 id="plotting-data-using-a-websokcet-connection">
+<strong>2. Plotting data using a websokcet connection</strong><a class="anchor" aria-label="anchor" href="#plotting-data-using-a-websokcet-connection"></a>
 </h5>
-<p>In the same maner as with th login, here we start by creating a reactive value that will contain the final market data, called <code>global_graficos</code>, and an environment created with <code><a href="https://rlang.r-lib.org/reference/env.html">rlang::env()</a></code> in which we will store each websocket element, namely the connection itself and the pre procesed market data.</p>
+<p>In the same maner as with th login, here we start by creating a reactive value that will contain the final market data, called <code>global_graficos</code>, and an environment created with <code><a href="https://rlang.r-lib.org/reference/env.html" class="external-link">rlang::env()</a></code> in which we will store each websocket element, namely the connection itself and the pre procesed market data.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">global_graficos</span> <span class="op">&lt;-</span> <span class="fu">reactiveValues</span><span class="op">(</span>data <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span>
-<span class="va">environment_graficos_iniciar</span> <span class="op">&lt;-</span> <span class="fu">rlang</span><span class="fu">::</span><span class="fu"><a href="https://rlang.r-lib.org/reference/env.html">env</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<span class="va">environment_graficos_iniciar</span> <span class="op">&lt;-</span> <span class="fu">rlang</span><span class="fu">::</span><span class="fu"><a href="https://rlang.r-lib.org/reference/env.html" class="external-link">env</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <p>When pressing ‘Iniciar’ two things happen on the server:</p>
 <ol style="list-style-type: decimal">
-<li>A websocket connection will be created using <a href="https://matbarofex.github.io/rRofex/reference/trading_ws_md.html" target="_blank">trading_ws_md()</a>. This will be the responsible to ingest matket data from the selected instrument.</li>
+<li>A websocket connection will be created using <a href="https://matbarofex.github.io/rRofex/reference/trading_ws_md.html" target="_blank" class="external-link">trading_ws_md()</a>. This will be the responsible to ingest matket data from the selected instrument.</li>
 <li>A reactive data source will be created to read-in the latter.</li>
 </ol>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">observeEvent</span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">graficos_iniciar</span>, <span class="op">{</span>
-  <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NULL.html">is.null</a></span><span class="op">(</span><span class="va">global_connection</span><span class="op">$</span><span class="va">conn</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
+  <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NULL.html" class="external-link">is.null</a></span><span class="op">(</span><span class="va">global_connection</span><span class="op">$</span><span class="va">conn</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
     <span class="fu">sendSweetAlert</span><span class="op">(</span>session <span class="op">=</span> <span class="va">session</span>, title <span class="op">=</span> <span class="fu">HTML</span><span class="op">(</span><span class="st">"Mmm..."</span><span class="op">)</span>, text <span class="op">=</span> <span class="fu">HTML</span><span class="op">(</span><span class="st">"Tenes que conectarte primero..."</span><span class="op">)</span>,  type <span class="op">=</span> <span class="st">"warning"</span>, html <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
   <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span>
 
     <span class="fu"><a href="../reference/trading_ws_md.html">trading_ws_md</a></span><span class="op">(</span>connection <span class="op">=</span> <span class="va">global_connection</span><span class="op">$</span><span class="va">conn</span>,
                   destination <span class="op">=</span> <span class="st">"data"</span>,
                   symbol <span class="op">=</span> <span class="va">input</span><span class="op">$</span><span class="va">graficos_producto</span>,
-                  entries <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="st">"LA"</span><span class="op">)</span>,
-                  listen_to <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="st">"LA_price"</span><span class="op">)</span>,
+                  entries <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"LA"</span><span class="op">)</span>,
+                  listen_to <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"LA_price"</span><span class="op">)</span>,
                   where_is_env <span class="op">=</span> <span class="va">environment_graficos_iniciar</span><span class="op">)</span>
 
     <span class="va">global_graficos</span><span class="op">$</span><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu">reactivePoll</span><span class="op">(</span>intervalMillis <span class="op">=</span> <span class="fl">1000</span>,
                                          session <span class="op">=</span> <span class="va">session</span>,
                                          checkFunc <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="op">{</span>
-                                           <span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NULL.html">is.null</a></span><span class="op">(</span><span class="va">environment_graficos_iniciar</span><span class="op">$</span><span class="va">data</span><span class="op">)</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">environment_graficos_iniciar</span><span class="op">$</span><span class="va">data</span><span class="op">$</span><span class="va">timestamp</span><span class="op">)</span>
+                                           <span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NULL.html" class="external-link">is.null</a></span><span class="op">(</span><span class="va">environment_graficos_iniciar</span><span class="op">$</span><span class="va">data</span><span class="op">)</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">environment_graficos_iniciar</span><span class="op">$</span><span class="va">data</span><span class="op">$</span><span class="va">timestamp</span><span class="op">)</span>
                                          <span class="op">}</span>,
                                          valueFunc <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="op">{</span>
-                                           <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">environment_graficos_iniciar</span><span class="op">$</span><span class="va">data</span><span class="op">)</span>
+                                           <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="va">environment_graficos_iniciar</span><span class="op">$</span><span class="va">data</span><span class="op">)</span>
                                          <span class="op">}</span><span class="op">)</span>
   <span class="op">}</span>
 <span class="op">}</span><span class="op">)</span></code></pre></div>
 <p>It is important to notice that we are explicitly using the parameter <strong>where_is_env</strong> from <code><a href="../reference/trading_ws_md.html">trading_ws_md()</a></code> function and we are poiting it out to our newly created environment. If we weren’t using this parameter we would have a mixup of data between sessions because each one would be overwriting the global environment. In this away every sesions starts it’s own environment for the websocket elements.</p>
-<p>For more information about scoping rules I strongly suggest this reading: <a href="https://shiny.rstudio.com/articles/scoping.html" target="_blank">Scoping rules for Shiny apps</a>.</p>
+<p>For more information about scoping rules I strongly suggest this reading: <a href="https://shiny.rstudio.com/articles/scoping.html" target="_blank" class="external-link">Scoping rules for Shiny apps</a>.</p>
 <p>Once data it’s being acquired we will build and update the plot using the <code>plotly</code> library.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R">  <span class="va">output</span><span class="op">$</span><span class="va">graficos_grafico</span> <span class="op">&lt;-</span> <span class="fu">renderPlotly</span><span class="op">(</span><span class="op">{</span>
-    <span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/validate.html">validate</a></span><span class="op">(</span>
+    <span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/validate.html" class="external-link">validate</a></span><span class="op">(</span>
       <span class="fu">need</span><span class="op">(</span><span class="fu">is.reactive</span><span class="op">(</span><span class="va">global_graficos</span><span class="op">$</span><span class="va">data</span><span class="op">)</span> <span class="op">&amp;&amp;</span> 
-             <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NULL.html">is.null</a></span><span class="op">(</span><span class="va">global_graficos</span><span class="op">$</span><span class="fu">data</span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">&amp;&amp;</span> 
-             <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">global_graficos</span><span class="op">$</span><span class="fu">data</span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">&gt;</span> <span class="fl">0</span>, 
+             <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NULL.html" class="external-link">is.null</a></span><span class="op">(</span><span class="va">global_graficos</span><span class="op">$</span><span class="fu">data</span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">&amp;&amp;</span> 
+             <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">global_graficos</span><span class="op">$</span><span class="fu">data</span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">&gt;</span> <span class="fl">0</span>, 
            message <span class="op">=</span> <span class="st">"Aún no hay data."</span><span class="op">)</span>
     <span class="op">)</span>
     <span class="fu">plot_ly</span><span class="op">(</span>data <span class="op">=</span> <span class="va">global_graficos</span><span class="op">$</span><span class="fu">data</span><span class="op">(</span><span class="op">)</span>, 
             x <span class="op">=</span> <span class="op">~</span><span class="va">LA_date</span>, 
             y <span class="op">=</span> <span class="op">~</span><span class="va">LA_price</span>, 
             mode <span class="op">=</span> <span class="st">'line'</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-      <span class="fu"><a href="https://rdrr.io/r/graphics/layout.html">layout</a></span><span class="op">(</span>title <span class="op">=</span> <span class="va">input</span><span class="op">$</span><span class="va">graficos_producto</span>, 
-             xaxis <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Timestamp"</span><span class="op">)</span>, 
-             yaxis <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Precio"</span><span class="op">)</span><span class="op">)</span>
+      <span class="fu"><a href="https://rdrr.io/r/graphics/layout.html" class="external-link">layout</a></span><span class="op">(</span>title <span class="op">=</span> <span class="va">input</span><span class="op">$</span><span class="va">graficos_producto</span>, 
+             xaxis <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Timestamp"</span><span class="op">)</span>, 
+             yaxis <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Precio"</span><span class="op">)</span><span class="op">)</span>
   <span class="op">}</span><span class="op">)</span></code></pre></div>
 </div>
-<div id="real-time-compute-of-ccl-using-rest-protocol" class="section level5">
-<h5 class="hasAnchor">
-<a href="#real-time-compute-of-ccl-using-rest-protocol" class="anchor"></a><strong>3. Real time compute of CCL using REST protocol</strong>
+<div class="section level5">
+<h5 id="real-time-compute-of-ccl-using-rest-protocol">
+<strong>3. Real time compute of CCL using REST protocol</strong><a class="anchor" aria-label="anchor" href="#real-time-compute-of-ccl-using-rest-protocol"></a>
 </h5>
 <p>We start by defining what’s the <strong>CCL</strong> on a function called outside the server scope.</p>
 <blockquote>
@@ -221,30 +217,30 @@
 </blockquote>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">ccl</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">connection</span>, <span class="va">data</span><span class="op">)</span> <span class="op">{</span>
-  <span class="fu"><a href="https://rdrr.io/r/base/message.html">message</a></span><span class="op">(</span><span class="fu">glue</span><span class="op">(</span><span class="st">"Busco la market data de los {n} productos locales y extranjeros..."</span>, n <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
-  <span class="va">precio_local</span> <span class="op">&lt;-</span> <span class="fu">map_df</span><span class="op">(</span>.x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">as.list</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">Local</span><span class="op">)</span>, .f <span class="op">=</span> <span class="op">~</span> <span class="fu"><a href="../reference/trading_md.html">trading_md</a></span><span class="op">(</span>connection <span class="op">=</span> <span class="va">connection</span>, symbol <span class="op">=</span> <span class="va">.x</span>, entries <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="st">"LA"</span>, <span class="st">"BI"</span>, <span class="st">"OF"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/message.html" class="external-link">message</a></span><span class="op">(</span><span class="fu">glue</span><span class="op">(</span><span class="st">"Busco la market data de los {n} productos locales y extranjeros..."</span>, n <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
+  <span class="va">precio_local</span> <span class="op">&lt;-</span> <span class="fu">map_df</span><span class="op">(</span>.x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">as.list</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">Local</span><span class="op">)</span>, .f <span class="op">=</span> <span class="op">~</span> <span class="fu"><a href="../reference/trading_md.html">trading_md</a></span><span class="op">(</span>connection <span class="op">=</span> <span class="va">connection</span>, symbol <span class="op">=</span> <span class="va">.x</span>, entries <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"LA"</span>, <span class="st">"BI"</span>, <span class="st">"OF"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
   <span class="va">precio_extranjero</span> <span class="op">&lt;-</span> <span class="fu">rownames_to_column</span><span class="op">(</span><span class="fu">getQuote</span><span class="op">(</span>Symbols <span class="op">=</span> <span class="va">data</span><span class="op">$</span><span class="va">Extranjero</span><span class="op">)</span>, var <span class="op">=</span> <span class="st">"Symbol"</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu">rename</span><span class="op">(</span>TradeTime <span class="op">=</span> <span class="va">`Trade Time`</span><span class="op">)</span>
 
-  <span class="fu"><a href="https://rdrr.io/r/base/message.html">message</a></span><span class="op">(</span><span class="fu">glue</span><span class="op">(</span><span class="st">"Uno las tablas y calculo el CCL.."</span><span class="op">)</span><span class="op">)</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/message.html" class="external-link">message</a></span><span class="op">(</span><span class="fu">glue</span><span class="op">(</span><span class="st">"Uno las tablas y calculo el CCL.."</span><span class="op">)</span><span class="op">)</span>
   <span class="va">data</span> <span class="op">&lt;-</span> <span class="va">data</span> <span class="op">%&gt;%</span>
-    <span class="fu">left_join</span><span class="op">(</span><span class="va">precio_local</span> <span class="op">%&gt;%</span> <span class="fu">select</span><span class="op">(</span><span class="va">Symbol</span>, <span class="va">LA_date</span>, <span class="va">LA_price</span>, <span class="va">BI_price</span>, <span class="va">OF_price</span><span class="op">)</span>, by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Local"</span> <span class="op">=</span> <span class="st">"Symbol"</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
-    <span class="fu">left_join</span><span class="op">(</span><span class="va">precio_extranjero</span> <span class="op">%&gt;%</span> <span class="fu">select</span><span class="op">(</span><span class="va">Symbol</span>, <span class="va">TradeTime</span>, <span class="va">Last</span><span class="op">)</span>, by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Extranjero"</span> <span class="op">=</span> <span class="st">"Symbol"</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
+    <span class="fu">left_join</span><span class="op">(</span><span class="va">precio_local</span> <span class="op">%&gt;%</span> <span class="fu">select</span><span class="op">(</span><span class="va">Symbol</span>, <span class="va">LA_date</span>, <span class="va">LA_price</span>, <span class="va">BI_price</span>, <span class="va">OF_price</span><span class="op">)</span>, by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Local"</span> <span class="op">=</span> <span class="st">"Symbol"</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
+    <span class="fu">left_join</span><span class="op">(</span><span class="va">precio_extranjero</span> <span class="op">%&gt;%</span> <span class="fu">select</span><span class="op">(</span><span class="va">Symbol</span>, <span class="va">TradeTime</span>, <span class="va">Last</span><span class="op">)</span>, by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Extranjero"</span> <span class="op">=</span> <span class="st">"Symbol"</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
     <span class="fu">mutate</span><span class="op">(</span>
       CCL_Last <span class="op">=</span> <span class="op">(</span><span class="va">LA_price</span> <span class="op">/</span> <span class="va">Last</span><span class="op">)</span> <span class="op">*</span> <span class="va">Factor</span>,
       CCL_Bid <span class="op">=</span> <span class="op">(</span><span class="va">BI_price</span> <span class="op">/</span> <span class="va">Last</span><span class="op">)</span> <span class="op">*</span> <span class="va">Factor</span>,
       CCL_Offer <span class="op">=</span> <span class="op">(</span><span class="va">OF_price</span> <span class="op">/</span> <span class="va">Last</span><span class="op">)</span> <span class="op">*</span> <span class="va">Factor</span>
     <span class="op">)</span> <span class="op">%&gt;%</span>
-    <span class="fu">mutate</span><span class="op">(</span><span class="fu">across</span><span class="op">(</span>.cols <span class="op">=</span> <span class="fu">starts_with</span><span class="op">(</span><span class="st">"CCL_"</span><span class="op">)</span>, .fns <span class="op">=</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">.</span> <span class="op">==</span> <span class="fl">0</span>, <span class="cn">NA_real_</span>, <span class="va">.</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
+    <span class="fu">mutate</span><span class="op">(</span><span class="fu">across</span><span class="op">(</span>.cols <span class="op">=</span> <span class="fu">starts_with</span><span class="op">(</span><span class="st">"CCL_"</span><span class="op">)</span>, .fns <span class="op">=</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="va">.</span> <span class="op">==</span> <span class="fl">0</span>, <span class="cn">NA_real_</span>, <span class="va">.</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
     <span class="fu">mutate</span><span class="op">(</span>
       CCL_Last <span class="op">=</span> <span class="fu">case_when</span><span class="op">(</span>
-        <span class="va">CCL_Last</span> <span class="op">%in%</span> <span class="fu"><a href="https://rdrr.io/r/grDevices/boxplot.stats.html">boxplot.stats</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">.</span><span class="op">$</span><span class="va">CCL_Last</span>, coef <span class="op">=</span> <span class="fl">3</span><span class="op">)</span><span class="op">$</span><span class="va">out</span> <span class="op">~</span> <span class="cn">NA_real_</span>,
+        <span class="va">CCL_Last</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/grDevices/boxplot.stats.html" class="external-link">boxplot.stats</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">.</span><span class="op">$</span><span class="va">CCL_Last</span>, coef <span class="op">=</span> <span class="fl">3</span><span class="op">)</span><span class="op">$</span><span class="va">out</span> <span class="op">~</span> <span class="cn">NA_real_</span>,
         <span class="cn">TRUE</span> <span class="op">~</span> <span class="va">CCL_Last</span>
       <span class="op">)</span>
     <span class="op">)</span>
 
-  <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span>
+  <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span>
 <span class="op">}</span></code></pre></div>
-<p>We are obtaining local market data with the function <a href="https://matbarofex.github.io/rRofex/reference/trading_md.html" target="_blank">trading_md()</a> and foreign data it’s being queried with <code>quantomod::getQuote()</code>. As you have probably noticed, there’s a convertion factor that’s beeing appliead to the ratio, this has been defined manually on a dataframe outside the server scope.</p>
+<p>We are obtaining local market data with the function <a href="https://matbarofex.github.io/rRofex/reference/trading_md.html" target="_blank" class="external-link">trading_md()</a> and foreign data it’s being queried with <code>quantomod::getQuote()</code>. As you have probably noticed, there’s a convertion factor that’s beeing appliead to the ratio, this has been defined manually on a dataframe outside the server scope.</p>
 <p>Once we have selected the instruments and press ‘Iniciar’, the calculation starts and we are going to see something like this:</p>
 <p align="center">
 <img src="shiny-rrofex-1.png" width="auto" height="auto" style="max-inline-size: -webkit-fill-available;"></p>
@@ -260,14 +256,14 @@
   <span class="fu">invalidateLater</span><span class="op">(</span>millis <span class="op">=</span> <span class="va">input</span><span class="op">$</span><span class="va">table_ccl_timer</span> <span class="op">*</span> <span class="fl">1000</span>, session <span class="op">=</span> <span class="va">session</span><span class="op">)</span>
 
   <span class="kw">if</span> <span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">table_ccl_status</span> <span class="op">==</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">{</span>
-    <span class="fu">shinyjs</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/shinyjs/man/click.html">click</a></span><span class="op">(</span><span class="st">"table_ccl_iniciar"</span><span class="op">)</span>
+    <span class="fu">shinyjs</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/shinyjs/man/click.html" class="external-link">click</a></span><span class="op">(</span><span class="st">"table_ccl_iniciar"</span><span class="op">)</span>
   <span class="op">}</span>
 <span class="op">}</span><span class="op">)</span></code></pre></div>
 <p>On this observe we are programmatically clicking the ‘Iniciar’ button with the selected frequency.</p>
 </div>
-<div id="algorithmic-trading-and-r" class="section level5">
-<h5 class="hasAnchor">
-<a href="#algorithmic-trading-and-r" class="anchor"></a><strong>4. Algorithmic trading and R</strong>
+<div class="section level5">
+<h5 id="algorithmic-trading-and-r">
+<strong>4. Algorithmic trading and R</strong><a class="anchor" aria-label="anchor" href="#algorithmic-trading-and-r"></a>
 </h5>
 <p>The difference from REST and websocket protcol that I would like to address is that the first one has a uni-directional nature, while the latter has a bi-direction approach. This meaning that we can open a websocket connection and wait for new data to update automatically our feed, while with REST we will have to constantly be querying over and over again if it has been any changes on the data.</p>
 <p>The use of websocket in R it’s not very common but we have tried to build a simple interface:</p>
@@ -283,7 +279,7 @@
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">observe</span><span class="op">(</span><span class="op">{</span>
 
-  <span class="fu">req</span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NULL.html">is.null</a></span><span class="op">(</span><span class="va">global_algoritmos_1</span><span class="op">$</span><span class="va">data</span><span class="op">)</span><span class="op">)</span>
+  <span class="fu">req</span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NULL.html" class="external-link">is.null</a></span><span class="op">(</span><span class="va">global_algoritmos_1</span><span class="op">$</span><span class="va">data</span><span class="op">)</span><span class="op">)</span>
   <span class="fu">req</span><span class="op">(</span><span class="va">global_algoritmos_1</span><span class="op">$</span><span class="fu">data</span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
 
   <span class="va">logger_algoritmos_1</span> <span class="op">&lt;-</span> <span class="fu">create.logger</span><span class="op">(</span>logfile <span class="op">=</span> <span class="fu">glue</span><span class="op">(</span><span class="st">"logs/the_molesto_{input$algoritmos_1_producto}_{Sys.Date()}.log"</span><span class="op">)</span>, level <span class="op">=</span> <span class="st">"INFO"</span><span class="op">)</span>
@@ -295,16 +291,16 @@
     <span class="va">market_data</span> <span class="op">&lt;-</span> <span class="va">global_algoritmos_1</span><span class="op">$</span><span class="fu">data</span><span class="op">(</span><span class="op">)</span>
     <span class="va">productos</span> <span class="op">&lt;-</span> <span class="fu">global_productos</span><span class="op">(</span><span class="op">)</span>
 
-    <span class="va">global_algoritmos_1_ordenes</span><span class="op">$</span><span class="va">MinTradeVol</span> <span class="op">&lt;-</span> <span class="va">productos</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="va">Symbol</span> <span class="op">==</span> <span class="va">input</span><span class="op">$</span><span class="va">algoritmos_1_producto</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu">pull</span><span class="op">(</span><span class="va">MinTradeVol</span><span class="op">)</span>
-    <span class="va">global_algoritmos_1_ordenes</span><span class="op">$</span><span class="va">MinPriceIncrement</span> <span class="op">&lt;-</span> <span class="va">productos</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="va">Symbol</span> <span class="op">==</span> <span class="va">input</span><span class="op">$</span><span class="va">algoritmos_1_producto</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu">pull</span><span class="op">(</span><span class="va">MinPriceIncrement</span><span class="op">)</span>
+    <span class="va">global_algoritmos_1_ordenes</span><span class="op">$</span><span class="va">MinTradeVol</span> <span class="op">&lt;-</span> <span class="va">productos</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/stats/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">Symbol</span> <span class="op">==</span> <span class="va">input</span><span class="op">$</span><span class="va">algoritmos_1_producto</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu">pull</span><span class="op">(</span><span class="va">MinTradeVol</span><span class="op">)</span>
+    <span class="va">global_algoritmos_1_ordenes</span><span class="op">$</span><span class="va">MinPriceIncrement</span> <span class="op">&lt;-</span> <span class="va">productos</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/stats/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">Symbol</span> <span class="op">==</span> <span class="va">input</span><span class="op">$</span><span class="va">algoritmos_1_producto</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu">pull</span><span class="op">(</span><span class="va">MinPriceIncrement</span><span class="op">)</span>
 
-    <span class="kw">if</span> <span class="op">(</span><span class="fu">some</span><span class="op">(</span>.x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="st">"BI_price"</span>, <span class="st">"BI_size"</span><span class="op">)</span>, .p <span class="op">=</span> <span class="op">~</span> <span class="va">.</span> <span class="op">%in%</span> <span class="fu"><a href="https://rdrr.io/r/base/unlist.html">unlist</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/strsplit.html">strsplit</a></span><span class="op">(</span><span class="va">market_data</span><span class="op">$</span><span class="va">Changes</span>, <span class="st">","</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">&amp;&amp;</span>
-        <span class="fu">every</span><span class="op">(</span>.x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="st">"BI_price"</span>, <span class="st">"BI_size"</span><span class="op">)</span>, .p <span class="op">=</span> <span class="op">~</span> <span class="va">.</span> <span class="op">%in%</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">market_data</span><span class="op">)</span><span class="op">)</span> <span class="op">&amp;&amp;</span>
-        <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">market_data</span><span class="op">$</span><span class="va">BI_price</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
+    <span class="kw">if</span> <span class="op">(</span><span class="fu">some</span><span class="op">(</span>.x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"BI_price"</span>, <span class="st">"BI_size"</span><span class="op">)</span>, .p <span class="op">=</span> <span class="op">~</span> <span class="va">.</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/strsplit.html" class="external-link">strsplit</a></span><span class="op">(</span><span class="va">market_data</span><span class="op">$</span><span class="va">Changes</span>, <span class="st">","</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">&amp;&amp;</span>
+        <span class="fu">every</span><span class="op">(</span>.x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"BI_price"</span>, <span class="st">"BI_size"</span><span class="op">)</span>, .p <span class="op">=</span> <span class="op">~</span> <span class="va">.</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">market_data</span><span class="op">)</span><span class="op">)</span> <span class="op">&amp;&amp;</span>
+        <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">market_data</span><span class="op">$</span><span class="va">BI_price</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
 
       <span class="fu">info</span><span class="op">(</span><span class="va">logger_algoritmos_1</span>, <span class="fu">str_c</span><span class="op">(</span><span class="st">"- [BID] Cambia la punta compradora"</span><span class="op">)</span><span class="op">)</span>
 
-      <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NULL.html">is.null</a></span><span class="op">(</span><span class="va">global_algoritmos_1_ordenes</span><span class="op">$</span><span class="va">Bid</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
+      <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NULL.html" class="external-link">is.null</a></span><span class="op">(</span><span class="va">global_algoritmos_1_ordenes</span><span class="op">$</span><span class="va">Bid</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
 
         <span class="va">bid</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/trading_new_order.html">trading_new_order</a></span><span class="op">(</span>connection <span class="op">=</span> <span class="va">global_connection</span><span class="op">$</span><span class="va">conn</span>,
                                  account  <span class="op">=</span> <span class="va">input</span><span class="op">$</span><span class="va">algoritmos_1_cuenta</span>,
@@ -313,8 +309,8 @@
                                  quantity <span class="op">=</span> <span class="va">global_algoritmos_1_ordenes</span><span class="op">$</span><span class="va">MinTradeVol</span>,
                                  price    <span class="op">=</span> <span class="va">market_data</span><span class="op">$</span><span class="va">BI_price</span> <span class="op">+</span> <span class="va">global_algoritmos_1_ordenes</span><span class="op">$</span><span class="va">MinPriceIncrement</span><span class="op">)</span>
 
-        <span class="va">global_algoritmos_1_ordenes</span><span class="op">$</span><span class="va">Bid</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/append.html">append</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">global_algoritmos_1_ordenes</span><span class="op">$</span><span class="va">Bid</span>, values <span class="op">=</span> <span class="va">bid</span><span class="op">$</span><span class="va">clOrdId</span><span class="op">)</span>
-        <span class="va">global_algoritmos_1_ordenes</span><span class="op">$</span><span class="va">BidPrice</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/append.html">append</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">global_algoritmos_1_ordenes</span><span class="op">$</span><span class="va">BidPrice</span>, values <span class="op">=</span> <span class="va">bid</span><span class="op">$</span><span class="va">price</span><span class="op">)</span>
+        <span class="va">global_algoritmos_1_ordenes</span><span class="op">$</span><span class="va">Bid</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/append.html" class="external-link">append</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">global_algoritmos_1_ordenes</span><span class="op">$</span><span class="va">Bid</span>, values <span class="op">=</span> <span class="va">bid</span><span class="op">$</span><span class="va">clOrdId</span><span class="op">)</span>
+        <span class="va">global_algoritmos_1_ordenes</span><span class="op">$</span><span class="va">BidPrice</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/append.html" class="external-link">append</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">global_algoritmos_1_ordenes</span><span class="op">$</span><span class="va">BidPrice</span>, values <span class="op">=</span> <span class="va">bid</span><span class="op">$</span><span class="va">price</span><span class="op">)</span>
 
         <span class="fu">info</span><span class="op">(</span><span class="va">logger_algoritmos_1</span>, <span class="fu">glue</span><span class="op">(</span><span class="st">"- [BID] Primer compra - {price} - {status}"</span>,
                                        price <span class="op">=</span> <span class="va">bid</span><span class="op">$</span><span class="va">price</span>,
@@ -335,8 +331,8 @@
                                    quantity <span class="op">=</span> <span class="va">global_algoritmos_1_ordenes</span><span class="op">$</span><span class="va">MinTradeVol</span>,
                                    price    <span class="op">=</span> <span class="va">market_data</span><span class="op">$</span><span class="va">BI_price</span> <span class="op">+</span> <span class="va">global_algoritmos_1_ordenes</span><span class="op">$</span><span class="va">MinPriceIncrement</span><span class="op">)</span>
 
-          <span class="va">global_algoritmos_1_ordenes</span><span class="op">$</span><span class="va">Bid</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/append.html">append</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">global_algoritmos_1_ordenes</span><span class="op">$</span><span class="va">Bid</span>, values <span class="op">=</span> <span class="va">bid</span><span class="op">$</span><span class="va">clOrdId</span><span class="op">)</span>
-          <span class="va">global_algoritmos_1_ordenes</span><span class="op">$</span><span class="va">BidPrice</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/append.html">append</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">global_algoritmos_1_ordenes</span><span class="op">$</span><span class="va">BidPrice</span>, values <span class="op">=</span> <span class="va">bid</span><span class="op">$</span><span class="va">price</span><span class="op">)</span>
+          <span class="va">global_algoritmos_1_ordenes</span><span class="op">$</span><span class="va">Bid</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/append.html" class="external-link">append</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">global_algoritmos_1_ordenes</span><span class="op">$</span><span class="va">Bid</span>, values <span class="op">=</span> <span class="va">bid</span><span class="op">$</span><span class="va">clOrdId</span><span class="op">)</span>
+          <span class="va">global_algoritmos_1_ordenes</span><span class="op">$</span><span class="va">BidPrice</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/append.html" class="external-link">append</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">global_algoritmos_1_ordenes</span><span class="op">$</span><span class="va">BidPrice</span>, values <span class="op">=</span> <span class="va">bid</span><span class="op">$</span><span class="va">price</span><span class="op">)</span>
 
           <span class="fu"><a href="../reference/trading_cancel_order.html">trading_cancel_order</a></span><span class="op">(</span>connection <span class="op">=</span> <span class="va">global_connection</span><span class="op">$</span><span class="va">conn</span>, id <span class="op">=</span> <span class="fu">nth</span><span class="op">(</span><span class="va">global_algoritmos_1_ordenes</span><span class="op">$</span><span class="va">Bid</span>, <span class="op">-</span><span class="fl">2</span><span class="op">)</span>, proprietary <span class="op">=</span> <span class="st">"PBCP"</span><span class="op">)</span>
 
@@ -350,15 +346,15 @@
 <span class="op">}</span><span class="op">)</span></code></pre></div>
 <p>We are only looking at the bid side just because the offer side works the same.</p>
 <p>We can see that mostly everything has been wrapped up into an isolate function, this avoids to make build an infinite loop every time some new data entered into the algorithm. <strong>This is the most important thing to remember</strong>, everything else are just simple ‘if and else’ with the logic of what we have to do every time new data has been presented.</p>
-<p>Anyone can test this algorithm by putting their own credentials from the test environment reMarkets. You can generate them <a href="https://remarkets.primary.ventures/" target="_blank">here</a>.</p>
+<p>Anyone can test this algorithm by putting their own credentials from the test environment reMarkets. You can generate them <a href="https://remarkets.primary.ventures/" target="_blank" class="external-link">here</a>.</p>
 <p>This is how it looks when the algorithm starts:</p>
 <p align="center">
 <img src="shiny-rrofex-2.png" width="auto" height="auto" style="max-inline-size: -webkit-fill-available;"></p>
 </div>
 </div>
-<div id="closing-remarks" class="section level4">
-<h4 class="hasAnchor">
-<a href="#closing-remarks" class="anchor"></a>Closing remarks</h4>
+<div class="section level4">
+<h4 id="closing-remarks">Closing remarks<a class="anchor" aria-label="anchor" href="#closing-remarks"></a>
+</h4>
 <p>Again, this was not suppose to be an indepth guide on how to build a Shiny app, nor how to code algortithms for trading. Instead, this was only an atempt to show some use cases of the rRofex library within Shiny and to encourage those who want to use R on the financial markets. <em>It is my hope that anyone that have seen this application could get some inspiration while building their own path.</em></p>
 <p>Let’s stay in touch!</p>
 </div>
@@ -374,11 +370,13 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by Augusto Hassel.</p>
+  <p></p>
+<p>Developed by Augusto Hassel.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
 </div>
 
       </footer>
@@ -386,6 +384,8 @@
 
   
 
+
+  
 
   </body>
 </html>
