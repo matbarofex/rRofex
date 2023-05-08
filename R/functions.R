@@ -201,7 +201,7 @@ trading_instruments <- function(connection, request, sec_detailed = FALSE, marke
 
   } else {
 
-    data <- fromJSON(toJSON(content(query)))
+    data <- fromJSON(toJSON(content(query), null = c("null")), flatten = TRUE)
 
     if (request == 'segments') {
 
@@ -236,7 +236,7 @@ trading_instruments <- function(connection, request, sec_detailed = FALSE, marke
               unlist
             )
           ) %>%
-        select(-segment.marketId) %>%
+        select(-segment.marketId, -symbol) %>%
         rename_all(., .funs = list(~gsub(pattern = ".+\\.", replacement = "", x = .))) %>%
         mutate(maturityDate = as.Date(maturityDate, format = "%Y%m%d"))
 
